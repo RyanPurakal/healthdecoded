@@ -149,17 +149,33 @@ function Home() {
   return (
     <div className="home-page">
       <section className="hero" aria-label="Hero section">
-        <div className="container">
-          <h1>A world of difference begins here.</h1>
-          <p className="hero-subtitle">Bridging the health literacy gap for youth through clear, accessible, and culturally responsive education.</p>
-          <div className="hero-cta-group">
-            <button className="cta-button" onClick={() => window.location.href = '/programs'}>Learn More</button>
-            <button className="cta-button secondary" onClick={() => window.location.href = '/get-involved'}>Get Involved</button>
+        <div className="hero-background"></div>
+        <div className="hero-image-overlay">
+          <img 
+            src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1920&q=80" 
+            alt="Diverse group of students and youth learning together" 
+            className="hero-overlay-image"
+            loading="eager"
+            aria-hidden="true"
+          />
+        </div>
+        <div className="container hero-content">
+          <div className="hero-text-wrapper">
+            <h1>Health Decoded</h1>
+            <p className="hero-subtitle">Building an international community of youth using health education to change the world</p>
+            <div className="hero-cta-group">
+              <Link to="/programs" className="cta-button primary">Learn More</Link>
+              <Link to="/get-involved" className="cta-button secondary">Get Involved</Link>
+            </div>
           </div>
         </div>
       </section>
 
       <section className="stats-section" aria-label="Our values">
+        <div className="container">
+          <h2 className="stats-section-heading">Why Health Education Matters</h2>
+          <p className="stats-section-subtitle">Every young person deserves the knowledge to make informed health decisions</p>
+        </div>
         <div className="stats-container">
           <div className="stat-item">
             <div className="stat-item-icon" aria-hidden="true">📚</div>
@@ -179,41 +195,47 @@ function Home() {
         </div>
       </section>
 
-      <section className="team-section" aria-label="Meet our team">
-        <h2>Meet Our Team</h2>
-        <p className="team-section-subtitle">Dedicated students passionate about making health education accessible to all.</p>
-        <div className="team-grid">
-          <div className="team-member">
-            <div className="member-avatar">R</div>
-            <h3>Ruv</h3>
-            <p className="member-bio">Coming soon</p>
-          </div>
-          
-          <div className="team-member">
-            <div className="member-avatar">K</div>
-            <h3>Kartik</h3>
-            <p className="member-bio">Kartik is a freshman at Rutgers University-New Brunswick majoring in Cell Biology and Neuroscience. He aspires to make a change in the healthcare community by bringing the truth forward and exposing the complexities in the system. In his free time he enjoys riding as an EMT and making a difference in the lives of others.</p>
-          </div>
-          
-          <div className="team-member">
-            <div className="member-avatar">C</div>
-            <h3>Celdave</h3>
-            <p className="member-bio">Celdave is a freshman at Rutgers University-New Brunswick majoring in Biological Sciences. She is thrilled to be a part of Health Decoded and wants to help educate others on health literacy. In her free time she loves to play piano and bake (her favorite desert to make is double chocolate chip brownies).</p>
-          </div>
-          
-          <div className="team-member">
-            <div className="member-avatar">G</div>
-            <h3>Gil</h3>
-            <p className="member-bio">Gil is a freshman at Rutgers University-New Brunswick, majoring in Biochemistry. He is interested in medicine, wanting to create better knowledge about health care through education. In his free time he loves to go rock climbing and likes to spend time outside.</p>
-          </div>
-          
-          <div className="team-member">
-            <div className="member-avatar">R</div>
-            <h3>Ryan</h3>
-            <p className="member-bio">Ryan is a freshman majoring in Computer Science at Rutgers. He's really excited to help with the global push for health education through tech initiatives. In his free time he loves to watch movies and shows (his favorites are Se7en and Better Call Saul).</p>
+      <section className="featured-programs-section" aria-label="Featured programs">
+        <div className="container">
+          <h2>Our Programs</h2>
+          <p className="section-subtitle">Comprehensive health education designed for youth</p>
+          <div className="featured-programs-grid">
+            <article className="featured-program-card">
+              <div className="featured-program-icon">🏥</div>
+              <h3>School Workshops</h3>
+              <p>In-school and after-school workshops teaching essential health literacy skills, from navigating doctor visits to understanding prescriptions and insurance.</p>
+              <Link to="/programs" className="featured-program-link">Learn More →</Link>
+            </article>
+            <article className="featured-program-card">
+              <div className="featured-program-icon">🤝</div>
+              <h3>Peer Ambassador Program</h3>
+              <p>Train to become a peer health ambassador and lead workshops while developing communication skills and advocacy expertise.</p>
+              <Link to="/programs" className="featured-program-link">Learn More →</Link>
+            </article>
           </div>
         </div>
       </section>
+
+      <section className="cta-section" aria-label="Call to action">
+        <div className="cta-section-image-container">
+          <img 
+            src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1920&q=80" 
+            alt="Students collaborating on health education" 
+            className="cta-section-image"
+            loading="lazy"
+          />
+          <div className="cta-section-overlay"></div>
+        </div>
+        <div className="container">
+          <h2>Ready to Make a Difference?</h2>
+          <p>Join us in empowering youth through health education. Whether you want to volunteer, become an ambassador, or start a chapter, we'd love to have you.</p>
+          <div className="cta-section-buttons">
+            <Link to="/get-involved" className="cta-button">Get Involved</Link>
+            <Link to="/contact" className="cta-button secondary">Contact Us</Link>
+          </div>
+        </div>
+      </section>
+
 
       <section className="social-section" aria-label="Connect with us">
         <h2>Connect With Us</h2>
@@ -247,6 +269,14 @@ function AboutUs() {
         <h2 id="about-heading">About Us</h2>
         <p className="section-subtitle">Empowering youth with accessible health education</p>
         <div className="story-content">
+          <div className="mission-image-wrapper">
+            <img 
+              src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80" 
+              alt="Young adults collaborating together around a table, working on health education projects" 
+              className="mission-image"
+              loading="lazy"
+            />
+          </div>
           <section className="mission-section-inline">
             <h3>Our Mission</h3>
             <p className="mission-text-inline">Health Decoded's mission is to bridge the health literacy gap for youth by transforming complex healthcare information into clear, accessible, and culturally responsive education. We aim to ensure that every young person—regardless of background, language, or socioeconomic status—has the knowledge to understand their health, navigate medical systems, and make informed decisions. Healthcare touches everyone, and so should health education.</p>
@@ -352,6 +382,14 @@ function Programs() {
         
         <div className="programs-grid">
           <article className="program-card">
+            <div className="program-image-wrapper">
+              <img 
+                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&q=80" 
+              alt="Students participating in a health education workshop" 
+              className="program-image"
+              loading="lazy"
+            />
+            </div>
             <h3>🏥 Health Decoded School Workshops</h3>
             <p className="program-subtitle">Flagship Initiative</p>
             <p>In-school or after-school workshops teaching:</p>
@@ -366,6 +404,14 @@ function Programs() {
           </article>
 
           <article className="program-card">
+            <div className="program-image-wrapper">
+              <img 
+                src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&q=80" 
+              alt="Peer mentors and students working together on health education" 
+              className="program-image"
+              loading="lazy"
+            />
+            </div>
             <h3>🤝 Peer Health Ambassador Program</h3>
             <p>Ambassadors learn:</p>
             <ul className="program-list">
@@ -394,21 +440,53 @@ function GetInvolved() {
         <p className="section-subtitle">Join us in making health education accessible to all youth</p>
         <div className="involvement-grid">
           <article className="involvement-card" onClick={() => handleCardClick('volunteer')} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') handleCardClick('volunteer'); }}>
+            <div className="involvement-image-wrapper">
+              <img 
+                src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=400&q=80" 
+              alt="Volunteers working together on community health projects" 
+              className="involvement-image"
+              loading="lazy"
+            />
+            </div>
             <h3>Volunteer</h3>
             <p>Join us in making health education accessible to all youth.</p>
             <span className="involvement-card-button">Learn More</span>
           </article>
           <article className="involvement-card" onClick={() => handleCardClick('ambassador')} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') handleCardClick('ambassador'); }}>
+            <div className="involvement-image-wrapper">
+              <img 
+                src="https://images.unsplash.com/photo-1543269865-cbf427effbad?w=400&q=80" 
+              alt="Student ambassador leading a health education workshop" 
+              className="involvement-image"
+              loading="lazy"
+            />
+            </div>
             <h3>Become an Ambassador</h3>
             <p>Lead peer education workshops and advocate for health literacy.</p>
             <span className="involvement-card-button">Learn More</span>
           </article>
           <article className="involvement-card" onClick={() => handleCardClick('chapter')} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') handleCardClick('chapter'); }}>
+            <div className="involvement-image-wrapper">
+              <img 
+                src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=400&q=80" 
+              alt="Students collaborating to start a new chapter" 
+              className="involvement-image"
+              loading="lazy"
+            />
+            </div>
             <h3>Create a New Chapter</h3>
             <p>Start Health Decoded in your community or school.</p>
             <span className="involvement-card-button">Learn More</span>
           </article>
           <article className="involvement-card" onClick={() => handleCardClick('partner')} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') handleCardClick('partner'); }}>
+            <div className="involvement-image-wrapper">
+              <img 
+                src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=400&q=80" 
+              alt="Partnership between schools and organizations for health education" 
+              className="involvement-image"
+              loading="lazy"
+            />
+            </div>
             <h3>Partner With Us</h3>
             <p>Schools, organizations, and institutions - let's work together.</p>
             <span className="involvement-card-button">Learn More</span>
