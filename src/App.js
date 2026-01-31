@@ -1,12 +1,54 @@
 import { BrowserRouter, Routes, Route, Link, useLocation } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import "./App.css";
+import { pageview } from "./utils/analytics";
+
+// Component to track page views
+function PageTracker() {
+  const location = useLocation();
+
+  useEffect(() => {
+    // Track page view on route change
+    pageview(location.pathname + location.search);
+  }, [location]);
+
+  return null;
+}
 
 export default function App() {
+  const [showDonateModal, setShowDonateModal] = useState(false);
+
+  useEffect(() => {
+    if (showDonateModal) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [showDonateModal]);
+
+  // Initialize analytics on mount
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.gtag) {
+      pageview(window.location.pathname);
+    }
+  }, []);
+
+  const openDonateModal = () => {
+    setShowDonateModal(true);
+  };
+
+  const closeDonateModal = () => {
+    setShowDonateModal(false);
+  };
+
   return (
     <BrowserRouter>
+      <PageTracker />
       {/* Navigation */}
-      <Navbar />
+      <Navbar onDonateClick={openDonateModal} />
 
       {/* Page Content */}
       <div className="page-content">
@@ -18,7 +60,7 @@ export default function App() {
           <Route path="/about/team" element={<OurTeam />} />
           <Route path="/programs" element={<Programs />} />
           <Route path="/get-involved" element={<GetInvolved />} />
-          <Route path="/contact" element={<Contact />} />
+          <Route path="/contact" element={<Contact onDonateClick={openDonateModal} />} />
         </Routes>
       </div>
 
@@ -37,18 +79,23 @@ export default function App() {
           </div>
           <div className="footer-section">
             <h4>Contact</h4>
-            <p>ruvanthikasv@healthdecodedinitiative.org</p>
+            <p>kartikn@healthdecodedinitiative.org</p>
           </div>
           <div className="footer-bottom">
             <p>© 2025 Health Decoded. All rights reserved.</p>
           </div>
         </div>
       </footer>
+
+      {/* Donate Modal */}
+      {showDonateModal && (
+        <DonateModal onClose={closeDonateModal} />
+      )}
     </BrowserRouter>
   );
 }
 
-function Navbar() {
+function Navbar({ onDonateClick }) {
   const [aboutDropdown, setAboutDropdown] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -136,9 +183,16 @@ function Navbar() {
           <Link to="/programs" className={isProgramsPage ? 'active' : ''} onClick={closeMobileMenu}>Programs</Link>
           <Link to="/get-involved" className={isGetInvolvedPage ? 'active' : ''} onClick={closeMobileMenu}>Get Involved</Link>
           <Link to="/contact" className={isContactPage ? 'active' : ''} onClick={closeMobileMenu}>Contact</Link>
-          <Link to="/contact" className="donate-nav-button" onClick={closeMobileMenu}>
+          <button
+            className="donate-nav-button"
+            onClick={(e) => {
+              e.preventDefault();
+              closeMobileMenu();
+              onDonateClick();
+            }}
+          >
             <span>Donate</span>
-          </Link>
+          </button>
         </div>
       </div>
     </nav>
@@ -146,6 +200,10 @@ function Navbar() {
 }
 
 function Home() {
+  useEffect(() => {
+    document.title = "Health Decoded - Empowering Youth Through Health Education";
+  }, []);
+
   return (
     <div className="home-page">
       <section className="hero" aria-label="Hero section">
@@ -242,11 +300,21 @@ function Home() {
       <section className="social-section" aria-label="Connect with us">
         <h2>Connect With Us</h2>
         <p className="social-description">Follow us on social media to stay updated with our latest initiatives and health education resources.</p>
-        <div className="social-icons">
-          <a href="#" className="social-icon" aria-label="Instagram - Opens in new tab" target="_blank" rel="noopener noreferrer">📷</a>
-          <a href="#" className="social-icon" aria-label="Twitter - Opens in new tab" target="_blank" rel="noopener noreferrer">🐦</a>
-          <a href="#" className="social-icon" aria-label="LinkedIn - Opens in new tab" target="_blank" rel="noopener noreferrer">💼</a>
-          <a href="#" className="social-icon" aria-label="Facebook - Opens in new tab" target="_blank" rel="noopener noreferrer">👥</a>
+        <div className="linktree-container">
+          <a
+            href="https://linktr.ee/healthdecodedinit"
+            className="linktree-link"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Visit our Linktree - Opens in new tab"
+          >
+            <div className="linktree-icon">🔗</div>
+            <div className="linktree-content">
+              <span className="linktree-label">Find all our links</span>
+              <span className="linktree-url">linktr.ee/healthdecodedinit</span>
+            </div>
+            <div className="linktree-arrow">→</div>
+          </a>
         </div>
       </section>
     </div>
@@ -258,6 +326,10 @@ function About() {
 }
 
 function AboutUs() {
+  useEffect(() => {
+    document.title = "About Us - Health Decoded";
+  }, []);
+
   return (
     <div className="about-page">
       <div className="subnav">
@@ -291,6 +363,10 @@ function AboutUs() {
 }
 
 function OurStory() {
+  useEffect(() => {
+    document.title = "Our Story - Health Decoded";
+  }, []);
+
   return (
     <div className="about-page">
       <div className="subnav">
@@ -316,6 +392,10 @@ function OurStory() {
 }
 
 function OurTeam() {
+  useEffect(() => {
+    document.title = "Our Team - Health Decoded";
+  }, []);
+
   return (
     <div className="about-page">
       <div className="subnav">
@@ -326,7 +406,6 @@ function OurTeam() {
 
       <section className="section">
         <h2>Our Team</h2>
-        <p className="section-subtitle">Meet the team behind Health Decoded</p>
         <div className="team-names">
           <span className="name-tag">Ruvanthika</span>
           <span className="name-tag">Celdave</span>
@@ -339,7 +418,18 @@ function OurTeam() {
       <section className="section team-detailed-section">
         <div className="team-grid">
           <div className="team-member">
-            <div className="member-avatar">R</div>
+            <div className="member-avatar">
+              <img
+                src="/team/ruvanthika.jpg"
+                alt="Ruvanthika Sivaprakasini Veerasikku"
+                className="member-photo"
+                loading="lazy"
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                  e.target.parentElement.textContent = 'R';
+                }}
+              />
+            </div>
             <h3>Ruvanthika Sivaprakasini Veerasikku</h3>
             <p className="member-title">Executive Director</p>
             <p className="member-bio">Ruvanthika is a freshman at Rutgers University–New Brunswick majoring in Cell Biology and Neuroscience. She is excited to be a part of Health Decoded and is passionate about improving health literacy and access to clear, reliable medical information. In her free time, she enjoys reading, snowboarding, and watching movies.</p>
@@ -349,7 +439,18 @@ function OurTeam() {
           </div>
 
           <div className="team-member">
-            <div className="member-avatar">C</div>
+            <div className="member-avatar">
+              <img
+                src="/team/celdave.jpg"
+                alt="Celdave Weaver"
+                className="member-photo"
+                loading="lazy"
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                  e.target.parentElement.textContent = 'C';
+                }}
+              />
+            </div>
             <h3>Celdave Weaver</h3>
             <p className="member-title">Director of Education & Outreach</p>
             <p className="member-bio">Celdave is a freshman at Rutgers University-New Brunswick majoring in Biological Sciences. She is thrilled to be a part of Health Decoded and wants to help educate others on health literacy. In her free time she loves to play piano and bake (her favorite desert to make is double chocolate chip brownies).</p>
@@ -359,7 +460,18 @@ function OurTeam() {
           </div>
 
           <div className="team-member">
-            <div className="member-avatar">R</div>
+            <div className="member-avatar">
+              <img
+                src="/team/ryan.jpg"
+                alt="Ryan Purakal"
+                className="member-photo"
+                loading="lazy"
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                  e.target.parentElement.textContent = 'R';
+                }}
+              />
+            </div>
             <h3>Ryan Purakal</h3>
             <p className="member-title">Director of Technology</p>
             <p className="member-bio">Ryan is a freshman majoring in Computer Science at Rutgers. He's really excited to help with the global push for health education through tech initiatives. In his free time he loves to watch movies and shows (his favorites are Se7en and Better Call Saul).</p>
@@ -369,7 +481,18 @@ function OurTeam() {
           </div>
 
           <div className="team-member">
-            <div className="member-avatar">G</div>
+            <div className="member-avatar">
+              <img
+                src="/team/gil.jpg"
+                alt="Gil Shenoy"
+                className="member-photo"
+                loading="lazy"
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                  e.target.parentElement.textContent = 'G';
+                }}
+              />
+            </div>
             <h3>Gil Shenoy</h3>
             <p className="member-title">Director of Operations</p>
             <p className="member-bio">Gil is a freshman at Rutgers University-New Brunswick, majoring in Biochemistry. He is interested in medicine, wanting to create better knowledge about health care through education. In his free time he loves to go rock climbing and likes to spend time outside.</p>
@@ -379,7 +502,18 @@ function OurTeam() {
           </div>
 
           <div className="team-member">
-            <div className="member-avatar">K</div>
+            <div className="member-avatar">
+              <img
+                src="/team/kartik.jpg"
+                alt="Kartik Narula"
+                className="member-photo"
+                loading="lazy"
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                  e.target.parentElement.textContent = 'K';
+                }}
+              />
+            </div>
             <h3>Kartik Narula</h3>
             <p className="member-title">Director of Communications</p>
             <p className="member-bio">Kartik is a freshman at Rutgers University-New Brunswick majoring in Cell Biology and Neuroscience. He aspires to make a change in the healthcare community by bringing the truth forward and exposing the complexities in the system. In his free time he enjoys riding as an EMT and making a difference in the lives of others.</p>
@@ -394,6 +528,10 @@ function OurTeam() {
 }
 
 function Programs() {
+  useEffect(() => {
+    document.title = "Our Programs - Health Decoded";
+  }, []);
+
   return (
     <div className="programs-page">
       <section className="section">
@@ -454,6 +592,10 @@ function Programs() {
 }
 
 function GetInvolved() {
+  useEffect(() => {
+    document.title = "Get Involved - Health Decoded";
+  }, []);
+
   return (
     <div className="get-involved-page">
       <section className="section">
@@ -558,15 +700,228 @@ function GetInvolved() {
   );
 }
 
-function Contact() {
+function Contact({ onDonateClick }) {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  });
+  const [formErrors, setFormErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null);
+
+  useEffect(() => {
+    document.title = "Contact Us - Health Decoded";
+  }, []);
+
+  const handleDonateClick = (e) => {
+    e.preventDefault();
+    onDonateClick();
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+    // Clear error when user starts typing
+    if (formErrors[name]) {
+      setFormErrors(prev => ({
+        ...prev,
+        [name]: ''
+      }));
+    }
+  };
+
+  const validateForm = () => {
+    const errors = {};
+
+    if (!formData.name.trim()) {
+      errors.name = 'Name is required';
+    }
+
+    if (!formData.email.trim()) {
+      errors.email = 'Email is required';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      errors.email = 'Please enter a valid email address';
+    }
+
+    if (!formData.subject.trim()) {
+      errors.subject = 'Subject is required';
+    }
+
+    if (!formData.message.trim()) {
+      errors.message = 'Message is required';
+    } else if (formData.message.trim().length < 10) {
+      errors.message = 'Message must be at least 10 characters';
+    }
+
+    return errors;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const errors = validateForm();
+
+    if (Object.keys(errors).length > 0) {
+      setFormErrors(errors);
+      return;
+    }
+
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+
+    try {
+      // Using Formspree - replace YOUR_FORM_ID with your actual Formspree form ID
+      // Alternative: Use EmailJS, your own backend API, or other service
+      const response = await fetch('https://formspree.io/f/xlgnvoej', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+          _replyto: formData.email
+        })
+      });
+
+      if (response.ok) {
+        setSubmitStatus('success');
+        setFormData({ name: '', email: '', subject: '', message: '' });
+        setFormErrors({});
+        // Track successful form submission
+        if (typeof window !== 'undefined' && window.gtag) {
+          window.gtag('event', 'form_submit', {
+            event_category: 'Contact',
+            event_label: 'Contact Form Submission',
+            value: 1
+          });
+        }
+      } else {
+        throw new Error('Submission failed');
+      }
+    } catch (error) {
+      setSubmitStatus('error');
+      console.error('Form submission error:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className="contact-page">
       <section className="section">
         <h2>Contact Us</h2>
         <div className="contact-content">
           <p>Have questions or want to get involved? Reach out to us!</p>
+
+          <div className="contact-form-container">
+            <form className="contact-form" onSubmit={handleSubmit} noValidate>
+              <div className="form-group">
+                <label htmlFor="name">Name *</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  className={formErrors.name ? 'error' : ''}
+                  aria-invalid={!!formErrors.name}
+                  aria-describedby={formErrors.name ? 'name-error' : undefined}
+                />
+                {formErrors.name && (
+                  <span id="name-error" className="error-message" role="alert">
+                    {formErrors.name}
+                  </span>
+                )}
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="email">Email *</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className={formErrors.email ? 'error' : ''}
+                  aria-invalid={!!formErrors.email}
+                  aria-describedby={formErrors.email ? 'email-error' : undefined}
+                />
+                {formErrors.email && (
+                  <span id="email-error" className="error-message" role="alert">
+                    {formErrors.email}
+                  </span>
+                )}
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="subject">Subject *</label>
+                <input
+                  type="text"
+                  id="subject"
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleChange}
+                  className={formErrors.subject ? 'error' : ''}
+                  aria-invalid={!!formErrors.subject}
+                  aria-describedby={formErrors.subject ? 'subject-error' : undefined}
+                />
+                {formErrors.subject && (
+                  <span id="subject-error" className="error-message" role="alert">
+                    {formErrors.subject}
+                  </span>
+                )}
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="message">Message *</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  rows={6}
+                  className={formErrors.message ? 'error' : ''}
+                  aria-invalid={!!formErrors.message}
+                  aria-describedby={formErrors.message ? 'message-error' : undefined}
+                />
+                {formErrors.message && (
+                  <span id="message-error" className="error-message" role="alert">
+                    {formErrors.message}
+                  </span>
+                )}
+              </div>
+
+              {submitStatus === 'success' && (
+                <div className="form-success" role="alert">
+                  <p>Thank you! Your message has been sent successfully. We'll get back to you soon.</p>
+                </div>
+              )}
+
+              {submitStatus === 'error' && (
+                <div className="form-error" role="alert">
+                  <p>Sorry, there was an error sending your message. Please try again or email us directly at <a href="mailto:kartikn@healthdecodedinitiative.org">kartikn@healthdecodedinitiative.org</a>.</p>
+                </div>
+              )}
+
+              <button
+                type="submit"
+                className="contact-submit-button"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? 'Sending...' : 'Send Message'}
+              </button>
+            </form>
+          </div>
+
           <div className="contact-info">
-            <p><strong>Email:</strong> <a href="mailto:kartikn@healthdecodedinitiative.org" className="email-link">kartikn@healthdecodedinitiative.org</a></p>
+            <p><strong>Or email us directly:</strong> <a href="mailto:kartikn@healthdecodedinitiative.org" className="email-link">kartikn@healthdecodedinitiative.org</a></p>
           </div>
         </div>
       </section>
@@ -582,11 +937,26 @@ function Contact() {
             <li>Expand our reach to underserved communities</li>
           </ul>
           <div className="donate-button-container">
-            <button className="donate-button">Donate Now</button>
+            <button className="donate-button" onClick={handleDonateClick}>Donate Now</button>
             <p className="donate-note">Donations page coming soon</p>
           </div>
         </div>
       </section>
+    </div>
+  );
+}
+
+function DonateModal({ onClose }) {
+  return (
+    <div className="modal-overlay" onClick={onClose} aria-label="Close modal">
+      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+        <button className="modal-close" onClick={onClose} aria-label="Close modal">×</button>
+        <div className="modal-body">
+          <h3>Coming Soon</h3>
+          <p>Our donation page is currently under development. Check back soon to support our mission!</p>
+          <button className="modal-button" onClick={onClose}>Got it</button>
+        </div>
+      </div>
     </div>
   );
 }
