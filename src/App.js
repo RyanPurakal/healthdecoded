@@ -561,7 +561,7 @@ function Programs() {
               <li>Basic anatomy & first aid essentials</li>
               <li>Recognizing emergencies vs. non-emergencies</li>
             </ul>
-            <p className="program-target"><strong>Target:</strong> Middle schools and high school students, maybe also elementary</p>
+            <p className="program-target"><strong>Target:</strong> K-12 students</p>
           </div>
 
           <div className="program-card">
