@@ -1,7 +1,16 @@
 import { BrowserRouter, Routes, Route, Link, useLocation } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 import "./App.css";
 import { pageview } from "./utils/analytics";
+import TeamSectionBlock from "./components/ui/team-section-block-shadcnui";
+import AboutUsSection from "./components/ui/about-us-section";
+import { FeatureSteps } from "./components/ui/feature-section";
+import ShimmerButton from "./components/ui/shimmer-button";
+import InteractiveHoverButton from "./components/ui/interactive-hover-button";
+import { StickyScroll } from "./components/ui/sticky-scroll-reveal";
+import ProgramsFeatureSections from "./components/ui/feature-sections.jsx";
+import SocialConnect from "./components/ui/connect-with-us.jsx";
 
 // Component to track page views
 function PageTracker() {
@@ -63,29 +72,6 @@ export default function App() {
           <Route path="/contact" element={<Contact onDonateClick={openDonateModal} />} />
         </Routes>
       </div>
-
-      {/* Footer */}
-      <footer className="footer">
-        <div className="footer-container">
-          <div className="footer-section">
-            <h4>Company</h4>
-            <ul>
-              <li><Link to="/">Home</Link></li>
-              <li><Link to="/about">About</Link></li>
-              <li><Link to="/programs">Programs</Link></li>
-              <li><Link to="/get-involved">Get Involved</Link></li>
-              <li><Link to="/contact">Contact</Link></li>
-            </ul>
-          </div>
-          <div className="footer-section">
-            <h4>Contact</h4>
-            <p>kartikn@healthdecodedinitiative.org</p>
-          </div>
-          <div className="footer-bottom">
-            <p>© 2025 Health Decoded. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
 
       {/* Donate Modal */}
       {showDonateModal && (
@@ -183,7 +169,7 @@ function Navbar({ onDonateClick }) {
           <Link to="/programs" className={isProgramsPage ? 'active' : ''} onClick={closeMobileMenu}>Programs</Link>
           <Link to="/get-involved" className={isGetInvolvedPage ? 'active' : ''} onClick={closeMobileMenu}>Get Involved</Link>
           <Link to="/contact" className={isContactPage ? 'active' : ''} onClick={closeMobileMenu}>Contact</Link>
-          <button
+          <ShimmerButton
             className="donate-nav-button"
             onClick={(e) => {
               e.preventDefault();
@@ -192,7 +178,7 @@ function Navbar({ onDonateClick }) {
             }}
           >
             <span>Donate</span>
-          </button>
+          </ShimmerButton>
         </div>
       </div>
     </nav>
@@ -207,116 +193,111 @@ function Home() {
   return (
     <div className="home-page">
       <section className="hero" aria-label="Hero section">
-        <div className="hero-background"></div>
+        <div className="hero-background" />
         <div className="hero-image-overlay">
           <img
-            src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=1920&q=80"
-            alt="Diverse group of students and youth learning together"
+            src="https://images.unsplash.com/photo-1526256262350-7da7584cf5eb?w=1920&q=80"
+            alt="Young people and mentors discussing health and care"
             className="hero-overlay-image"
             loading="eager"
             aria-hidden="true"
             onError={(e) => {
-              e.target.src = "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1920&q=80";
+              e.target.src = "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1920&q=80";
             }}
           />
         </div>
         <div className="container hero-content">
           <div className="hero-text-wrapper">
-            <h1>Health Decoded</h1>
-            <p className="hero-subtitle">Building an international community of youth using health education to change the world</p>
+            <h1>Health education, decoded for youth.</h1>
+            <p className="hero-subtitle">
+            Building an international community of youth using health education to change the world
+            </p>
             <div className="hero-cta-group">
-              <Link to="/programs" className="cta-button primary">Learn More</Link>
-              <Link to="/get-involved" className="cta-button secondary">Get Involved</Link>
+              <InteractiveHoverButton
+                to="/programs"
+                text="Explore our programs"
+                classes="interactive-hover-button--hero"
+              />
+              <InteractiveHoverButton
+                to="/get-involved"
+                text="Get involved"
+                classes="interactive-hover-button--hero"
+              />
             </div>
           </div>
         </div>
       </section>
 
-      <section className="stats-section" aria-label="Our values">
-        <div className="container">
+      <section className="sticky-scroll-section" aria-label="Our values">
+        <div className="container sticky-scroll-section__header">
           <h2 className="stats-section-heading">Why Health Education Matters</h2>
           <p className="stats-section-subtitle">Every young person deserves the knowledge to make informed health decisions</p>
         </div>
-        <div className="stats-container">
-          <div className="stat-item">
-            <div className="stat-item-icon" aria-hidden="true">📚</div>
-            <h3>Health literacy</h3>
-            <p>is essential for every young person, yet rarely taught in schools</p>
-          </div>
-          <div className="stat-item">
-            <div className="stat-item-icon" aria-hidden="true">💡</div>
-            <h3>Clear information</h3>
-            <p>transforms complex healthcare into something approachable and human</p>
-          </div>
-          <div className="stat-item">
-            <div className="stat-item-icon" aria-hidden="true">✨</div>
-            <h3>Empowered youth</h3>
-            <p>can navigate medical systems and make informed health decisions</p>
-          </div>
-        </div>
+        <StickyScroll
+          contentClassName="sticky-scroll-section__panel"
+          content={[
+            {
+              title: "Health literacy",
+              description: "is essential for every young person, yet rarely taught in schools",
+              content: (
+                <div className="sticky-scroll-media">
+                  <img
+                    src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=1200&q=80"
+                    alt="Students learning together in a classroom"
+                    className="sticky-scroll-media__image"
+                  />
+                  <div className="sticky-scroll-media__overlay">
+                    <div>
+                      <p className="sticky-scroll-media__eyebrow">01</p>
+                      <h3>Health literacy</h3>
+                    </div>
+                  </div>
+                </div>
+              ),
+            },
+            {
+              title: "Clear information",
+              description: "transforms complex healthcare into something approachable and human",
+              content: (
+                <div className="sticky-scroll-media">
+                  <img
+                    src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&q=80"
+                    alt="Students collaborating on a project"
+                    className="sticky-scroll-media__image"
+                  />
+                  <div className="sticky-scroll-media__overlay">
+                    <div>
+                      <p className="sticky-scroll-media__eyebrow">02</p>
+                      <h3>Clear information</h3>
+                    </div>
+                  </div>
+                </div>
+              ),
+            },
+            {
+              title: "Empowered youth",
+              description: "can navigate medical systems and make informed health decisions",
+              content: (
+                <div className="sticky-scroll-media">
+                  <img
+                    src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=1200&q=80"
+                    alt="Volunteers supporting a community health effort"
+                    className="sticky-scroll-media__image"
+                  />
+                  <div className="sticky-scroll-media__overlay">
+                    <div>
+                      <p className="sticky-scroll-media__eyebrow">03</p>
+                      <h3>Empowered youth</h3>
+                    </div>
+                  </div>
+                </div>
+              ),
+            },
+          ]}
+        />
       </section>
 
-      <section className="featured-programs-section" aria-label="Featured programs">
-        <div className="container">
-          <h2>Our Programs</h2>
-          <p className="section-subtitle">Comprehensive health education designed for youth</p>
-          <div className="featured-programs-grid">
-            <article className="featured-program-card">
-              <div className="featured-program-icon">🏥</div>
-              <h3>School Workshops</h3>
-              <p>In-school and after-school workshops teaching essential health literacy skills, from navigating doctor visits to understanding prescriptions and insurance.</p>
-              <Link to="/programs" className="featured-program-link">Learn More →</Link>
-            </article>
-            <article className="featured-program-card">
-              <div className="featured-program-icon">🤝</div>
-              <h3>Peer Ambassador Program</h3>
-              <p>Train to become a peer health ambassador and lead workshops while developing communication skills and advocacy expertise.</p>
-              <Link to="/programs" className="featured-program-link">Learn More →</Link>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section className="cta-section" aria-label="Call to action">
-        <div className="cta-section-image-container">
-          <img
-            src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1920&q=80"
-            alt="Students collaborating on health education"
-            className="cta-section-image"
-            loading="lazy"
-          />
-          <div className="cta-section-overlay"></div>
-        </div>
-        <div className="container">
-          <h2>Ready to Make a Difference?</h2>
-          <p>Join us in empowering youth through health education. Whether you want to volunteer, become an ambassador, or start a chapter, we'd love to have you.</p>
-          <div className="cta-section-buttons">
-            <Link to="/get-involved" className="cta-button">Get Involved</Link>
-            <Link to="/contact" className="cta-button secondary">Contact Us</Link>
-          </div>
-        </div>
-      </section>
-
-      <section className="social-section" aria-label="Connect with us">
-        <h2>Connect With Us</h2>
-        <p className="social-description">Follow us on social media to stay updated with our latest initiatives and health education resources.</p>
-        <div className="linktree-container">
-          <a
-            href="https://linktr.ee/healthdecodedinit"
-            className="linktree-link"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Visit our Linktree - Opens in new tab"
-          >
-            <div className="linktree-icon">🔗</div>
-            <div className="linktree-content">
-              <span className="linktree-label">Find all our links</span>
-              <span className="linktree-url">linktr.ee/healthdecodedinit</span>
-            </div>
-            <div className="linktree-arrow">→</div>
-          </a>
-        </div>
-      </section>
+      <SocialConnect />
     </div>
   );
 }
@@ -338,25 +319,8 @@ function AboutUs() {
         <Link to="/about/team" className="subnav-link">Our Team</Link>
       </div>
 
-      <section className="section">
-        <h2>About Us</h2>
-        <div className="story-content">
-          <section className="mission-section-inline">
-            <div className="mission-image-wrapper">
-              <img
-                src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=800&q=80"
-                alt="Team members collaborating on health education initiatives"
-                className="mission-image"
-                loading="lazy"
-                onError={(e) => {
-                  e.target.src = "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=80";
-                }}
-              />
-            </div>
-            <h3>Our Mission</h3>
-            <p className="mission-text-inline">Health Decoded's mission is to bridge the health literacy gap for youth by transforming complex healthcare information into clear, accessible, and culturally responsive education. We aim to ensure that every young person—regardless of background, language, or socioeconomic status—has the knowledge to understand their health, navigate medical systems, and make informed decisions. Healthcare touches everyone, and so should health education.</p>
-          </section>
-        </div>
+      <section className="section section-no-padding">
+        <AboutUsSection />
       </section>
     </div>
   );
@@ -375,17 +339,45 @@ function OurStory() {
         <Link to="/about/team" className="subnav-link">Our Team</Link>
       </div>
 
-      <section className="section">
-        <h2>Our Story</h2>
-        <div className="story-content">
-          <p>Health Decoded began with an observation that Ruvanthika made early within her own family. Many of her relatives lived in rural India—small villages where clear, reliable health information wasn't easy to access. People often relied on word-of-mouth, guesswork, or whatever limited resources were available, and even simple medical decisions became overwhelming.</p>
-
-          <p>As Ruvanthika grew older and began working in EMS, she noticed similar patterns emerging in her own community. Even in an environment with more hospitals and advanced technology, health information was not distributed equally. A person's ability to understand their care often depended on socioeconomic status, language, or whether anyone had ever taken the time to explain the basics to them.</p>
-
-          <p>She also realized something unexpected: she had never received any formal education about how the healthcare system worked either. Despite attending strong schools and learning subjects such as financial literacy, health literacy—something every person needs throughout their life—was never part of the curriculum. This led her to question why healthcare understanding isn't woven into education at every age level. Healthcare is universal; everyone will interact with it, yet young people are rarely taught how to navigate it.</p>
-
-          <p>This realization ultimately led Ruvanthika to create Health Decoded. Her goal was to build an organization that empowers young people—especially those from under-resourced or multilingual communities—to understand healthcare in a way that feels simple, supportive, and culturally aware. HealthDecoded aims to provide a space where medical information is broken down into something approachable and human, regardless of a student's background or prior knowledge.</p>
-        </div>
+      <section className="section section-no-padding">
+        <FeatureSteps
+          title="Our Story"
+          imageHeight="feature-steps-story-image"
+          features={[
+            {
+              step: "Step 1",
+              title: "It started with a real gap",
+              content:
+                "Health Decoded began with an observation that Ruvanthika made early within her own family. Many of her relatives lived in rural India—small villages where clear, reliable health information wasn't easy to access. People often relied on word-of-mouth, guesswork, or whatever limited resources were available, and even simple medical decisions became overwhelming.",
+              image:
+                "https://images.unsplash.com/photo-1516549655169-df83a0774514?q=80&w=2070&auto=format&fit=crop",
+            },
+            {
+              step: "Step 2",
+              title: "The problem showed up everywhere",
+              content:
+                "As Ruvanthika grew older and began working in EMS, she noticed similar patterns emerging in her own community. Even in an environment with more hospitals and advanced technology, health information was not distributed equally. A person's ability to understand their care often depended on socioeconomic status, language, or whether anyone had ever taken the time to explain the basics to them.",
+              image:
+                "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2070&auto=format&fit=crop",
+            },
+            {
+              step: "Step 3",
+              title: "The curriculum gap became obvious",
+              content:
+                "She also realized something unexpected: she had never received any formal education about how the healthcare system worked either. Despite attending strong schools and learning subjects such as financial literacy, health literacy—something every person needs throughout their life—was never part of the curriculum. This led her to question why healthcare understanding isn't woven into education at every age level. Healthcare is universal; everyone will interact with it, yet young people are rarely taught how to navigate it.",
+              image:
+                "https://images.unsplash.com/photo-1523805009345-7448845a9e53?q=80&w=2070&auto=format&fit=crop",
+            },
+            {
+              step: "Step 4",
+              title: "Health Decoded was created",
+              content:
+                "This realization ultimately led Ruvanthika to create Health Decoded. Her goal was to build an organization that empowers young people—especially those from under-resourced or multilingual communities—to understand healthcare in a way that feels simple, supportive, and culturally aware. HealthDecoded aims to provide a space where medical information is broken down into something approachable and human, regardless of a student's background or prior knowledge.",
+              image:
+                "https://images.unsplash.com/photo-1526256262350-7da7584cf5eb?q=80&w=2070&auto=format&fit=crop",
+            },
+          ]}
+        />
       </section>
     </div>
   );
@@ -404,124 +396,8 @@ function OurTeam() {
         <Link to="/about/team" className="subnav-link active">Our Team</Link>
       </div>
 
-      <section className="section">
-        <h2>Our Team</h2>
-        <div className="team-names">
-          <span className="name-tag">Ruvanthika</span>
-          <span className="name-tag">Celdave</span>
-          <span className="name-tag">Ryan</span>
-          <span className="name-tag">Gil</span>
-          <span className="name-tag">Kartik</span>
-        </div>
-      </section>
-
-      <section className="section team-detailed-section">
-        <div className="team-grid">
-          <div className="team-member">
-            <div className="member-avatar">
-              <img
-                src="/team/ruvanthika.jpg"
-                alt="Ruvanthika Sivaprakasini Veerasikku"
-                className="member-photo"
-                loading="lazy"
-                onError={(e) => {
-                  e.target.style.display = 'none';
-                  e.target.parentElement.textContent = 'R';
-                }}
-              />
-            </div>
-            <h3>Ruvanthika Sivaprakasini Veerasikku</h3>
-            <p className="member-title">Executive Director</p>
-            <p className="member-bio">Ruvanthika is a freshman at Rutgers University–New Brunswick majoring in Cell Biology and Neuroscience. She is excited to be a part of Health Decoded and is passionate about improving health literacy and access to clear, reliable medical information. In her free time, she enjoys reading, snowboarding, and watching movies.</p>
-            <div className="member-email">
-              <a href="mailto:ruvanthikasv@healthdecodedinitiative.org" className="member-email-button">Email</a>
-            </div>
-          </div>
-
-          <div className="team-member">
-            <div className="member-avatar">
-              <img
-                src="/team/celdave.jpg"
-                alt="Celdave Weaver"
-                className="member-photo"
-                loading="lazy"
-                onError={(e) => {
-                  e.target.style.display = 'none';
-                  e.target.parentElement.textContent = 'C';
-                }}
-              />
-            </div>
-            <h3>Celdave Weaver</h3>
-            <p className="member-title">Director of Education & Outreach</p>
-            <p className="member-bio">Celdave is a freshman at Rutgers University-New Brunswick majoring in Biological Sciences. She is thrilled to be a part of Health Decoded and wants to help educate others on health literacy. In her free time she loves to play piano and bake (her favorite desert to make is double chocolate chip brownies).</p>
-            <div className="member-email">
-              <a href="mailto:celdavew@healthdecodedinitiative.org" className="member-email-button">Email</a>
-            </div>
-          </div>
-
-          <div className="team-member">
-            <div className="member-avatar">
-              <img
-                src="/team/ryan.jpg"
-                alt="Ryan Purakal"
-                className="member-photo"
-                loading="lazy"
-                onError={(e) => {
-                  e.target.style.display = 'none';
-                  e.target.parentElement.textContent = 'R';
-                }}
-              />
-            </div>
-            <h3>Ryan Purakal</h3>
-            <p className="member-title">Director of Technology</p>
-            <p className="member-bio">Ryan is a freshman majoring in Computer Science at Rutgers. He's really excited to help with the global push for health education through tech initiatives. In his free time he loves to watch movies and shows (his favorites are Se7en and Better Call Saul).</p>
-            <div className="member-email">
-              <a href="mailto:ryanp@healthdecodedinitiative.org" className="member-email-button">Email</a>
-            </div>
-          </div>
-
-          <div className="team-member">
-            <div className="member-avatar">
-              <img
-                src="/team/gil.jpg"
-                alt="Gil Shenoy"
-                className="member-photo"
-                loading="lazy"
-                onError={(e) => {
-                  e.target.style.display = 'none';
-                  e.target.parentElement.textContent = 'G';
-                }}
-              />
-            </div>
-            <h3>Gil Shenoy</h3>
-            <p className="member-title">Director of Operations</p>
-            <p className="member-bio">Gil is a freshman at Rutgers University-New Brunswick, majoring in Biochemistry. He is interested in medicine, wanting to create better knowledge about health care through education. In his free time he loves to go rock climbing and likes to spend time outside.</p>
-            <div className="member-email">
-              <a href="mailto:gils@healthdecodedinitiative.org" className="member-email-button">Email</a>
-            </div>
-          </div>
-
-          <div className="team-member">
-            <div className="member-avatar">
-              <img
-                src="/team/kartik.jpg"
-                alt="Kartik Narula"
-                className="member-photo"
-                loading="lazy"
-                onError={(e) => {
-                  e.target.style.display = 'none';
-                  e.target.parentElement.textContent = 'K';
-                }}
-              />
-            </div>
-            <h3>Kartik Narula</h3>
-            <p className="member-title">Director of Communications</p>
-            <p className="member-bio">Kartik is a freshman at Rutgers University-New Brunswick majoring in Cell Biology and Neuroscience. He aspires to make a change in the healthcare community by bringing the truth forward and exposing the complexities in the system. In his free time he enjoys riding as an EMT and making a difference in the lives of others.</p>
-            <div className="member-email">
-              <a href="mailto:kartikn@healthdecodedinitiative.org" className="member-email-button">Email</a>
-            </div>
-          </div>
-        </div>
+      <section className="section section-no-padding">
+        <TeamSectionBlock />
       </section>
     </div>
   );
@@ -534,59 +410,7 @@ function Programs() {
 
   return (
     <div className="programs-page">
-      <section className="section">
-        <h2>Our Programs</h2>
-        <p className="section-subtitle">Comprehensive health education designed for youth</p>
-
-        <div className="programs-grid">
-          <div className="program-card">
-            <div className="program-image-wrapper">
-              <img
-                src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&q=80"
-                alt="Students learning in a classroom workshop"
-                className="program-image"
-                loading="lazy"
-                onError={(e) => {
-                  e.target.src = "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=80";
-                }}
-              />
-            </div>
-            <h3>Health Decoded School Workshops</h3>
-            <p className="program-subtitle">Flagship Initiative</p>
-            <p>In-school or after-school workshops teaching:</p>
-            <ul className="program-list">
-              <li>How to navigate a doctor's visit</li>
-              <li>Understanding prescriptions, labs, and insurance</li>
-              <li>Communicating symptoms effectively</li>
-              <li>Basic anatomy & first aid essentials</li>
-              <li>Recognizing emergencies vs. non-emergencies</li>
-            </ul>
-            <p className="program-target"><strong>Target:</strong> K-12 students</p>
-          </div>
-
-          <div className="program-card">
-            <div className="program-image-wrapper">
-              <img
-                src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=800&q=80"
-                alt="Youth leaders and peer ambassadors working together"
-                className="program-image"
-                loading="lazy"
-                onError={(e) => {
-                  e.target.src = "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80";
-                }}
-              />
-            </div>
-            <h3>Peer Health Ambassador Program</h3>
-            <p>Ambassadors learn:</p>
-            <ul className="program-list">
-              <li>Communication skills</li>
-              <li>Health misinformation detection</li>
-              <li>Advocacy</li>
-              <li>Peer education workshops</li>
-            </ul>
-          </div>
-        </div>
-      </section>
+      <ProgramsFeatureSections />
     </div>
   );
 }
@@ -616,14 +440,11 @@ function GetInvolved() {
             </div>
             <h3>Volunteer</h3>
             <p>Join us in making health education accessible to all youth.</p>
-            <a
+            <InteractiveHoverButton
               href="https://forms.gle/oM3SsuVrcVV6xy8ZA"
-              className="involvement-card-button"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Get Started
-            </a>
+              text="Get Started"
+              classes="interactive-hover-button--feature involvement-card-button"
+            />
           </div>
           <div className="involvement-card">
             <div className="involvement-image-wrapper">
@@ -639,14 +460,11 @@ function GetInvolved() {
             </div>
             <h3>Become an Ambassador</h3>
             <p>Lead peer education workshops and advocate for health literacy.</p>
-            <a
+            <InteractiveHoverButton
               href="https://forms.gle/j8TqzZV3BYvd4kBb9"
-              className="involvement-card-button"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Get Started
-            </a>
+              text="Get Started"
+              classes="interactive-hover-button--feature involvement-card-button"
+            />
           </div>
           <div className="involvement-card">
             <div className="involvement-image-wrapper">
@@ -662,14 +480,11 @@ function GetInvolved() {
             </div>
             <h3>Create a New Chapter</h3>
             <p>Start Health Decoded in your community or school.</p>
-            <a
+            <InteractiveHoverButton
               href="https://docs.google.com/forms/d/e/1FAIpQLSe73_Eb1v4pqS0ps0mgwa3_s7vbcRY3ZdqqmQpmk5-90VvdCA/viewform?usp=publish-editor"
-              className="involvement-card-button"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Get Started
-            </a>
+              text="Get Started"
+              classes="interactive-hover-button--feature involvement-card-button"
+            />
           </div>
           <div className="involvement-card">
             <div className="involvement-image-wrapper">
@@ -685,14 +500,11 @@ function GetInvolved() {
             </div>
             <h3>Partner With Us</h3>
             <p>Schools, organizations, and institutions - let's work together.</p>
-            <a
+            <InteractiveHoverButton
               href="https://forms.gle/Q9u3LFereNudSuF48"
-              className="involvement-card-button"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Get Started
-            </a>
+              text="Get Started"
+              classes="interactive-hover-button--feature involvement-card-button"
+            />
           </div>
         </div>
       </section>
@@ -815,49 +627,63 @@ function Contact({ onDonateClick }) {
 
   return (
     <div className="contact-page">
-      <section className="section">
-        <h2>Contact Us</h2>
-        <div className="contact-content">
-          <p>Have questions or want to get involved? Reach out to us!</p>
+      <section className="section contact-section-modern" aria-label="Contact us">
+        <div className="contact-section-modern-bg" aria-hidden="true" />
+        <div className="contact-section-modern-inner">
+          <div className="contact-section-modern-left">
+            <h2 className="contact-section-title">
+              We&apos;d love to hear how you want to bring health education to your community.
+            </h2>
+            <p className="contact-section-subtitle">
+              Share a bit about yourself or your school, and we&apos;ll follow up with next steps, resources, or ways to get involved.
+            </p>
+            <div className="contact-section-email">
+              <span>Fill out the form or mail us at</span>
+              <a href="mailto:kartikn@healthdecodedinitiative.org">kartikn@healthdecodedinitiative.org</a>
+            </div>
+          </div>
 
-          <div className="contact-form-container">
+          <div className="contact-section-modern-card">
+            <h3 className="contact-section-card-title">Send us a message</h3>
             <form className="contact-form" onSubmit={handleSubmit} noValidate>
-              <div className="form-group">
-                <label htmlFor="name">Name *</label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  className={formErrors.name ? 'error' : ''}
-                  aria-invalid={!!formErrors.name}
-                  aria-describedby={formErrors.name ? 'name-error' : undefined}
-                />
-                {formErrors.name && (
-                  <span id="name-error" className="error-message" role="alert">
-                    {formErrors.name}
-                  </span>
-                )}
-              </div>
+              <div className="contact-form-grid">
+                <div className="form-group">
+                  <label htmlFor="name">Name *</label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    className={formErrors.name ? 'error' : ''}
+                    aria-invalid={!!formErrors.name}
+                    aria-describedby={formErrors.name ? 'name-error' : undefined}
+                  />
+                  {formErrors.name && (
+                    <span id="name-error" className="error-message" role="alert">
+                      {formErrors.name}
+                    </span>
+                  )}
+                </div>
 
-              <div className="form-group">
-                <label htmlFor="email">Email *</label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className={formErrors.email ? 'error' : ''}
-                  aria-invalid={!!formErrors.email}
-                  aria-describedby={formErrors.email ? 'email-error' : undefined}
-                />
-                {formErrors.email && (
-                  <span id="email-error" className="error-message" role="alert">
-                    {formErrors.email}
-                  </span>
-                )}
+                <div className="form-group">
+                  <label htmlFor="email">Email *</label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className={formErrors.email ? 'error' : ''}
+                    aria-invalid={!!formErrors.email}
+                    aria-describedby={formErrors.email ? 'email-error' : undefined}
+                  />
+                  {formErrors.email && (
+                    <span id="email-error" className="error-message" role="alert">
+                      {formErrors.email}
+                    </span>
+                  )}
+                </div>
               </div>
 
               <div className="form-group">
@@ -910,36 +736,116 @@ function Contact({ onDonateClick }) {
                 </div>
               )}
 
-              <button
+              <ShimmerButton
                 type="submit"
                 className="contact-submit-button"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? 'Sending...' : 'Send Message'}
-              </button>
+              </ShimmerButton>
             </form>
-          </div>
-
-          <div className="contact-info">
-            <p><strong>Or email us directly:</strong> <a href="mailto:kartikn@healthdecodedinitiative.org" className="email-link">kartikn@healthdecodedinitiative.org</a></p>
           </div>
         </div>
       </section>
 
-      <section className="section donate-section">
-        <h2>Support Our Mission</h2>
+      <section
+        className="section donate-section"
+        aria-label="Support our mission"
+      >
         <div className="donate-content">
-          <p>Your support helps us bring health education to youth across communities. Donations enable us to:</p>
-          <ul className="donate-list">
-            <li>Develop and deliver school workshops</li>
-            <li>Train peer health ambassadors</li>
-            <li>Create educational resources</li>
-            <li>Expand our reach to underserved communities</li>
-          </ul>
-          <div className="donate-button-container">
-            <button className="donate-button" onClick={handleDonateClick}>Donate Now</button>
-            <p className="donate-note">Donations page coming soon</p>
-          </div>
+          <motion.div
+            className="donate-growth-images"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={{
+              hidden: { opacity: 0 },
+              visible: {
+                opacity: 1,
+                transition: { staggerChildren: 0.15, delayChildren: 0.2 },
+              },
+            }}
+            aria-label="Illustration of how your support helps Health Decoded grow"
+          >
+            {[
+              "https://images.unsplash.com/photo-1584466977773-e625c37cdd50?w=600&q=80",
+              "https://images.unsplash.com/photo-1555421689-491a97ff2040?w=600&q=80",
+              "https://images.unsplash.com/photo-1514996937319-344454492b37?w=600&q=80",
+            ].map((src, index) => (
+              <motion.div
+                key={index}
+                className="donate-growth-image-wrapper"
+                variants={{
+                  hidden: { y: 24, opacity: 0 },
+                  visible: {
+                    y: 0,
+                    opacity: 1,
+                    transition: { duration: 0.6, ease: "easeInOut" },
+                  },
+                }}
+              >
+                <img
+                  src={src}
+                  alt={`Health education impact scene ${index + 1}`}
+                  className="donate-growth-image"
+                  loading="lazy"
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src =
+                      "https://images.unsplash.com/photo-1514996937319-344454492b37?w=600&q=80";
+                  }}
+                />
+              </motion.div>
+            ))}
+          </motion.div>
+
+          <motion.h2
+            className="donate-heading"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.4 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            Support Our Mission
+          </motion.h2>
+
+          <motion.div
+            className="donate-growth-text"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.4 }}
+            transition={{ duration: 0.5, delay: 0.35 }}
+          >
+            <p>
+              Your support helps us bring health education to youth across
+              communities. Donations enable us to:
+            </p>
+            <ul className="donate-list">
+              <li>Develop and deliver school workshops</li>
+              <li>Train peer health ambassadors</li>
+              <li>Create educational resources</li>
+              <li>Expand our reach to underserved communities</li>
+            </ul>
+          </motion.div>
+
+          <motion.div
+            className="donate-button-container"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.4 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+          >
+            <ShimmerButton
+              className="donate-button"
+              onClick={handleDonateClick}
+            >
+              Get notified when donating opens
+            </ShimmerButton>
+            <p className="donate-note">
+              Our donations page is coming soon. In the meantime, you can still
+              reach out to partner or collaborate with us.
+            </p>
+          </motion.div>
         </div>
       </section>
     </div>
@@ -954,7 +860,7 @@ function DonateModal({ onClose }) {
         <div className="modal-body">
           <h3>Coming Soon</h3>
           <p>Our donation page is currently under development. Check back soon to support our mission!</p>
-          <button className="modal-button" onClick={onClose}>Got it</button>
+          <ShimmerButton className="modal-button" onClick={onClose}>Got it</ShimmerButton>
         </div>
       </div>
     </div>
