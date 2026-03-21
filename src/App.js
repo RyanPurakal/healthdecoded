@@ -196,8 +196,8 @@ function Home() {
         <div className="hero-background" />
         <div className="hero-image-overlay">
           <img
-            src="https://images.unsplash.com/photo-1526256262350-7da7584cf5eb?w=1920&q=80"
-            alt="Young people and mentors discussing health and care"
+            src="/images/events/community-tables.png"
+            alt="Youth participating at a Health Decoded event"
             className="hero-overlay-image"
             loading="eager"
             aria-hidden="true"
@@ -242,8 +242,8 @@ function Home() {
               content: (
                 <div className="sticky-scroll-media">
                   <img
-                    src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=1200&q=80"
-                    alt="Students learning together in a classroom"
+                    src="/images/events/workshop-opqrst.png"
+                    alt="Students learning health literacy in a workshop"
                     className="sticky-scroll-media__image"
                   />
                   <div className="sticky-scroll-media__overlay">
@@ -261,8 +261,8 @@ function Home() {
               content: (
                 <div className="sticky-scroll-media">
                   <img
-                    src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&q=80"
-                    alt="Students collaborating on a project"
+                    src="/images/events/workshop-woman-leading.png"
+                    alt="Health Decoded team teaching clear communication"
                     className="sticky-scroll-media__image"
                   />
                   <div className="sticky-scroll-media__overlay">
@@ -280,8 +280,8 @@ function Home() {
               content: (
                 <div className="sticky-scroll-media">
                   <img
-                    src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=1200&q=80"
-                    alt="Volunteers supporting a community health effort"
+                    src="/images/events/community-engaged.png"
+                    alt="Youth engaged at a Health Decoded event"
                     className="sticky-scroll-media__image"
                   />
                   <div className="sticky-scroll-media__overlay">

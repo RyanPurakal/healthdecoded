@@ -220,8 +220,8 @@ export default function AboutUsSection() {
                 whileHover={{ scale: 1.03, transition: { duration: 0.3 } }}
               >
                 <img
-                  src="https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?w=1200&q=80"
-                  alt="Students learning about health together"
+                  src="/images/events/hero-team-sofia.png"
+                  alt="Health Decoded board members"
                   className="about-hero-image"
                 />
                 <motion.div

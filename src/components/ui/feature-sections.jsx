@@ -15,7 +15,7 @@ export default function ProgramsFeatureSections() {
         <article className="programs-feature-card">
           <div className="programs-feature-card__image-wrapper">
             <img
-              src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=900&q=80"
+              src="/images/events/workshop-opqrst.png"
               alt="Students learning in a classroom workshop"
               className="programs-feature-card__image"
               loading="lazy"
@@ -42,7 +42,7 @@ export default function ProgramsFeatureSections() {
         <article className="programs-feature-card">
           <div className="programs-feature-card__image-wrapper">
             <img
-              src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=900&q=80"
+              src="/images/events/workshop-ehealth.png"
               alt="Peer ambassadors leading a discussion"
               className="programs-feature-card__image"
               loading="lazy"
