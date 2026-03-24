@@ -1,11 +1,11 @@
 {
   "/_not-found/page": "/_not-found",
   "/about/page": "/about",
-  "/page": "/",
-  "/about/team/page": "/about/team",
-  "/programs/page": "/programs",
-  "/about/story/page": "/about/story",
   "/contact/page": "/contact",
-  "/get-involved/page": "/get-involved",
-  "/about/us/page": "/about/us"
+  "/about/team/page": "/about/team",
+  "/about/story/page": "/about/story",
+  "/page": "/",
+  "/about/us/page": "/about/us",
+  "/programs/page": "/programs",
+  "/get-involved/page": "/get-involved"
 }
