@@ -2,10 +2,10 @@
   "/_not-found/page": "/_not-found",
   "/about/page": "/about",
   "/contact/page": "/contact",
-  "/about/team/page": "/about/team",
-  "/about/story/page": "/about/story",
   "/page": "/",
+  "/about/team/page": "/about/team",
   "/about/us/page": "/about/us",
   "/programs/page": "/programs",
-  "/get-involved/page": "/get-involved"
+  "/get-involved/page": "/get-involved",
+  "/about/story/page": "/about/story"
 }

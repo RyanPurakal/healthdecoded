@@ -3,11 +3,9 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { useDonate } from '@/app/DonateContext';
 import { Mail, MessageSquare, Send, Loader2, CheckCircle2 } from 'lucide-react';
 
 export default function ContactPage() {
-  const { setShowDonateModal } = useDonate();
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
   const [formErrors, setFormErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -65,39 +63,39 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="min-h-screen bg-beige py-16 px-4">
-      <div className="max-w-6xl mx-auto">
-        <div className="grid md:grid-cols-2 gap-12 items-center bg-beige-light rounded-3xl overflow-hidden shadow-xl border border-beige-dark">
+    <div className="min-h-screen bg-beige py-8 sm:py-12 md:py-16 px-3 sm:px-4">
+      <div className="max-w-6xl mx-auto w-full min-w-0">
+        <div className="grid md:grid-cols-2 gap-0 md:gap-0 md:items-stretch bg-beige-light rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl border border-beige-dark">
           
           {/* Left Side Info */}
-          <div className="p-10 md:p-16 h-full flex flex-col justify-center bg-gradient-to-br from-beige to-beige-light relative">
-            <div className="absolute top-0 right-0 p-8">
-              <img src="/logo192.png" alt="Health Decoded Logo" className="w-28 h-auto object-contain" />
+          <div className="p-5 sm:p-8 md:p-12 lg:p-16 flex flex-col justify-center bg-gradient-to-br from-beige to-beige-light relative border-b md:border-b-0 md:border-r border-beige-dark/80">
+            <div className="flex justify-end mb-4 sm:mb-6 md:absolute md:top-0 md:right-0 md:mb-0 md:p-6 lg:p-8">
+              <img src="/logo192.png" alt="Health Decoded Logo" className="w-16 h-auto sm:w-24 md:w-28 object-contain" />
             </div>
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-              <span className="inline-flex items-center gap-2 bg-indigo-100 text-indigo-700 px-4 py-1.5 rounded-full text-sm font-semibold mb-6">
-                <MessageSquare size={16} /> Contact Us
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="min-w-0">
+              <span className="inline-flex items-center gap-2 bg-indigo-100 text-indigo-700 px-3 sm:px-4 py-1.5 rounded-full text-xs sm:text-sm font-semibold mb-4 sm:mb-6">
+                <MessageSquare size={16} className="shrink-0" /> Contact Us
               </span>
-              <h1 className="text-4xl md:text-5xl font-bold text-black mb-6 leading-tight">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-black mb-4 sm:mb-6 leading-tight break-words">
                 Let&apos;s work together.
               </h1>
-              <p className="text-lg text-black mb-8 max-w-md">
+              <p className="text-base sm:text-lg text-black mb-6 sm:mb-8 max-w-md">
                 Feel free to contact about any questions or opportunities!
               </p>
-              <div className="flex items-center gap-4 text-black font-medium">
-                <div className="h-12 w-12 rounded-full bg-beige-light shadow-sm flex items-center justify-center text-indigo-500">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 text-black font-medium">
+                <div className="h-12 w-12 shrink-0 rounded-full bg-beige-light shadow-sm flex items-center justify-center text-indigo-500">
                   <Mail size={20} />
                 </div>
-                <div>
+                <div className="min-w-0">
                   <p className="text-sm text-black">Prefer direct email?</p>
-                  <a href="mailto:kartikn@healthdecodedinitiative.org" className="text-indigo-600 hover:text-indigo-700 transition-colors">kartikn@healthdecodedinitiative.org</a>
+                  <a href="mailto:kartikn@healthdecodedinitiative.org" className="text-indigo-600 hover:text-indigo-700 transition-colors break-words text-sm sm:text-base">kartikn@healthdecodedinitiative.org</a>
                 </div>
               </div>
             </motion.div>
           </div>
 
           {/* Right Side Form */}
-          <div className="p-10 md:p-16">
+          <div className="p-5 sm:p-8 md:p-12 lg:p-16 min-w-0">
             <AnimatePresence mode="wait">
               {submitStatus === 'success' ? (
                 <motion.div 
@@ -120,7 +118,7 @@ export default function ContactPage() {
                   className="space-y-6"
                   noValidate
                 >
-                  <div className="grid grid-cols-2 gap-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                     <div className="space-y-2">
                       <label className="text-sm font-semibold text-black">Name</label>
                       <input type="text" name="name" value={formData.name} onChange={handleChange} className={`w-full p-3 rounded-xl border ${formErrors.name ? 'border-red-300 focus:ring-red-200' : 'border-slate-200 focus:border-indigo-400 focus:ring-4 focus:ring-indigo-50'} transition-all outline-none bg-beige group-hover:bg-beige-light`} placeholder="Jane Doe" />

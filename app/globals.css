@@ -3896,9 +3896,10 @@ ul {
 
 .sticky-scroll-reveal__inner {
   display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
   gap: var(--spacing-2xl);
   align-items: start;
+  min-width: 0;
 }
 
 .sticky-scroll-reveal__content {
@@ -4035,11 +4036,39 @@ ul {
   }
 }
 
+@media (max-width: 480px) {
+  .sticky-scroll-section {
+    padding: var(--spacing-3xl) 0;
+  }
+
+  .sticky-scroll-reveal {
+    padding: 0 max(1rem, var(--container-padding));
+  }
+
+  .sticky-scroll-reveal__panel-frame {
+    height: 18rem;
+    border-radius: 1rem;
+  }
+
+  .sticky-scroll-reveal__card {
+    padding: var(--spacing-md);
+    gap: var(--spacing-md);
+  }
+
+  .sticky-scroll-reveal__index {
+    width: 2.25rem;
+    height: 2.25rem;
+    font-size: var(--font-size-sm);
+  }
+}
+
 @keyframes interactiveSpin {
   to {
     transform: rotate(360deg);
   }
-}body {
+}
+
+body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
