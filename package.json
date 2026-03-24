@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "next lint",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d out"
+    "deploy": "gh-pages -d out --nojekyll",
+    "preview": "npx serve out -p 3000"
   },
   "dependencies": {
     "canvas-confetti": "^1.9.4",
