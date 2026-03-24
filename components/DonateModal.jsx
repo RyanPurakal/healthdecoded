@@ -1,6 +1,6 @@
 'use client';
 
-import ShimmerButton from '@/components/ui/shimmer-button';
+import { Button } from '@/components/ui/button';
 
 export default function DonateModal({ onClose }) {
   return (
@@ -10,7 +10,7 @@ export default function DonateModal({ onClose }) {
         <div className="modal-body">
           <h3>Coming Soon</h3>
           <p>Our donation page is currently under development. Check back soon to support our mission!</p>
-          <ShimmerButton className="modal-button" onClick={onClose}>Got it</ShimmerButton>
+          <Button className="w-full mt-4" size="lg" onClick={onClose}>Got it</Button>
         </div>
       </div>
     </div>

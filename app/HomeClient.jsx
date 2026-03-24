@@ -1,6 +1,6 @@
 'use client';
 
-import InteractiveHoverButton from '@/components/ui/interactive-hover-button';
+import { Button } from '@/components/ui/button';
 import { StickyScroll } from '@/components/ui/sticky-scroll-reveal';
 import SocialConnect from '@/components/ui/connect-with-us';
 
@@ -27,17 +27,13 @@ export default function HomeClient() {
             <p className="hero-subtitle">
               Building an international community of youth using health education to change the world
             </p>
-            <div className="hero-cta-group">
-              <InteractiveHoverButton
-                to="/programs"
-                text="Explore our programs"
-                classes="interactive-hover-button--hero"
-              />
-              <InteractiveHoverButton
-                to="/get-involved"
-                text="Get involved"
-                classes="interactive-hover-button--hero"
-              />
+            <div className="hero-cta-group pt-4">
+              <Button href="/programs" size="lg" className="rounded-full shadow-lg text-base h-14">
+                Explore our programs
+              </Button>
+              <Button href="/get-involved" variant="outline" size="lg" className="rounded-full bg-white/10 backdrop-blur-md text-white border-white/20 hover:bg-beige hover:text-[#4F62F8] shadow-lg text-base h-14">
+                Get involved
+              </Button>
             </div>
           </div>
         </div>
@@ -57,7 +53,7 @@ export default function HomeClient() {
               content: (
                 <div className="sticky-scroll-media">
                   <img
-                    src="/images/events/workshop-opqrst.png"
+                    src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=1200&q=80"
                     alt="Students learning health literacy in a workshop"
                     className="sticky-scroll-media__image"
                   />
@@ -76,7 +72,7 @@ export default function HomeClient() {
               content: (
                 <div className="sticky-scroll-media">
                   <img
-                    src="/images/events/workshop-woman-leading.png"
+                    src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1200&q=80"
                     alt="Health Decoded team teaching clear communication"
                     className="sticky-scroll-media__image"
                   />
@@ -95,7 +91,7 @@ export default function HomeClient() {
               content: (
                 <div className="sticky-scroll-media">
                   <img
-                    src="/images/events/community-engaged.png"
+                    src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200&q=80"
                     alt="Youth engaged at a Health Decoded event"
                     className="sticky-scroll-media__image"
                   />

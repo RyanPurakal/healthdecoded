@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import ShimmerButton from '@/components/ui/shimmer-button';
+import { Button } from '@/components/ui/button';
 
 export default function Navbar({ onDonateClick }) {
   const [aboutDropdown, setAboutDropdown] = useState(false);
@@ -50,7 +50,10 @@ export default function Navbar({ onDonateClick }) {
   return (
     <nav className={`navbar ${scrolled ? 'scrolled' : ''}`} role="navigation" aria-label="Main navigation">
       <div className="nav-container">
-        <Link href="/" className="logo" aria-label="Health Decoded Home">Health Decoded</Link>
+        <Link href="/" className="logo flex items-center gap-3" aria-label="Health Decoded Home">
+          <img src="/logo192.png" alt="Health Decoded Logo" className="w-8 h-8 object-contain" />
+          Health Decoded
+        </Link>
         <button
           className={`mobile-menu-toggle ${mobileMenuOpen ? 'active' : ''}`}
           onClick={toggleMobileMenu}
@@ -93,16 +96,16 @@ export default function Navbar({ onDonateClick }) {
           <Link href="/programs" className={isProgramsPage ? 'active' : ''} onClick={closeMobileMenu}>Programs</Link>
           <Link href="/get-involved" className={isGetInvolvedPage ? 'active' : ''} onClick={closeMobileMenu}>Get Involved</Link>
           <Link href="/contact" className={isContactPage ? 'active' : ''} onClick={closeMobileMenu}>Contact</Link>
-          <ShimmerButton
-            className="donate-nav-button"
+          <Button
+            className="donate-nav-button !rounded-full shadow-md"
             onClick={(e) => {
               e.preventDefault();
               closeMobileMenu();
               onDonateClick();
             }}
           >
-            <span>Donate</span>
-          </ShimmerButton>
+            Donate
+          </Button>
         </div>
       </div>
     </nav>

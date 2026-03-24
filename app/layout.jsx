@@ -22,8 +22,12 @@ export const metadata = {
     images: ['/og-image.jpg'],
   },
   robots: 'index, follow',
-  themeColor: '#4F62F8',
   manifest: '/manifest.json',
+  metadataBase: new URL('https://healthdecodedinitiative.org'),
+};
+
+export const viewport = {
+  themeColor: '#4F62F8',
 };
 
 export default function RootLayout({ children }) {
