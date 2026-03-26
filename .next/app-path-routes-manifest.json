@@ -3,9 +3,9 @@
   "/about/page": "/about",
   "/contact/page": "/contact",
   "/page": "/",
+  "/about/story/page": "/about/story",
+  "/get-involved/page": "/get-involved",
   "/about/team/page": "/about/team",
   "/about/us/page": "/about/us",
-  "/programs/page": "/programs",
-  "/get-involved/page": "/get-involved",
-  "/about/story/page": "/about/story"
+  "/programs/page": "/programs"
 }

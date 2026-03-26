@@ -13,6 +13,37 @@ export default function GetInvolvedPage() {
           <p>Join us in empowering youth through health education</p>
         </div>
 
+        <div className="container">
+          <div className="get-involved-linktree">
+            <a
+              className="button-icon"
+              href="https://linktr.ee/healthdecodedinit"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Open Health Decoded Linktree"
+            >
+              <span className="icon" aria-hidden="true">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M10 13a5 5 0 0 0 7.54.54l1.92-1.92a5 5 0 0 0-7.07-7.07l-1.08 1.08" />
+                  <path d="M14 11a5 5 0 0 0-7.54-.54L4.54 12.38a5 5 0 1 0 7.07 7.07l1.08-1.08" />
+                </svg>
+              </span>
+              <span className="cube" aria-hidden="true">
+                <span className="side front">Linktree</span>
+                <span className="side top">Open</span>
+              </span>
+            </a>
+          </div>
+        </div>
+
         <div className="programs-features__grid">
           <article className="programs-feature-card">
             <div className="programs-feature-card__image-wrapper">
