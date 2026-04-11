@@ -1,4 +1,4 @@
-// File: /Users/ryanpurakal/healthdecoded/healthdecoded/app/about/us/page.jsx
+// File: /Users/ryanpurakal/healthdecoded/healthdecoded/app/about/us/page.tsx
 import * as entry from '../../../../../app/about/us/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

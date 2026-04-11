@@ -1,11 +1,7 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
-  "/about/page": "app/about/page.js",
-  "/contact/page": "app/contact/page.js",
-  "/page": "app/page.js",
-  "/about/story/page": "app/about/story/page.js",
-  "/get-involved/page": "app/get-involved/page.js",
-  "/about/team/page": "app/about/team/page.js",
   "/about/us/page": "app/about/us/page.js",
-  "/programs/page": "app/programs/page.js"
+  "/page": "app/page.js",
+  "/programs/page": "app/programs/page.js",
+  "/get-involved/page": "app/get-involved/page.js",
+  "/contact/page": "app/contact/page.js"
 }
