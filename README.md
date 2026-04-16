@@ -24,32 +24,31 @@ Health Decoded began with an observation that many people, even in well-resource
 
 ## Tech Stack
 
-This website is built with modern web technologies to provide a fast, accessible, and user-friendly experience.
+This website is built as a Next.js application with static export output.
 
 ### Frontend Framework
-- **React 19.2.0** - Modern UI library for building interactive user interfaces
-- **React Router DOM 7.9.6** - Client-side routing for single-page application navigation
+- **Next.js 15 (App Router)** - Routing, layouts, metadata, and build system
+- **React 19** - Component and UI rendering layer
+- **TypeScript** - Type-safe application and component development
 
-### Styling
-- **CSS3 with Custom Properties** - Modern CSS with CSS variables for a consistent design system
-- **Responsive Design** - Mobile-first approach with breakpoints for all device sizes
-- **CSS Modules** - Scoped styling to prevent conflicts
+### Styling & UI
+- **Tailwind CSS** - Utility-first styling
+- **PostCSS + Autoprefixer** - CSS processing pipeline
+- **Framer Motion** - Animations and transitions
+- **Lucide React** - Icon system
+- **clsx + tailwind-merge** - Conditional and conflict-safe class composition
 
-### Development Tools
-- **Create React App 5.0.1** - Build tooling and development environment
-- **React Scripts** - Zero-configuration build setup
-- **ESLint** - Code linting and quality assurance
+### Code Quality
+- **ESLint (Next.js config)** - Linting and code quality checks
 
-### Analytics & Tracking
-- **Google Analytics** - Website analytics and user behavior tracking
-- **Web Vitals** - Performance monitoring
-
-### Form Handling
-- **Formspree** - Contact form submission service (no backend required)
+### Analytics & Forms
+- **Google Analytics (gtag.js)** - Website analytics and event tracking
+- **Web Vitals** - Performance metric support
+- **Formspree** - Contact form submission service
 
 ### Deployment
-- **GitHub Pages** - Static site hosting via `gh-pages`
-- **Vercel/Netlify Ready** - Configured for modern deployment platforms
+- **Static export** using Next.js `output: 'export'`
+- **GitHub Pages** deployment via `gh-pages` and the generated `out/` directory
 
 ## Features
 
@@ -90,27 +89,37 @@ This website is built with modern web technologies to provide a fast, accessible
 
 ```
 healthdecoded/
+├── app/                    # App Router pages, layouts, and global styles
+│   ├── layout.tsx
+│   ├── page.tsx
+│   ├── globals.css
+│   ├── contact/
+│   ├── about/
+│   ├── programs/
+│   └── get-involved/
+├── components/             # Shared UI and feature components
+│   ├── ui/
+│   └── motion/
+├── utils/
+│   └── analytics.ts        # Google Analytics utilities
 ├── public/
-│   ├── index.html          # Main HTML template with meta tags
-│   ├── sitemap.xml         # SEO sitemap
-│   ├── manifest.json        # PWA manifest
-│   └── og-image.jpg        # Social media preview image
-├── src/
-│   ├── App.js              # Main application component with routing
-│   ├── App.css             # Global styles and design system
-│   ├── index.js            # Application entry point
-│   ├── utils/
-│   │   └── analytics.js   # Google Analytics utilities
-│   └── components/         # (Future: component organization)
-├── package.json            # Dependencies and scripts
-└── README.md              # This file
+│   ├── index.html
+│   ├── sitemap.xml
+│   ├── manifest.json
+│   ├── robots.txt
+│   └── CNAME
+├── next.config.js          # Static export and Next.js config
+├── tailwind.config.js
+├── postcss.config.mjs
+├── package.json
+└── README.md
 ```
 
 ## Getting Started
 
 ### Prerequisites
-- Node.js (v14 or higher)
-- npm or yarn package manager
+- Node.js (v18+ recommended)
+- npm package manager
 
 ### Installation
 
@@ -127,16 +136,18 @@ npm install
 
 3. Start the development server:
 ```bash
-npm start
+npm run dev
 ```
 
 The application will open at [http://localhost:3000](http://localhost:3000)
 
 ### Available Scripts
 
-- `npm start` - Runs the app in development mode
-- `npm test` - Launches the test runner
+- `npm run dev` - Runs the app in development mode
 - `npm run build` - Builds the app for production
+- `npm run start` - Starts the production server (non-static hosting use)
+- `npm run lint` - Runs ESLint
+- `npm run typecheck` - Runs TypeScript type checks
 - `npm run deploy` - Deploys to GitHub Pages
 
 ## Configuration
@@ -147,7 +158,7 @@ The contact form uses Formspree. To configure:
 
 1. Sign up at [formspree.io](https://formspree.io)
 2. Create a new form and get your form ID
-3. Update the form endpoint in `src/App.js` (line ~779):
+3. Update the form endpoint in `app/contact/page.tsx`:
    ```javascript
    const response = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
    ```
@@ -156,13 +167,13 @@ The contact form uses Formspree. To configure:
 
 1. Create a Google Analytics account
 2. Get your Measurement ID (format: `G-XXXXXXXXXX`)
-3. Update `public/index.html` with your tracking ID (around line 50)
+3. Add your tracking ID to environment variables and reference it in the app analytics setup
 
 ### Environment Variables (Optional)
 
 Create a `.env` file in the root directory:
 ```
-REACT_APP_GA_TRACKING_ID=G-XXXXXXXXXX
+NEXT_PUBLIC_GA_TRACKING_ID=G-XXXXXXXXXX
 ```
 
 ## Design System
@@ -191,8 +202,8 @@ npm run deploy
 
 The project can be deployed to:
 - **Vercel**: Connect your GitHub repo for automatic deployments
-- **Netlify**: Drag and drop the `build` folder or connect via Git
-- **Any static hosting**: Upload the `build` folder contents
+- **Netlify**: Ensure publish output points to `out/` for static export
+- **Any static hosting**: Upload the `out` folder contents
 
 ## Team
 
