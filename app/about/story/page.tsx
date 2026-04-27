@@ -1,3 +1,4 @@
+// Our Story page: renders the subnav and the FeatureSteps component that walks visitors through the four founding milestones of Health Decoded.
 import Link from 'next/link';
 import { FeatureSteps } from '@/components/ui/feature-section';
 import { FadeInSection } from '@/components/motion/fade-in-section';

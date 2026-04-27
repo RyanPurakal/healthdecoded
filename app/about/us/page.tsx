@@ -1,3 +1,4 @@
+// About Us page: renders the shared about-section subnav and the animated AboutUsSection with mission, services grid, stat counters, and CTA banner.
 import Link from 'next/link';
 import AboutUsSection from '@/components/ui/about-us-section';
 import { FadeInSection } from '@/components/motion/fade-in-section';

@@ -1,3 +1,4 @@
+// Site-wide navigation bar: sticky with scroll-shadow effect, an "About" dropdown (hover + focus), a mobile hamburger menu, and a Donate button that triggers the DonateModal via the onDonateClick prop.
 'use client';
 
 import { useState, useEffect, useRef } from 'react';

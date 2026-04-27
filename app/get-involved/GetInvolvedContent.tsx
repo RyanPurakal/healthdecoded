@@ -1,3 +1,4 @@
+// Get Involved content: four participation cards (Volunteer, Ambassador, Chapter, Partner) each linking out to a Google Form or Linktree; uses stagger animation for card entry.
 'use client';
 
 import { Sparkles } from 'lucide-react';

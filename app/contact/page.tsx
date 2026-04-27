@@ -1,3 +1,4 @@
+// Contact page: client-side form with inline validation that POSTs to Formspree (endpoint xlgnvoej); shows animated success/error states using Framer Motion.
 'use client';
 
 import { useState } from 'react';

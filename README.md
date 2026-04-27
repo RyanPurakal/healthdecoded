@@ -85,6 +85,66 @@ This website is built as a Next.js application with static export output.
 - ✅ Screen reader friendly
 - ✅ High contrast ratios for readability
 
+## Architecture
+
+This is a **pure frontend** Next.js 15 application with static export — there is no backend server or database. All content is hardcoded in component files; all form submissions are handled by the external Formspree service.
+
+### Directory responsibilities
+
+```
+healthdecoded/
+├── app/              # Routes, layouts, metadata — see app/README.md
+│   ├── layout.tsx    # Root HTML shell: GA scripts, ClientLayout wrapper
+│   ├── template.tsx  # Per-navigation page-transition animation
+│   ├── page.tsx      # Home route (delegates to HomeClient.tsx)
+│   ├── about/        # Three subnav tabs: us / story / team
+│   ├── programs/     # Programs overview page
+│   ├── get-involved/ # Four participation cards linking to Google Forms
+│   └── contact/      # Contact form → Formspree
+├── components/       # Shared React components — see components/README.md
+│   ├── Navbar.tsx    # Sticky nav with dropdown and mobile menu
+│   ├── Footer.tsx    # Site-wide footer
+│   ├── DonateModal.tsx  # "Coming soon" donate overlay
+│   ├── ui/           # Feature sections and generic primitives — see components/ui/README.md
+│   └── motion/       # Framer Motion animation wrappers — see components/motion/README.md
+├── utils/            # Stateless helpers — see utils/README.md
+│   └── analytics.ts  # Google Analytics pageview + event helpers
+├── public/           # Static assets (images, icons, PWA manifest) — see public/README.md
+├── types/            # Global TypeScript ambient declarations (gtag, CSS modules)
+├── next.config.js    # Static export config (output: 'export', image: unoptimized)
+├── tailwind.config.js
+└── tsconfig.json
+```
+
+### Data flow
+
+```
+Browser
+  │
+  ▼
+Next.js static HTML (served from out/ or a CDN)
+  │
+  ├─ app/layout.tsx ──── injects GA script + JSON-LD into <head>
+  │
+  ├─ app/template.tsx ── wraps each page in a Framer Motion fade-slide on navigation
+  │
+  └─ app/<route>/page.tsx
+       │  sets metadata (title, OG tags)
+       │
+       └─ components/ui/<FeatureComponent>
+            │  renders content, animations, images
+            │
+            └─ (contact page only) POST → https://formspree.io/f/xlgnvoej
+                   returns 200 OK → shows success state
+```
+
+### Key design decisions
+
+- **Static export**: `next build` produces a fully static `out/` folder deployable to GitHub Pages or any CDN with no server required.
+- **`'use client'` split**: Page files export `metadata` (Server Component) and delegate interactive UI to a sibling `*Client.tsx` file marked `'use client'`, keeping SSR metadata intact.
+- **Content is co-located with components**: Team members, program descriptions, and story milestones live as `const` arrays inside their respective component files — no CMS or API fetch is needed.
+- **Framer Motion reduced-motion**: Every animation component reads `useReducedMotion()` and skips or simplifies animation for users who have `prefers-reduced-motion` enabled in their OS.
+
 ## Project Structure
 
 ```
@@ -103,7 +163,6 @@ healthdecoded/
 ├── utils/
 │   └── analytics.ts        # Google Analytics utilities
 ├── public/
-│   ├── index.html
 │   ├── sitemap.xml
 │   ├── manifest.json
 │   ├── robots.txt

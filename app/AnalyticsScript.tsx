@@ -1,3 +1,4 @@
+// Server-rendered head components: AnalyticsScript injects the gtag.js snippet, StructuredData emits schema.org JSON-LD — both must live inside <head> via layout.tsx.
 export function AnalyticsScript() {
   return (
     <>

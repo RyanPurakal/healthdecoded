@@ -1,3 +1,4 @@
+// Client-side site shell: wraps every page with Navbar, Footer, and DonateModal; fires GA pageviews on route change; manages body scroll-lock when the donate modal is open.
 'use client';
 
 import { useEffect } from 'react';

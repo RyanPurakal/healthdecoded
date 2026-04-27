@@ -1,3 +1,4 @@
+// FeatureSteps: a hover-driven step-through component — hovering a milestone in the left list swaps the right-panel image with an animated flip; used on the Our Story page.
 'use client';
 
 import { useState } from 'react';

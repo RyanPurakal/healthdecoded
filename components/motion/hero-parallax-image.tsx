@@ -1,3 +1,4 @@
+// HeroParallaxImage: maps the hero section's scroll progress to a subtle y-translate and scale on the background image, creating a parallax depth effect; motion is disabled when prefers-reduced-motion is set.
 'use client';
 
 import {

@@ -1,3 +1,4 @@
+// Unified Button component: renders as a Next.js Link when href/to is provided, otherwise as a <button>; supports five visual variants and four sizes via Tailwind class maps.
 import * as React from 'react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';

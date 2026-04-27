@@ -1,3 +1,4 @@
+// Site-wide footer: three link columns (About, Programs, Connect) and a copyright line with the current year computed at render time.
 import Link from 'next/link';
 
 export default function Footer() {

@@ -1,3 +1,4 @@
+// Donate modal placeholder: clicking the overlay or the close button calls onClose; the actual donation flow is not yet implemented.
 'use client';
 
 import { Button } from '@/components/ui/button';
