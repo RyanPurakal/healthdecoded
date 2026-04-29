@@ -1,3 +1,4 @@
+// TeamSectionBlock: renders each leadership member as a card with a 3D tilt effect driven by mouse position (Framer Motion spring), a rotating avatar ring on hover, and a mailto email button.
 'use client';
 
 import {

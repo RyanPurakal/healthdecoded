@@ -1,3 +1,4 @@
+// ProgramsFeatureSections: renders two program cards (School Workshops and Peer Ambassador) with stagger-fade entry animations; the card content (curriculum bullets, target audience) is hardcoded here.
 'use client';
 
 import { Sparkles } from 'lucide-react';

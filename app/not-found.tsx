@@ -1,3 +1,4 @@
+// Catch-all 404 page shown by Next.js whenever no route matches; links back to the home page.
 import { Button } from '@/components/ui/button';
 
 export const metadata = {

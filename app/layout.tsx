@@ -1,3 +1,4 @@
+// Root layout: sets site-wide HTML metadata, injects Google Analytics + JSON-LD structured data, and wraps every page in ClientLayout (Navbar/Footer/DonateModal shell).
 import type { ReactNode } from 'react';
 import { AnalyticsScript, StructuredData } from './AnalyticsScript';
 import { ClientLayout } from './ClientLayout';

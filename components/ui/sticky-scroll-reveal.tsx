@@ -1,3 +1,4 @@
+// StickyScroll: tabbed widget where clicking a left-column card updates the right-column panel; used on the home page to step through the three "Why Health Education Matters" points.
 'use client';
 
 import { useState, type ReactNode } from 'react';

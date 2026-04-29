@@ -1,3 +1,4 @@
+// Next.js template: runs on every client-side navigation and wraps page content in a Framer Motion fade+slide transition; respects prefers-reduced-motion.
 'use client';
 
 import { motion, useReducedMotion } from 'framer-motion';

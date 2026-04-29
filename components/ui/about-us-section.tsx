@@ -1,3 +1,4 @@
+// About Us section: animated three-column services grid flanking a centred photo, animated stat counters that re-trigger on each scroll-into-view, and a CTA banner — depends on Framer Motion scroll and spring hooks.
 'use client';
 
 import { useState, useEffect, useRef, type ReactNode } from "react";

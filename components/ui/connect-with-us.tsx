@@ -1,3 +1,4 @@
+// Social connect section: a single prominent card that links to the /contact page, used as the closing CTA on the home page.
 'use client';
 
 import Link from 'next/link';

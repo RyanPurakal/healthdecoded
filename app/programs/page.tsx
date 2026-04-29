@@ -1,3 +1,4 @@
+// Programs page: thin wrapper that sets metadata and renders ProgramsFeatureSections with cards for the two core program offerings.
 import ProgramsFeatureSections from '@/components/ui/feature-sections';
 
 export const metadata = {

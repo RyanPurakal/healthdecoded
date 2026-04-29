@@ -1,3 +1,4 @@
+// Thin React context that lifts donate-modal open/close state so Navbar (trigger) and ClientLayout (renderer) can share it without prop-drilling.
 'use client';
 
 import {

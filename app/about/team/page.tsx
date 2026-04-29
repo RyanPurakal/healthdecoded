@@ -1,3 +1,4 @@
+// Our Team page: renders the subnav and the TeamSectionBlock that displays each leadership member's card with 3D tilt effects and email links.
 import Link from 'next/link';
 import TeamSectionBlock from '@/components/ui/team-section-block-shadcnui';
 import { FadeInSection } from '@/components/motion/fade-in-section';

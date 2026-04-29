@@ -1,5 +1,5 @@
-// Google Analytics utility
-// Replace 'G-XXXXXXXXXX' with your actual Google Analytics Measurement ID
+// Google Analytics helpers: pageview() is called on every client-side route change in ClientLayout; event() can be imported anywhere to track custom interactions.
+// Override the hardcoded tracking ID by setting NEXT_PUBLIC_GA_TRACKING_ID in your environment.
 
 export const GA_TRACKING_ID =
   process.env.NEXT_PUBLIC_GA_TRACKING_ID || 'G-TQC31DXKBN';

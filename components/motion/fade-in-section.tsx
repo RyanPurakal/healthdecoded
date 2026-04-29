@@ -1,3 +1,4 @@
+// FadeInSection: scroll-triggered fade-up wrapper (Framer Motion whileInView); renders as <section> or <div>, fires once per mount, and skips animation when prefers-reduced-motion is set.
 'use client';
 
 import { motion, useReducedMotion } from 'framer-motion';

@@ -1,3 +1,4 @@
+// StaggerFade pair: StaggerFadeContainer triggers whileInView and cascades the animation to each StaggerFadeItem child with a 100ms stagger; used for program and involvement card grids.
 'use client';
 
 import { motion, useReducedMotion } from 'framer-motion';

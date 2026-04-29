@@ -1,3 +1,4 @@
+// Home page UI: hero with parallax background, sticky-scroll "Why Health Education Matters" section, and social connect CTA — needs 'use client' for the heroRef scroll hook.
 'use client';
 
 import { useRef } from 'react';

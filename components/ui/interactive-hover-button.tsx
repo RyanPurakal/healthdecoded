@@ -1,3 +1,4 @@
+// InteractiveHoverButton: a button/link hybrid that cycles through idle → loading → success states with animated label swap; renders as a Next.js Link when href/to is provided.
 'use client';
 
 import { useState, type ReactNode, type MouseEvent } from 'react';
