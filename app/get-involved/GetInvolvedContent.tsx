@@ -121,7 +121,7 @@ export default function GetInvolvedContent() {
                 <article className="programs-feature-card">
                   <div className="programs-feature-card__image-wrapper">
                     <img
-                      src="/images/events/uploaded/community-09.png"
+                      src="/images/events/workshop-hosa-partners.png"
                       alt="Organizations partnering together"
                       className="programs-feature-card__image"
                       loading="lazy"
