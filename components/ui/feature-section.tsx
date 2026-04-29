@@ -11,7 +11,7 @@ const defaultFeatures = [
     content:
       "Health Decoded began with an observation that Ruvanthika made early within her own family. Many of her relatives lived in rural India—small villages where clear, reliable health information wasn't easy to access. People often relied on word-of-mouth, guesswork, or whatever limited resources were available, and even simple medical decisions became overwhelming.",
     image:
-      'https://images.unsplash.com/photo-1513258496099-48168024aec0?q=80&w=2070&auto=format&fit=crop',
+      '/images/events/workshop-opqrst.png',
   },
   {
     step: 'Step 2',
@@ -19,7 +19,7 @@ const defaultFeatures = [
     content:
       "As Ruvanthika grew older and began working in EMS, she noticed similar patterns emerging in her own community. Even in an environment with more hospitals and advanced technology, health information was not distributed equally. A person's ability to understand their care often depended on socioeconomic status, language, or whether anyone had ever taken the time to explain the basics to them.",
     image:
-      'https://images.unsplash.com/photo-1584515933487-779824d29309?q=80&w=2070&auto=format&fit=crop',
+      '/images/events/workshop-ehealth.png',
   },
   {
     step: 'Step 3',
@@ -27,7 +27,7 @@ const defaultFeatures = [
     content:
       "She also realized something unexpected: she had never received any formal education about how the healthcare system worked either. Despite attending strong schools and learning subjects such as financial literacy, health literacy—something every person needs throughout their life—was never part of the curriculum. This led her to question why healthcare understanding isn't woven into education at every age level. Healthcare is universal; everyone will interact with it, yet young people are rarely taught how to navigate it.",
     image:
-      'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2070&auto=format&fit=crop',
+      '/images/events/community-tables-2.png',
   },
   {
     step: 'Step 4',
@@ -35,7 +35,7 @@ const defaultFeatures = [
     content:
       "This realization ultimately led Ruvanthika to create Health Decoded. Her goal was to build an organization that empowers young people—especially those from under-resourced or multilingual communities—to understand healthcare in a way that feels simple, supportive, and culturally aware. HealthDecoded aims to provide a space where medical information is broken down into something approachable and human, regardless of a student's background or prior knowledge.",
     image:
-      'https://images.unsplash.com/photo-1526256262350-7da7584cf5eb?q=80&w=2070&auto=format&fit=crop',
+      '/images/events/community-workshop-2.png',
   },
 ];
 

@@ -60,7 +60,7 @@ export default function GetInvolvedContent() {
                 <article className="programs-feature-card">
                   <div className="programs-feature-card__image-wrapper">
                     <img
-                      src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=600&q=80"
+                      src="/images/events/uploaded/community-06.png"
                       alt="Volunteers helping with community health education"
                       className="programs-feature-card__image"
                       loading="lazy"
@@ -80,7 +80,7 @@ export default function GetInvolvedContent() {
                 <article className="programs-feature-card">
                   <div className="programs-feature-card__image-wrapper">
                     <img
-                      src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&q=80"
+                      src="/images/events/uploaded/community-07.png"
                       alt="Peer ambassadors leading a workshop"
                       className="programs-feature-card__image"
                       loading="lazy"
@@ -100,7 +100,7 @@ export default function GetInvolvedContent() {
                 <article className="programs-feature-card">
                   <div className="programs-feature-card__image-wrapper">
                     <img
-                      src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=600&q=80"
+                      src="/images/events/uploaded/community-chapter-new.png"
                       alt="Students starting a new chapter"
                       className="programs-feature-card__image"
                       loading="lazy"
@@ -120,7 +120,7 @@ export default function GetInvolvedContent() {
                 <article className="programs-feature-card">
                   <div className="programs-feature-card__image-wrapper">
                     <img
-                      src="https://images.unsplash.com/photo-1556761175-b413da4baf72?w=600&q=80"
+                      src="/images/events/uploaded/community-09.png"
                       alt="Organizations partnering together"
                       className="programs-feature-card__image"
                       loading="lazy"

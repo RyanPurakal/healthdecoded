@@ -223,7 +223,7 @@ export default function AboutUsSection() {
                 whileHover={{ scale: 1.03, transition: { duration: 0.3 } }}
               >
                 <img
-                  src="/images/events/hero-team-sofia.png"
+                  src="/images/events/uploaded/community-10.png"
                   alt="Health Decoded board members"
                   className="about-hero-image"
                   loading="lazy"

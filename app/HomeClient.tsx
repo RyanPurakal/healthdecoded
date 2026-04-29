@@ -17,13 +17,12 @@ export default function HomeClient() {
         <div className="hero-background" />
         <HeroParallaxImage
           scrollRef={heroRef}
-          src="/images/events/community-tables.png"
+          src="/images/events/uploaded/community-01.png"
           alt="Youth participating at a Health Decoded event"
           className="hero-overlay-image"
           onError={(e) => {
             const img = e.currentTarget;
-            img.src =
-              'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1920&q=80';
+            img.src = '/images/events/uploaded/community-02.png';
           }}
         />
         <div className="container hero-content">
@@ -67,7 +66,7 @@ export default function HomeClient() {
               content: (
                 <div className="sticky-scroll-media">
                   <img
-                    src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=1200&q=80"
+                    src="/images/events/uploaded/community-03.png"
                     alt="Students learning health literacy in a workshop"
                     className="sticky-scroll-media__image"
                     loading="lazy"
@@ -88,7 +87,7 @@ export default function HomeClient() {
               content: (
                 <div className="sticky-scroll-media">
                   <img
-                    src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1200&q=80"
+                    src="/images/events/uploaded/community-04.png"
                     alt="Health Decoded team teaching clear communication"
                     className="sticky-scroll-media__image"
                     loading="lazy"
@@ -109,7 +108,7 @@ export default function HomeClient() {
               content: (
                 <div className="sticky-scroll-media">
                   <img
-                    src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200&q=80"
+                    src="/images/events/uploaded/community-05.png"
                     alt="Youth engaged at a Health Decoded event"
                     className="sticky-scroll-media__image"
                     loading="lazy"
