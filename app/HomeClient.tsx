@@ -1,135 +1,143 @@
-// Home page UI: hero with parallax background, sticky-scroll "Why Health Education Matters" section, and social connect CTA — needs 'use client' for the heroRef scroll hook.
+// Home page UI: hero with split dark/photo panels, impact rows with outlined stroke numbers, indigo connect section.
 'use client';
 
-import { useRef } from 'react';
-import { Sparkles } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { StickyScroll } from '@/components/ui/sticky-scroll-reveal';
-import SocialConnect from '@/components/ui/connect-with-us';
-import { FadeInSection } from '@/components/motion/fade-in-section';
-import { HeroParallaxImage } from '@/components/motion/hero-parallax-image';
+import { useEffect } from 'react';
+import Link from 'next/link';
+import './home.css';
 
 export default function HomeClient() {
-  const heroRef = useRef<HTMLElement>(null);
+  // Scroll-triggered fade-ins
+  useEffect(() => {
+    const els = document.querySelectorAll<HTMLElement>('.hm-fade');
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add('hm-visible');
+            io.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.07, rootMargin: '0px 0px -36px 0px' }
+    );
+
+    els.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, []);
 
   return (
-    <div className="home-page">
-      <section ref={heroRef} className="hero" aria-label="Hero section">
-        <div className="hero-background" />
-        <HeroParallaxImage
-          scrollRef={heroRef}
-          src="/images/events/uploaded/community-01.png"
-          alt="Youth participating at a Health Decoded event"
-          className="hero-overlay-image"
-          onError={(e) => {
-            const img = e.currentTarget;
-            img.src = '/images/events/uploaded/community-02.png';
-          }}
-        />
-        <div className="container hero-content">
-          <div className="hero-text-wrapper">
-            <h1>Health education, decoded for youth.</h1>
-            <p className="hero-subtitle">
-              Building an international community of youth using health education to change the world
-            </p>
-            <div className="hero-cta-group pt-4">
-              <Button href="/programs" size="lg" className="rounded-full shadow-lg text-base h-14">
-                Explore our programs
-              </Button>
-              <Button href="/get-involved" variant="outline" size="lg" className="rounded-full bg-white/10 backdrop-blur-md text-white border-white/20 hover:bg-beige hover:text-[#4F62F8] shadow-lg text-base h-14">
-                Get involved
-              </Button>
-            </div>
+    <div className="hm-page">
+
+      {/* ── HERO ─────────────────────────────────────────────── */}
+      <section className="hm-hero" aria-label="Hero">
+
+        {/* Left — dark panel with headline */}
+        <div className="hm-hero-dark">
+          <p className="hm-eyebrow">Health Decoded Initiative</p>
+
+          <h1 className="hm-h1">
+            Health<br />
+            Education,<br />
+            Decoded<br />
+            For{' '}
+            <span className="hm-accent-word">Youth.</span>
+          </h1>
+
+          <p className="hm-hero-sub">
+            Building an international community of youth using health education to change the world
+          </p>
+
+          <div className="hm-hero-ctas">
+            <Link href="/programs" className="hm-btn hm-btn-filled">
+              Explore our programs
+              <span className="hm-btn-arrow" aria-hidden="true">→</span>
+            </Link>
+            <Link href="/get-involved" className="hm-btn hm-btn-ghost">
+              Get involved
+              <span className="hm-btn-arrow" aria-hidden="true">→</span>
+            </Link>
           </div>
+        </div>
+
+        {/* Right — full-bleed photo */}
+        <div className="hm-hero-photo">
+          <img
+            src="/images/events/uploaded/community-01.png"
+            alt="Youth participating at a Health Decoded community event"
+            onError={(e) => {
+              (e.currentTarget as HTMLImageElement).src =
+                '/images/events/uploaded/community-03.png';
+            }}
+          />
+        </div>
+
+      </section>
+
+      {/* ── IMPACT ───────────────────────────────────────────── */}
+      <section className="hm-impact" aria-labelledby="hm-impact-heading">
+
+        <header className="hm-impact-header hm-fade">
+          <p className="hm-label" aria-hidden="true">Impact</p>
+          <h2 className="hm-impact-title" id="hm-impact-heading">
+            Why{' '}
+            <span className="hm-accent-word">Health</span>
+            <br />Education Matters
+          </h2>
+          <p className="hm-impact-sub">
+            Every young person deserves the knowledge to make informed health decisions
+          </p>
+        </header>
+
+        <div className="hm-impact-row hm-fade" role="listitem">
+          <p className="hm-num" aria-hidden="true">01</p>
+          <p className="hm-statement">
+            <strong>Health literacy</strong> is essential for every young person,
+            yet rarely taught in schools
+          </p>
+        </div>
+
+        <div className="hm-impact-row hm-fade" role="listitem">
+          <p className="hm-num" aria-hidden="true">02</p>
+          <p className="hm-statement">
+            <strong>Clear information</strong> transforms complex healthcare into
+            something approachable and human
+          </p>
+        </div>
+
+        <div className="hm-impact-row hm-fade" role="listitem">
+          <p className="hm-num" aria-hidden="true">03</p>
+          <p className="hm-statement">
+            <strong>Empowered youth</strong> can navigate medical systems and make
+            informed health decisions
+          </p>
+        </div>
+
+      </section>
+
+      {/* ── CONNECT ──────────────────────────────────────────── */}
+      <section className="hm-connect hm-fade" aria-labelledby="hm-connect-heading">
+        <div className="hm-connect-inner">
+
+          <div>
+            <p className="hm-connect-label" aria-hidden="true">Community</p>
+            <h2 className="hm-connect-title" id="hm-connect-heading">
+              Connect<br />With Us
+            </h2>
+            <p className="hm-connect-sub">
+              Join our community and stay updated with the latest initiatives and
+              health education resources.
+            </p>
+          </div>
+
+          <Link href="/contact" className="hm-btn hm-btn-dark">
+            Contact Us
+            <span className="hm-btn-arrow" aria-hidden="true">→</span>
+          </Link>
+
         </div>
       </section>
 
-      <FadeInSection as="div" className="sticky-scroll-section hd-themed-surface" delay={0.05}>
-        <div className="hd-themed-inner">
-          <div className="container sticky-scroll-section__header">
-            <span className="team-section-modern-pill">
-              <Sparkles className="team-section-modern-pill-icon" aria-hidden />
-              Impact
-            </span>
-            <h2 className="team-section-modern-title">
-              Why <span className="hd-gradient-text">Health Education</span> Matters
-            </h2>
-            <p className="team-section-modern-subtitle">
-              Every young person deserves the knowledge to make informed health decisions
-            </p>
-          </div>
-          <StickyScroll
-          contentClassName="sticky-scroll-section__panel"
-          content={[
-            {
-              title: 'Health literacy',
-              description: 'is essential for every young person, yet rarely taught in schools',
-              content: (
-                <div className="sticky-scroll-media">
-                  <img
-                    src="/images/events/uploaded/community-03.png"
-                    alt="Students learning health literacy in a workshop"
-                    className="sticky-scroll-media__image"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                  <div className="sticky-scroll-media__overlay">
-                    <div>
-                      <p className="sticky-scroll-media__eyebrow">01</p>
-                      <h3>Health literacy</h3>
-                    </div>
-                  </div>
-                </div>
-              ),
-            },
-            {
-              title: 'Clear information',
-              description: 'transforms complex healthcare into something approachable and human',
-              content: (
-                <div className="sticky-scroll-media">
-                  <img
-                    src="/images/events/uploaded/community-04.png"
-                    alt="Health Decoded team teaching clear communication"
-                    className="sticky-scroll-media__image"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                  <div className="sticky-scroll-media__overlay">
-                    <div>
-                      <p className="sticky-scroll-media__eyebrow">02</p>
-                      <h3>Clear information</h3>
-                    </div>
-                  </div>
-                </div>
-              ),
-            },
-            {
-              title: 'Empowered youth',
-              description: 'can navigate medical systems and make informed health decisions',
-              content: (
-                <div className="sticky-scroll-media">
-                  <img
-                    src="/images/events/uploaded/community-05.png"
-                    alt="Youth engaged at a Health Decoded event"
-                    className="sticky-scroll-media__image"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                  <div className="sticky-scroll-media__overlay">
-                    <div>
-                      <p className="sticky-scroll-media__eyebrow">03</p>
-                      <h3>Empowered youth</h3>
-                    </div>
-                  </div>
-                </div>
-              ),
-            },
-          ]}
-        />
-        </div>
-      </FadeInSection>
-
-      <SocialConnect />
     </div>
   );
 }

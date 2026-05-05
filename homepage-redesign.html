@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Health Decoded — Health education, decoded for youth.</title>
+  <meta name="description" content="Building an international community of youth using health education to change the world.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================================
+       RESET
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'IBM Plex Sans', -apple-system, sans-serif;
+      background: #4F62F8;
+      color: #F4EFE6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    /* ============================================================
+       TOKENS
+    ============================================================ */
+    :root {
+      --indigo:   #4F62F8;
+      --ivory:    #F4EFE6;
+      --signal:   #F5632A;   /* warm red-orange — primary CTA + one word only */
+      --dark:     #0B0A09;
+      --ivory-50: rgba(244, 239, 230, 0.5);
+      --ivory-25: rgba(244, 239, 230, 0.25);
+      --ease:     cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* ============================================================
+       NAV
+    ============================================================ */
+    .nav {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 52px;
+      transition: background 0.3s ease, border-color 0.3s ease;
+      border-bottom: 1px solid transparent;
+    }
+
+    .nav.scrolled {
+      background: var(--indigo);
+      border-bottom-color: rgba(244, 239, 230, 0.12);
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-logo {
+      width: 30px;
+      height: 30px;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
+      opacity: 0.85;
+    }
+
+    .nav-wordmark {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      letter-spacing: 0.04em;
+      color: var(--ivory);
+      line-height: 1;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-link {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ivory-50);
+      cursor: pointer;
+      transition: color 0.18s;
+      position: relative;
+    }
+    .nav-link:hover { color: var(--ivory); }
+
+    /* About dropdown */
+    .nav-item { position: relative; }
+
+    .nav-dropdown {
+      position: absolute;
+      top: calc(100% + 14px);
+      left: -16px;
+      background: var(--dark);
+      border: 1px solid rgba(244, 239, 230, 0.12);
+      padding: 6px 0;
+      min-width: 148px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-6px);
+      transition: opacity 0.18s ease, transform 0.18s ease;
+    }
+    .nav-item:hover .nav-dropdown,
+    .nav-item:focus-within .nav-dropdown {
+      opacity: 1;
+      pointer-events: auto;
+      transform: none;
+    }
+    .nav-dropdown a {
+      display: block;
+      padding: 9px 18px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ivory-50);
+      transition: color 0.15s;
+    }
+    .nav-dropdown a:hover { color: var(--ivory); }
+
+    .nav-donate {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--dark);
+      background: var(--signal);
+      padding: 10px 22px;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.18s;
+      text-decoration: none;
+    }
+    .nav-donate:hover { opacity: 0.88; }
+
+    /* Mobile toggle */
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--ivory);
+      transition: all 0.25s ease;
+    }
+
+    /* ============================================================
+       MOBILE MENU
+    ============================================================ */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: var(--indigo);
+      z-index: 99;
+      padding: 96px 40px 48px;
+      flex-direction: column;
+    }
+    .mobile-menu.open { display: flex; }
+
+    .mobile-link {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 48px;
+      letter-spacing: 0.04em;
+      color: var(--ivory);
+      padding: 14px 0;
+      border-bottom: 1px solid var(--ivory-25);
+      transition: color 0.18s;
+    }
+    .mobile-link:hover,
+    .mobile-link.signal { color: var(--signal); }
+
+    /* ============================================================
+       HERO
+    ============================================================ */
+    .hero {
+      min-height: 100svh;
+      background: var(--indigo);
+      display: grid;
+      grid-template-columns: 58% 42%;
+      align-items: center;
+      padding: 100px 52px 72px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Left — poster text */
+    .hero-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 10.5px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ivory-50);
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: fadeUp 0.6s var(--ease) 0.1s forwards;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 28px;
+      height: 1px;
+      background: var(--ivory-50);
+    }
+
+    .hero-h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(64px, 11.5vw, 180px);
+      font-weight: 400; /* Bebas has only one weight */
+      line-height: 0.9;
+      letter-spacing: 0.025em;
+      color: var(--ivory);
+      margin-bottom: 32px;
+      opacity: 0;
+      animation: fadeUp 0.8s var(--ease) 0.2s forwards;
+    }
+
+    .hero-h1 .signal { color: var(--signal); }
+
+    .hero-rule {
+      width: 100%;
+      max-width: 480px;
+      height: 1px;
+      background: var(--ivory-25);
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeUp 0.6s var(--ease) 0.38s forwards;
+    }
+
+    .hero-sub {
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 1.7;
+      color: var(--ivory-50);
+      max-width: 400px;
+      margin-bottom: 40px;
+      opacity: 0;
+      animation: fadeUp 0.6s var(--ease) 0.46s forwards;
+    }
+
+    .hero-ctas {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.6s var(--ease) 0.54s forwards;
+    }
+
+    /* Right — ECG panel */
+    .hero-ecg {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      opacity: 0;
+      animation: fadeIn 1s var(--ease) 0.3s forwards;
+    }
+
+    .ecg-svg {
+      width: 100%;
+      max-width: 480px;
+      height: auto;
+      overflow: visible;
+    }
+
+    .ecg-path {
+      fill: none;
+      stroke: var(--ivory);
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      /* dasharray set by JS from getTotalLength() */
+    }
+
+    /* ============================================================
+       BUTTONS
+    ============================================================ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 14px 28px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: opacity 0.18s ease;
+      white-space: nowrap;
+    }
+    .btn-arrow { display: inline-block; transition: transform 0.18s ease; }
+    .btn:hover .btn-arrow { transform: translateX(4px); }
+
+    .btn-signal {
+      background: var(--signal);
+      color: var(--dark);
+    }
+    .btn-signal:hover { opacity: 0.88; }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--ivory);
+      border: 1px solid var(--ivory-25);
+    }
+    .btn-ghost:hover { border-color: var(--ivory-50); }
+
+    .btn-ivory {
+      background: var(--ivory);
+      color: var(--indigo);
+    }
+    .btn-ivory:hover { opacity: 0.9; }
+
+    /* ============================================================
+       SECTION DIVIDER
+    ============================================================ */
+    .s-rule {
+      height: 1px;
+      background: var(--ivory-25);
+      margin: 0 52px;
+    }
+
+    /* ============================================================
+       WHY HEALTH EDUCATION MATTERS
+    ============================================================ */
+    .impact {
+      background: var(--ivory);
+      color: var(--dark);
+      padding: 96px 52px;
+    }
+
+    .impact-header {
+      margin-bottom: 72px;
+    }
+
+    .impact-section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #9992A8;
+      margin-bottom: 20px;
+    }
+    .impact-section-label::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: #9992A8;
+    }
+
+    .impact-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(44px, 6.5vw, 100px);
+      letter-spacing: 0.03em;
+      line-height: 0.88;
+      color: var(--dark);
+      margin-bottom: 20px;
+    }
+
+    .impact-title .indigo { color: var(--indigo); }
+
+    .impact-sub {
+      font-size: 17px;
+      font-weight: 300;
+      line-height: 1.68;
+      color: #5C5751;
+      max-width: 520px;
+    }
+
+    /* Three rows */
+    .impact-row {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      align-items: center;
+      gap: 0 48px;
+      padding: 44px 0;
+      border-top: 1px solid #DDD7CE;
+    }
+    .impact-row:last-child { border-bottom: 1px solid #DDD7CE; }
+
+    /* The number — solid indigo block, poster-style */
+    .impact-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(80px, 11vw, 160px);
+      letter-spacing: 0.01em;
+      line-height: 0.9;
+      color: var(--indigo);
+      opacity: 0.18;
+      user-select: none;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .impact-row:hover .impact-num { opacity: 0.55; }
+
+    .impact-statement {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: clamp(20px, 2.4vw, 32px);
+      font-weight: 400;
+      line-height: 1.38;
+      color: var(--dark);
+      max-width: 680px;
+    }
+    .impact-statement strong { font-weight: 600; }
+
+    /* ============================================================
+       CONNECT WITH US
+    ============================================================ */
+    .connect {
+      background: var(--indigo);
+      padding: 100px 52px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Ghost type behind — pure geometry */
+    .connect::before {
+      content: '';
+      position: absolute;
+      right: -2%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 48%;
+      aspect-ratio: 1;
+      border: 1px solid rgba(244, 239, 230, 0.07);
+      pointer-events: none;
+    }
+    .connect::after {
+      content: '';
+      position: absolute;
+      right: 5%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 32%;
+      aspect-ratio: 1;
+      border: 1px solid rgba(244, 239, 230, 0.07);
+      pointer-events: none;
+    }
+
+    .connect-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 56px;
+      position: relative;
+      z-index: 1;
+      flex-wrap: wrap;
+    }
+
+    .connect-label {
+      font-size: 10.5px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ivory-50);
+      margin-bottom: 16px;
+    }
+
+    .connect-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(56px, 8vw, 128px);
+      letter-spacing: 0.03em;
+      line-height: 0.88;
+      color: var(--ivory);
+      margin-bottom: 20px;
+    }
+
+    .connect-sub {
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 1.7;
+      color: var(--ivory-50);
+      max-width: 400px;
+    }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    .footer {
+      background: var(--dark);
+      padding: 72px 52px 40px;
+      border-top: 1px solid rgba(244, 239, 230, 0.06);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 60px;
+    }
+
+    .footer-brand-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px;
+      letter-spacing: 0.06em;
+      color: var(--ivory);
+      margin-bottom: 10px;
+    }
+
+    .footer-tagline {
+      font-size: 13px;
+      font-weight: 300;
+      color: rgba(244, 239, 230, 0.3);
+      line-height: 1.65;
+    }
+
+    .footer-col-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(244, 239, 230, 0.25);
+      margin-bottom: 20px;
+    }
+
+    .footer-links { list-style: none; }
+    .footer-links li { margin-bottom: 10px; }
+    .footer-links a {
+      font-size: 14px;
+      font-weight: 300;
+      color: rgba(244, 239, 230, 0.5);
+      transition: color 0.18s;
+    }
+    .footer-links a:hover { color: var(--ivory); }
+    .footer-email { font-size: 12.5px !important; word-break: break-all; }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(244, 239, 230, 0.06);
+      padding-top: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-copy {
+      font-size: 12px;
+      color: rgba(244, 239, 230, 0.22);
+      letter-spacing: 0.04em;
+    }
+
+    /* ============================================================
+       KEYFRAMES
+    ============================================================ */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    /* ECG animations — toggled by JS adding .ready class */
+    .ecg-path.ready {
+      animation:
+        ecgDraw 1.8s cubic-bezier(0.4, 0, 0.2, 1) 0.5s forwards,
+        ecgBeat  3.6s ease-in-out 2.6s infinite;
+    }
+
+    @keyframes ecgDraw {
+      to { stroke-dashoffset: 0; }
+    }
+
+    @keyframes ecgBeat {
+      0%,  45%  { opacity: 1; }
+      50%       { opacity: 0.55; }
+      55%, 100% { opacity: 1; }
+    }
+
+    /* Scroll fade-in */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+    }
+    .fade-up.in { opacity: 1; transform: none; }
+
+    /* ============================================================
+       RESPONSIVE — 1024px
+    ============================================================ */
+    @media (max-width: 1024px) {
+      .nav  { padding: 18px 32px; }
+      .hero { padding: 88px 32px 64px; grid-template-columns: 55% 45%; gap: 24px; }
+      .s-rule { margin: 0 32px; }
+      .impact { padding: 80px 32px; }
+      .connect { padding: 80px 32px; }
+      .footer { padding: 64px 32px 36px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 36px; }
+    }
+
+    /* ============================================================
+       RESPONSIVE — 768px
+    ============================================================ */
+    @media (max-width: 768px) {
+      .nav { padding: 16px 24px; }
+      .nav-links, .nav-donate { display: none; }
+      .nav-toggle { display: flex; }
+
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 88px 24px 56px;
+        min-height: auto;
+      }
+
+      .hero-ecg {
+        order: -1;
+        height: 160px;
+        margin-bottom: 8px;
+      }
+
+      .ecg-svg { max-width: 100%; height: 160px; }
+
+      .hero-sub { max-width: 100%; }
+
+      .s-rule { margin: 0 24px; }
+      .impact { padding: 64px 24px; }
+      .impact-header { margin-bottom: 48px; }
+      .impact-row {
+        grid-template-columns: 1fr;
+        gap: 4px;
+        padding: 32px 0;
+      }
+      .impact-num { font-size: clamp(64px, 20vw, 100px); }
+
+      .connect { padding: 72px 24px; }
+      .connect-inner { flex-direction: column; gap: 32px; }
+
+      .footer { padding: 56px 24px 32px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; gap: 10px; text-align: center; }
+    }
+
+    /* ============================================================
+       RESPONSIVE — 480px
+    ============================================================ */
+    @media (max-width: 480px) {
+      .hero-ctas { flex-direction: column; align-items: flex-start; }
+      .btn { width: 100%; justify-content: center; }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ============================================================
+       REDUCED MOTION
+    ============================================================ */
+    @media (prefers-reduced-motion: reduce) {
+      .hero-eyebrow, .hero-h1, .hero-rule,
+      .hero-sub, .hero-ctas, .hero-ecg { animation: none; opacity: 1; transform: none; }
+      .ecg-path.ready { animation: none; }
+      .fade-up { transition: none; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ============================================================
+       NAV
+  ============================================================ -->
+  <nav class="nav" id="nav" aria-label="Main navigation">
+    <a href="/" class="nav-brand" aria-label="Health Decoded home">
+      <img src="/logo192.png" alt="" class="nav-logo" aria-hidden="true">
+      <span class="nav-wordmark">Health Decoded</span>
+    </a>
+
+    <ul class="nav-links" role="list">
+      <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
+      <li class="nav-item">
+        <a href="/about/us" class="nav-link" aria-haspopup="true">About ▾</a>
+        <div class="nav-dropdown" role="menu">
+          <a href="/about/us"    role="menuitem">About Us</a>
+          <a href="/about/story" role="menuitem">Our Story</a>
+          <a href="/about/team"  role="menuitem">Our Team</a>
+        </div>
+      </li>
+      <li class="nav-item"><a href="/programs"     class="nav-link">Programs</a></li>
+      <li class="nav-item"><a href="/get-involved"  class="nav-link">Get Involved</a></li>
+      <li class="nav-item"><a href="/contact"       class="nav-link">Contact</a></li>
+    </ul>
+
+    <a href="/donate" class="nav-donate">Donate</a>
+
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Navigation" aria-modal="true">
+    <a href="/"              class="mobile-link">Home</a>
+    <a href="/about/us"      class="mobile-link">About Us</a>
+    <a href="/about/story"   class="mobile-link">Our Story</a>
+    <a href="/about/team"    class="mobile-link">Our Team</a>
+    <a href="/programs"      class="mobile-link">Programs</a>
+    <a href="/get-involved"  class="mobile-link">Get Involved</a>
+    <a href="/contact"       class="mobile-link">Contact</a>
+    <a href="/donate"        class="mobile-link signal">Donate</a>
+  </div>
+
+
+  <!-- ============================================================
+       HERO
+  ============================================================ -->
+  <section class="hero" aria-label="Hero">
+
+    <!-- Left: poster headline -->
+    <div class="hero-text">
+      <p class="hero-eyebrow">Health Decoded Initiative</p>
+
+      <h1 class="hero-h1">
+        Health<br>
+        Education,<br>
+        Decoded<br>
+        For <span class="signal">Youth.</span>
+      </h1>
+
+      <div class="hero-rule" aria-hidden="true"></div>
+
+      <p class="hero-sub">
+        Building an international community of youth using health education to change the world
+      </p>
+
+      <div class="hero-ctas">
+        <a href="/programs" class="btn btn-signal">
+          Explore our programs
+          <span class="btn-arrow" aria-hidden="true">→</span>
+        </a>
+        <a href="/get-involved" class="btn btn-ghost">
+          Get involved
+          <span class="btn-arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Right: ECG heartbeat — the only image -->
+    <div class="hero-ecg" aria-hidden="true">
+      <svg
+        class="ecg-svg"
+        viewBox="0 0 500 220"
+        xmlns="http://www.w3.org/2000/svg"
+        role="presentation"
+        preserveAspectRatio="xMidYMid meet"
+      >
+        <!--
+          ECG waveform: P wave → QRS complex → T wave → repeat P
+          Baseline y=140 (flat resting state)
+          R spike y=18 (the dramatic peak — the heartbeat)
+        -->
+        <path
+          class="ecg-path"
+          d="
+            M 0,140
+            L 55,140
+            C 65,140 68,118 75,112
+            C 82,106 85,140 95,140
+            L 118,140
+            L 126,154
+            L 134,18
+            L 142,168
+            L 150,140
+            L 185,140
+            C 200,140 208,102 220,96
+            C 232,90 240,140 258,140
+            L 500,140
+          "
+        />
+      </svg>
+    </div>
+
+  </section>
+
+
+  <!-- ============================================================
+       IMPACT
+  ============================================================ -->
+  <section class="impact" aria-labelledby="impact-heading">
+
+    <header class="impact-header fade-up">
+      <p class="impact-section-label" aria-hidden="true">Impact</p>
+      <h2 class="impact-title" id="impact-heading">
+        Why <span class="indigo">Health</span><br>Education Matters
+      </h2>
+      <p class="impact-sub">
+        Every young person deserves the knowledge to make informed health decisions
+      </p>
+    </header>
+
+    <div class="impact-row fade-up">
+      <p class="impact-num" aria-hidden="true">01</p>
+      <p class="impact-statement">
+        <strong>Health literacy</strong> is essential for every young person,
+        yet rarely taught in schools
+      </p>
+    </div>
+
+    <div class="impact-row fade-up">
+      <p class="impact-num" aria-hidden="true">02</p>
+      <p class="impact-statement">
+        <strong>Clear information</strong> transforms complex healthcare into
+        something approachable and human
+      </p>
+    </div>
+
+    <div class="impact-row fade-up">
+      <p class="impact-num" aria-hidden="true">03</p>
+      <p class="impact-statement">
+        <strong>Empowered youth</strong> can navigate medical systems and make
+        informed health decisions
+      </p>
+    </div>
+
+  </section>
+
+
+  <!-- ============================================================
+       CONNECT
+  ============================================================ -->
+  <section class="connect fade-up" aria-labelledby="connect-heading">
+    <div class="connect-inner">
+      <div>
+        <p class="connect-label" aria-hidden="true">Community</p>
+        <h2 class="connect-title" id="connect-heading">
+          Connect<br>With Us
+        </h2>
+        <p class="connect-sub">
+          Join our community and stay updated with the latest initiatives and
+          health education resources.
+        </p>
+      </div>
+      <a href="/contact" class="btn btn-signal">
+        Contact Us
+        <span class="btn-arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer class="footer" aria-label="Site footer">
+    <div class="footer-grid">
+
+      <div>
+        <p class="footer-brand-name">Health Decoded</p>
+        <p class="footer-tagline">Health education, decoded for youth.</p>
+      </div>
+
+      <div>
+        <p class="footer-col-label">About</p>
+        <ul class="footer-links">
+          <li><a href="/about/us">About Us</a></li>
+          <li><a href="/about/story">Our Story</a></li>
+          <li><a href="/about/team">Our Team</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="footer-col-label">Programs</p>
+        <ul class="footer-links">
+          <li><a href="/programs">Our Programs</a></li>
+          <li><a href="/get-involved">Get Involved</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="footer-col-label">Connect</p>
+        <ul class="footer-links">
+          <li>
+            <a href="mailto:kartikn@healthdecodedinitiative.org" class="footer-email">
+              kartikn@healthdecodedinitiative.org
+            </a>
+          </li>
+          <li>
+            <a href="https://linktr.ee/healthdecodedinit" target="_blank" rel="noopener noreferrer">
+              Linktree
+            </a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 Health Decoded Initiative. All rights reserved.</span>
+    </div>
+  </footer>
+
+
+  <!-- ============================================================
+       JS
+  ============================================================ -->
+  <script>
+    // ─── Nav scroll state ────────────────────────────────────────
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 10);
+    }, { passive: true });
+
+    // ─── Mobile menu ─────────────────────────────────────────────
+    const toggleBtn  = document.getElementById('navToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    let menuOpen = false;
+
+    function setMenu(open) {
+      menuOpen = open;
+      mobileMenu.classList.toggle('open', open);
+      toggleBtn.setAttribute('aria-expanded', String(open));
+      document.body.style.overflow = open ? 'hidden' : '';
+      const bars = toggleBtn.querySelectorAll('span');
+      if (open) {
+        bars[0].style.transform = 'rotate(45deg) translate(4.5px, 4.5px)';
+        bars[1].style.opacity   = '0';
+        bars[2].style.transform = 'rotate(-45deg) translate(4.5px, -4.5px)';
+      } else {
+        bars.forEach(b => { b.style.transform = ''; b.style.opacity = ''; });
+      }
+    }
+
+    toggleBtn.addEventListener('click', () => setMenu(!menuOpen));
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && menuOpen) setMenu(false); });
+
+    // ─── ECG heartbeat draw ──────────────────────────────────────
+    // Measure the actual path length, set dasharray, then trigger draw + beat
+    window.addEventListener('load', () => {
+      const ecg = document.querySelector('.ecg-path');
+      if (!ecg) return;
+
+      const len = Math.ceil(ecg.getTotalLength());
+      ecg.style.strokeDasharray  = len;
+      ecg.style.strokeDashoffset = len;
+
+      // Small rAF delay ensures the browser has painted the initial state
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          ecg.classList.add('ready');
+        });
+      });
+    });
+
+    // ─── Scroll-triggered fade-ups ───────────────────────────────
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -32px 0px' });
+
+    document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
+  </script>
+
+</body>
+</html>

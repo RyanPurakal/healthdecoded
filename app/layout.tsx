@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import { AnalyticsScript, StructuredData } from './AnalyticsScript';
 import { ClientLayout } from './ClientLayout';
 import './globals.css';
+import './site-theme.css';
 
 export const metadata = {
   title: 'Health Decoded - Empowering Youth Through Health Education',
