@@ -2,7 +2,7 @@
 import GetInvolvedContent from './GetInvolvedContent';
 
 export const metadata = {
-  title: 'Get Involved - Health Decoded',
+  title: 'Get Involved',
 };
 
 export default function GetInvolvedPage() {

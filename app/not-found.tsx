@@ -2,7 +2,7 @@
 import Link from 'next/link';
 
 export const metadata = {
-  title: 'Page Not Found - Health Decoded',
+  title: 'Page Not Found',
 };
 
 export default function NotFound() {

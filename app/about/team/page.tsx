@@ -4,7 +4,7 @@ import TeamSectionBlock from '@/components/ui/team-section-block-shadcnui';
 import { FadeInSection } from '@/components/motion/fade-in-section';
 
 export const metadata = {
-  title: 'Our Team - Health Decoded',
+  title: 'Our Team',
 };
 
 export default function OurTeamPage() {

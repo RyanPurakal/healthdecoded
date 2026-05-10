@@ -1,6 +1,6 @@
 {
   "short_name": "Health Decoded",
-  "name": "Health Decoded - Empowering Youth Through Health Education",
+  "name": "Health Decoded Initiative — Youth Health Education",
   "description": "Building an international community of youth using health education to change the world",
   "icons": [
     {
@@ -21,7 +21,7 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#4F62F8",
-  "background_color": "#F7F7F8",
+  "theme_color": "#e6ecf0",
+  "background_color": "#e6ecf0",
   "orientation": "portrait-primary"
 }

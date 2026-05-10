@@ -4,7 +4,7 @@ import AboutUsSection from '@/components/ui/about-us-section';
 import { FadeInSection } from '@/components/motion/fade-in-section';
 
 export const metadata = {
-  title: 'About Us - Health Decoded',
+  title: 'About Us',
 };
 
 export default function AboutUsPage() {

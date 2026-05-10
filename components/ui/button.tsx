@@ -42,16 +42,16 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const Comp: 'span' | 'button' = asChild ? 'span' : 'button';
 
     const baseStyles =
-      'inline-flex items-center justify-center whitespace-nowrap rounded-lg text-sm font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4F62F8] disabled:pointer-events-none disabled:opacity-50 active:scale-95 duration-200';
+      'inline-flex items-center justify-center whitespace-nowrap rounded-lg text-sm font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4279E0] disabled:pointer-events-none disabled:opacity-50 active:scale-95 duration-200';
 
     const variants: Record<ButtonVariant, string> = {
       default:
-        'bg-[#4F62F8] text-white shadow-md hover:bg-[#3D4FD8] hover:shadow-lg hover:-translate-y-0.5',
+        'bg-[#4279E0] text-white shadow-md hover:bg-[#3568c9] hover:shadow-lg hover:-translate-y-0.5',
       outline:
         'border-2 border-slate-200 bg-beige shadow-sm hover:bg-beige-light hover:text-black',
       secondary: 'bg-slate-100 text-black shadow-sm hover:bg-slate-200',
       ghost: 'hover:bg-slate-100 hover:text-black',
-      link: 'text-[#4F62F8] underline-offset-4 hover:underline',
+      link: 'text-[#4279E0] underline-offset-4 hover:underline',
     };
 
     const sizes: Record<ButtonSize, string> = {

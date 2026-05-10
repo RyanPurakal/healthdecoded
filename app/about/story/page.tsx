@@ -4,7 +4,7 @@ import { FeatureSteps } from '@/components/ui/feature-section';
 import { FadeInSection } from '@/components/motion/fade-in-section';
 
 export const metadata = {
-  title: 'Our Story - Health Decoded',
+  title: 'Our Story',
 };
 
 export default function OurStoryPage() {

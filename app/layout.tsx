@@ -6,22 +6,30 @@ import './globals.css';
 import './site-theme.css';
 
 export const metadata = {
-  title: 'Health Decoded - Empowering Youth Through Health Education',
-  description: 'Building an international community of youth using health education to change the world. We provide health literacy workshops, peer ambassador programs, and educational resources for students.',
-  keywords: 'health education, health literacy, youth education, health workshops, peer ambassadors, health advocacy, student health, medical education',
+  title: {
+    default:
+      'Health Decoded Initiative — Youth health education nonprofit',
+    template: '%s | Health Decoded Initiative',
+  },
+  description:
+    'Official Health Decoded Initiative site: youth health literacy workshops, peer ambassador programs, and student resources. Building an international community of young people through health education.',
+  keywords:
+    'Health Decoded Initiative, health education nonprofit, health education, health literacy, youth education, health workshops, peer ambassadors, health advocacy, student health, medical education',
   authors: [{ name: 'Health Decoded Initiative' }],
   openGraph: {
     type: 'website',
     url: 'https://healthdecodedinitiative.org/',
-    title: 'Health Decoded - Empowering Youth Through Health Education',
-    description: 'Building an international community of youth using health education to change the world. We provide health literacy workshops, peer ambassador programs, and educational resources for students.',
-    siteName: 'Health Decoded',
+    title: 'Health Decoded Initiative — Youth health education nonprofit',
+    description:
+      'Official nonprofit supporting youth health literacy: workshops, peer programs, and educational resources for students worldwide.',
+    siteName: 'Health Decoded Initiative',
     images: ['/og-image.jpg'],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Health Decoded - Empowering Youth Through Health Education',
-    description: 'Building an international community of youth using health education to change the world.',
+    title: 'Health Decoded Initiative — Youth health education nonprofit',
+    description:
+      'Official nonprofit supporting youth health literacy: workshops, peer programs, and educational resources for students worldwide.',
     images: ['/og-image.jpg'],
   },
   robots: 'index, follow',
@@ -30,7 +38,7 @@ export const metadata = {
 };
 
 export const viewport = {
-  themeColor: '#4F62F8',
+  themeColor: '#e6ecf0',
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

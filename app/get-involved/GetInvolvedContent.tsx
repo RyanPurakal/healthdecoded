@@ -56,9 +56,9 @@ export default function GetInvolvedContent() {
               </div>
             </div>
 
-            <StaggerFadeContainer className="programs-features__grid">
-              <StaggerFadeItem>
-                <article className="programs-feature-card">
+            <StaggerFadeContainer className="programs-features__grid items-stretch">
+              <StaggerFadeItem className="h-full min-w-[min(100%,380px)] flex-1 basis-[340px]">
+                <article className="programs-feature-card h-full">
                   <div className="programs-feature-card__image-wrapper">
                     <img
                       src="/images/events/uploaded/community-06.png"
@@ -71,14 +71,16 @@ export default function GetInvolvedContent() {
                   <h3>Volunteer</h3>
                   <p className="programs-feature-card__subtitle">Join the team</p>
                   <p className="programs-feature-card__body">Join us in making health education accessible to all youth.</p>
-                  <div className="mt-8 pt-4">
-                    <Button href="https://forms.gle/oM3SsuVrcVV6xy8ZA" target="_blank">Get Started</Button>
+                  <div className="mt-auto flex flex-col px-7 pb-7 pt-6">
+                    <Button className="self-start" href="https://forms.gle/oM3SsuVrcVV6xy8ZA" target="_blank">
+                      Get Started
+                    </Button>
                   </div>
                 </article>
               </StaggerFadeItem>
 
-              <StaggerFadeItem>
-                <article className="programs-feature-card">
+              <StaggerFadeItem className="h-full min-w-[min(100%,380px)] flex-1 basis-[340px]">
+                <article className="programs-feature-card h-full">
                   <div className="programs-feature-card__image-wrapper">
                     <img
                       src="/images/events/uploaded/community-07.png"
@@ -91,14 +93,16 @@ export default function GetInvolvedContent() {
                   <h3>Become an Ambassador</h3>
                   <p className="programs-feature-card__subtitle">Lead your peers</p>
                   <p className="programs-feature-card__body">Lead peer education workshops and advocate for health literacy in your area.</p>
-                  <div className="mt-8 pt-4">
-                    <Button href="https://forms.gle/j8TqzZV3BYvd4kBb9" target="_blank">Get Started</Button>
+                  <div className="mt-auto flex flex-col px-7 pb-7 pt-6">
+                    <Button className="self-start" href="https://forms.gle/j8TqzZV3BYvd4kBb9" target="_blank">
+                      Get Started
+                    </Button>
                   </div>
                 </article>
               </StaggerFadeItem>
 
-              <StaggerFadeItem>
-                <article className="programs-feature-card">
+              <StaggerFadeItem className="h-full min-w-[min(100%,380px)] flex-1 basis-[340px]">
+                <article className="programs-feature-card h-full">
                   <div className="programs-feature-card__image-wrapper">
                     <img
                       src="/images/events/uploaded/community-chapter-new.png"
@@ -111,14 +115,20 @@ export default function GetInvolvedContent() {
                   <h3>Create a New Chapter</h3>
                   <p className="programs-feature-card__subtitle">Expand the reach</p>
                   <p className="programs-feature-card__body">Start Health Decoded in your local community, university or school.</p>
-                  <div className="mt-8 pt-4">
-                    <Button href="https://docs.google.com/forms/d/e/1FAIpQLSe73_Eb1v4pqS0ps0mgwa3_s7vbcRY3ZdqqmQpmk5-90VvdCA/viewform?usp=publish-editor" target="_blank">Get Started</Button>
+                  <div className="mt-auto flex flex-col px-7 pb-7 pt-6">
+                    <Button
+                      className="self-start"
+                      href="https://docs.google.com/forms/d/e/1FAIpQLSe73_Eb1v4pqS0ps0mgwa3_s7vbcRY3ZdqqmQpmk5-90VvdCA/viewform?usp=publish-editor"
+                      target="_blank"
+                    >
+                      Get Started
+                    </Button>
                   </div>
                 </article>
               </StaggerFadeItem>
 
-              <StaggerFadeItem>
-                <article className="programs-feature-card">
+              <StaggerFadeItem className="h-full min-w-[min(100%,380px)] flex-1 basis-[340px]">
+                <article className="programs-feature-card h-full">
                   <div className="programs-feature-card__image-wrapper">
                     <img
                       src="/images/events/workshop-hosa-partners.png"
@@ -131,8 +141,10 @@ export default function GetInvolvedContent() {
                   <h3>Partner With Us</h3>
                   <p className="programs-feature-card__subtitle">Organizations</p>
                   <p className="programs-feature-card__body">Schools, organizations, and institutions - let&apos;s work together.</p>
-                  <div className="mt-8 pt-4">
-                    <Button href="https://forms.gle/Q9u3LFereNudSuF48" target="_blank">Get Started</Button>
+                  <div className="mt-auto flex flex-col px-7 pb-7 pt-6">
+                    <Button className="self-start" href="https://forms.gle/Q9u3LFereNudSuF48" target="_blank">
+                      Get Started
+                    </Button>
                   </div>
                 </article>
               </StaggerFadeItem>

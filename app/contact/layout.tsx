@@ -2,7 +2,7 @@
 import type { ReactNode } from 'react';
 
 export const metadata = {
-  title: 'Contact - Health Decoded',
+  title: 'Contact',
 };
 
 export default function ContactLayout({ children }: { children: ReactNode }) {

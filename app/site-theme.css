@@ -12,17 +12,21 @@
   --f-disp: 'Big Shoulders Display', 'Arial Black', Impact, sans-serif;
   --f-body: 'Plus Jakarta Sans', -apple-system, sans-serif;
   --st-black:  #0D0C0B;
+  /* Page / chrome surfaces (nav, shells, cards-on-page) */
+  --st-bg:     #e6ecf0;
+  /* True white: text and icons on brand-colored controls */
   --st-white:  #FFFFFF;
-  --st-accent: #4F62F8;
-  --st-mid:    #F5F3F0;
-  --st-rule:   #E2DED8;
+  --st-accent: #4279E0;
+  --st-accent-sky: #5DA0E6;
+  --st-mid:    #e6ecf0;
+  --st-rule:   #c8dae8;
   --st-muted:  #888279;
   --st-body:   #3A3631;
 }
 
 body {
   font-family: var(--f-body) !important;
-  background: var(--st-white) !important;
+  background: var(--st-bg) !important;
   color: var(--st-black) !important;
 }
 
@@ -32,7 +36,7 @@ body {
 /* ── NAVBAR ───────────────────────────────────────────────── */
 .navbar {
   top: 0 !important;            /* override redesign.css offset */
-  background: rgba(255, 255, 255, 0.95) !important;
+  background: rgba(230, 236, 240, 0.92) !important;
   backdrop-filter: blur(12px) !important;
   -webkit-backdrop-filter: blur(12px) !important;
   border-bottom: 1px solid var(--st-rule) !important;
@@ -40,7 +44,7 @@ body {
 }
 
 .navbar.scrolled {
-  background: rgba(255, 255, 255, 0.97) !important;
+  background: rgba(230, 236, 240, 0.97) !important;
   box-shadow: none !important;
 }
 
@@ -111,7 +115,7 @@ body {
   border-radius: 0 !important;
   border: 1px solid var(--st-rule) !important;
   box-shadow: 0 8px 24px rgba(13, 12, 11, 0.09) !important;
-  background: var(--st-white) !important;
+  background: var(--st-bg) !important;
 }
 .dropdown-menu a {
   font-family: var(--f-body) !important;
@@ -123,17 +127,17 @@ body {
 }
 .dropdown-menu a:hover {
   color: var(--st-accent) !important;
-  background: rgba(79, 98, 248, 0.06) !important;
+  background: rgba(66, 121, 224, 0.06) !important;
 }
 
 /* Mobile menu */
 .nav-links {
-  background: var(--st-white) !important;
+  background: var(--st-bg) !important;
 }
 
 /* ── SUBNAV (About sub-pages) ────────────────────────────── */
 .subnav {
-  background: var(--st-white) !important;
+  background: var(--st-bg) !important;
   border-bottom: 1px solid var(--st-rule) !important;
   border-radius: 0 !important;
   padding: 0 52px !important;
@@ -167,7 +171,7 @@ body {
 
 /* hd-themed-surface: strip orbs, rounded corners, warm gradient */
 .hd-themed-surface {
-  background: var(--st-white) !important;
+  background: var(--st-bg) !important;
   border-radius: 0 !important;
   margin: 0 !important;
   padding: 80px 56px !important;
@@ -177,7 +181,7 @@ body {
 
 /* About hero surface */
 .about-hero-section {
-  background: var(--st-white) !important;
+  background: var(--st-bg) !important;
   border-radius: 0 !important;
   margin: 0 !important;
 }
@@ -186,14 +190,14 @@ body {
 
 /* Team section modern — strip orbs */
 .team-section-modern {
-  background: var(--st-white) !important;
+  background: var(--st-bg) !important;
   border-radius: 0 !important;
   margin: 0 !important;
 }
 .team-section-modern-bg { display: none !important; }
 
 /* Programs page wrapper */
-.programs-page { background: var(--st-white) !important; }
+.programs-page { background: var(--st-bg) !important; }
 
 /* Footer top margin reset (home connect section handles spacing) */
 .footer { margin-top: 0 !important; }
@@ -259,8 +263,10 @@ body {
 .programs-features__header { margin-bottom: 56px !important; }
 
 .programs-feature-card {
+  display: flex !important;
+  flex-direction: column !important;
   border-radius: 0 !important;
-  background: var(--st-white) !important;
+  background: var(--st-bg) !important;
   border: 1px solid var(--st-rule) !important;
   box-shadow: none !important;
   padding: 0 !important;
@@ -476,7 +482,7 @@ body {
 }
 
 .about-cta-button {
-  background: var(--st-white) !important;
+  background: var(--st-bg) !important;
   color: var(--st-accent) !important;
   border-radius: 0 !important;
   border: none !important;
@@ -535,7 +541,7 @@ body {
   background: none !important;
   border-left-color: var(--st-accent) !important;
 }
-.feature-step-item:hover { background: rgba(79, 98, 248, 0.04) !important; }
+.feature-step-item:hover { background: rgba(66, 121, 224, 0.04) !important; }
 
 .feature-step-copy h3 {
   font-family: var(--f-disp) !important;
@@ -558,10 +564,15 @@ body {
   box-shadow: none !important;
 }
 
+.feature-step-row__image {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
 /* ── TEAM CARDS ──────────────────────────────────────────── */
 .hd-card {
   border-radius: 0 !important;
-  background: var(--st-white) !important;
+  background: var(--st-bg) !important;
   border: 1px solid var(--st-rule) !important;
   box-shadow: none !important;
 }
@@ -703,7 +714,7 @@ body {
 /* ── CONTACT PAGE ────────────────────────────────────────── */
 .ct-page {
   min-height: 100vh;
-  background: var(--st-white);
+  background: var(--st-bg);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -731,12 +742,11 @@ body {
 }
 
 .ct-logo {
-  width: 36px;
-  height: 36px;
+  width: 48px;
+  height: 48px;
   object-fit: contain;
-  filter: brightness(0) invert(1);
-  opacity: 0.7;
-  margin-bottom: 48px;
+  margin-bottom: 40px;
+  flex-shrink: 0;
 }
 
 .ct-eyebrow {
@@ -745,7 +755,7 @@ body {
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--st-accent);
+  color: var(--st-accent-sky);
   margin-bottom: 20px;
   display: flex;
   align-items: center;
@@ -756,7 +766,7 @@ body {
   display: block;
   width: 24px;
   height: 1px;
-  background: var(--st-accent);
+  background: linear-gradient(90deg, var(--st-accent), var(--st-accent-sky));
 }
 
 .ct-heading {
@@ -769,7 +779,13 @@ body {
   color: var(--st-white);
   margin-bottom: 24px;
 }
-.ct-heading-accent { color: var(--st-accent); }
+.ct-heading-accent {
+  display: inline-block;
+  background: linear-gradient(90deg, var(--st-accent) 0%, var(--st-accent-sky) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
 
 .ct-lead {
   font-family: var(--f-body);
@@ -789,8 +805,8 @@ body {
 .ct-email-icon {
   width: 40px;
   height: 40px;
-  background: rgba(79, 98, 248, 0.2);
-  color: var(--st-accent);
+  background: rgba(93, 160, 230, 0.18);
+  color: var(--st-accent-sky);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -814,9 +830,9 @@ body {
 }
 .ct-email-link:hover { color: var(--st-white); }
 
-/* White right panel */
+/* Form panel */
 .ct-panel-form {
-  background: var(--st-white);
+  background: var(--st-bg);
   padding: 52px 48px;
   border-left: 1px solid var(--st-rule);
   display: flex;
@@ -856,7 +872,7 @@ body {
   font-size: 15px;
   font-weight: 400;
   color: var(--st-black);
-  background: var(--st-white);
+  background: var(--st-bg);
   border: 1px solid var(--st-rule);
   border-radius: 0;
   padding: 12px 14px;
@@ -866,7 +882,7 @@ body {
   -webkit-appearance: none;
 }
 .ct-input::placeholder { color: var(--st-muted); }
-.ct-input:focus { border-color: var(--st-accent); box-shadow: 0 0 0 3px rgba(79, 98, 248, 0.12); }
+.ct-input:focus { border-color: var(--st-accent); box-shadow: 0 0 0 3px rgba(66, 121, 224, 0.12); }
 .ct-input-error { border-color: #e53e3e !important; }
 .ct-textarea { resize: none; min-height: 140px; }
 
@@ -929,7 +945,7 @@ body {
 .ct-success-icon {
   width: 72px;
   height: 72px;
-  background: rgba(79, 98, 248, 0.1);
+  background: rgba(66, 121, 224, 0.1);
   color: var(--st-accent);
   display: flex;
   align-items: center;
@@ -969,7 +985,7 @@ body {
   min-height: 60vh;
   text-align: center;
   padding: 80px 24px;
-  background: var(--st-white);
+  background: var(--st-bg);
 }
 .nf-num {
   font-family: var(--f-disp);
@@ -1026,17 +1042,18 @@ body {
 }
 
 /* ── Page wrappers ───────────────────────────────────────── */
-.page-content    { background: var(--st-white) !important; }
-.about-page      { background: var(--st-white) !important; }
-.get-involved-page { background: var(--st-white) !important; }
+.page-content    { background: var(--st-bg) !important; }
+.about-page      { background: var(--st-bg) !important; }
+.get-involved-page { background: var(--st-bg) !important; }
 
 /* ── GET INVOLVED linktree wrap spacing ──────────────────── */
 .get-involved-linktree-wrap { margin-bottom: 40px !important; }
 
 /* ── BUTTON component (shadcn/ui base, used in Contact, etc.) */
-/* The Button component uses bg-[#4F62F8] already via className — just remove rounding */
+/* Structural pages: square buttons; Get Involved links are Next <Link>, not <button> */
 .programs-feature-card .hm-btn,
-.programs-feature-card a[href] > button {
+.programs-feature-card a[href] > button,
+.get-involved-page .programs-feature-card a.inline-flex {
   border-radius: 0 !important;
 }
 

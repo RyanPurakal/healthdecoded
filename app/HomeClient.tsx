@@ -37,6 +37,7 @@ export default function HomeClient() {
           <p className="hm-eyebrow">Health Decoded Initiative</p>
 
           <h1 className="hm-h1">
+            <span className="sr-only">Health Decoded Initiative — </span>
             Health<br />
             Education,<br />
             Decoded<br />
@@ -63,11 +64,11 @@ export default function HomeClient() {
         {/* Right — full-bleed photo */}
         <div className="hm-hero-photo">
           <img
-            src="/images/events/uploaded/community-01.png"
-            alt="Youth participating at a Health Decoded community event"
+            src="/images/hero-home-students.png"
+            alt="Students smiling together at a Health Decoded classroom session"
             onError={(e) => {
               (e.currentTarget as HTMLImageElement).src =
-                '/images/events/uploaded/community-03.png';
+                '/images/events/uploaded/community-01.png';
             }}
           />
         </div>

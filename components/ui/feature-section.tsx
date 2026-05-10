@@ -1,9 +1,8 @@
-// FeatureSteps: a hover-driven step-through component — hovering a milestone in the left list swaps the right-panel image with an animated flip; used on the Our Story page.
+// FeatureSteps: Our Story — each milestone is a row; text and image share the row height (paired layout).
 'use client';
 
-import { useState } from 'react';
 import { Sparkles } from 'lucide-react';
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 
 const defaultFeatures = [
   {
@@ -51,14 +50,13 @@ export function FeatureSteps({
   features = defaultFeatures,
   className = '',
   title = 'Our Story',
-  imageHeight = 'feature-steps-image',
+  imageHeight = 'feature-steps-story-image',
 }: {
   features?: Feature[];
   className?: string;
   title?: string;
   imageHeight?: string;
 }) {
-  const [currentFeature, setCurrentFeature] = useState(0);
   const reduce = useReducedMotion();
 
   const titleWords = title.trim().split(/\s+/);
@@ -84,70 +82,39 @@ export function FeatureSteps({
             )}
           </h2>
           <p className="feature-steps-subtitle team-section-modern-subtitle">
-            Hover over each milestone to move through the story behind the organization.
+            Each chapter pairs a milestone with a visual from the journey behind the organization.
           </p>
         </div>
 
-        <div className="feature-steps-grid">
-          <div className="feature-steps-list">
-            {features.map((feature, index) => (
-              <motion.div
-                key={feature.step}
-                className={`feature-step-item ${index === currentFeature ? 'active' : ''}`}
-                initial={{ opacity: 0.35 }}
-                animate={{ opacity: index === currentFeature ? 1 : 0.35 }}
-                transition={{ duration: reduce ? 0 : 0.45 }}
-                onMouseEnter={() => setCurrentFeature(index)}
-                onFocus={() => setCurrentFeature(index)}
-                tabIndex={0}
-              >
-                <div className={`feature-step-badge ${index <= currentFeature ? 'done' : ''}`}>
-                  {index <= currentFeature ? '✓' : index + 1}
-                </div>
-
+        <div className="feature-steps-pairs">
+          {features.map((feature, index) => (
+            <motion.article
+              key={feature.step}
+              className="feature-step-row"
+              initial={reduce ? false : { opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-48px' }}
+              transition={{ duration: 0.42, delay: index * 0.05 }}
+            >
+              <div className="feature-step-item feature-step-item--paired">
+                <div className="feature-step-badge">{index + 1}</div>
                 <div className="feature-step-copy">
                   <h3>{feature.title || feature.step}</h3>
                   <p>{feature.content}</p>
                 </div>
-              </motion.div>
-            ))}
-          </div>
-
-          <div className="feature-steps-image-panel">
-            <AnimatePresence mode="wait">
-              {features.map(
-                (feature, index) =>
-                  index === currentFeature && (
-                    <motion.div
-                      key={feature.step}
-                      className="feature-steps-image-card"
-                      {...(reduce
-                        ? {
-                            initial: { opacity: 0 },
-                            animate: { opacity: 1 },
-                            exit: { opacity: 0 },
-                            transition: { duration: 0.2 },
-                          }
-                        : {
-                            initial: { y: 80, opacity: 0, rotateX: -18 },
-                            animate: { y: 0, opacity: 1, rotateX: 0 },
-                            exit: { y: -80, opacity: 0, rotateX: 18 },
-                            transition: { duration: 0.5, ease: 'easeInOut' as const },
-                          })}
-                    >
-                      <img
-                        src={feature.image}
-                        alt={feature.step}
-                        className={imageHeight}
-                        loading="lazy"
-                        decoding="async"
-                      />
-                      <div className="feature-steps-image-overlay" />
-                    </motion.div>
-                  ),
-              )}
-            </AnimatePresence>
-          </div>
+              </div>
+              <div className="feature-step-row__image">
+                <img
+                  src={feature.image}
+                  alt={feature.title || feature.step}
+                  className={imageHeight}
+                  loading="lazy"
+                  decoding="async"
+                />
+                <div className="feature-steps-image-overlay" aria-hidden />
+              </div>
+            </motion.article>
+          ))}
         </div>
       </div>
     </div>

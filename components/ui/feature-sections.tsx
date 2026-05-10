@@ -25,8 +25,8 @@ export default function ProgramsFeatureSections() {
           </div>
 
           <StaggerFadeContainer className="programs-features__grid">
-            <StaggerFadeItem>
-              <article className="programs-feature-card">
+            <StaggerFadeItem className="h-full min-w-0">
+              <article className="programs-feature-card h-full">
                 <div className="programs-feature-card__image-wrapper">
                   <img
                     src="/images/events/workshop-opqrst.png"
@@ -55,12 +55,12 @@ export default function ProgramsFeatureSections() {
               </article>
             </StaggerFadeItem>
 
-            <StaggerFadeItem>
-              <article className="programs-feature-card">
+            <StaggerFadeItem className="h-full min-w-0">
+              <article className="programs-feature-card h-full">
                 <div className="programs-feature-card__image-wrapper">
                   <img
-                    src="/images/events/workshop-ehealth.png"
-                    alt="Peer ambassadors leading a discussion"
+                    src="/images/events/real/peer-ambassador-students.png"
+                    alt="Students smiling together in a Health Decoded classroom session"
                     className="programs-feature-card__image"
                     loading="lazy"
                     decoding="async"
