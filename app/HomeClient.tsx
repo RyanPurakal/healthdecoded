@@ -31,48 +31,48 @@ export default function HomeClient() {
 
       {/* ── HERO ─────────────────────────────────────────────── */}
       <section className="hm-hero" aria-label="Hero">
-
-        {/* Left — dark panel with headline */}
-        <div className="hm-hero-dark">
-          <p className="hm-eyebrow">Health Decoded Initiative</p>
-
-          <h1 className="hm-h1">
-            <span className="sr-only">Health Decoded Initiative — </span>
-            Health<br />
-            Education,<br />
-            Decoded<br />
-            For{' '}
-            <span className="hm-accent-word">Youth.</span>
-          </h1>
-
-          <p className="hm-hero-sub">
-            Building an international community of youth using health education to change the world
-          </p>
-
-          <div className="hm-hero-ctas">
-            <Link href="/programs" className="hm-btn hm-btn-filled">
-              Explore our programs
-              <span className="hm-btn-arrow" aria-hidden="true">→</span>
-            </Link>
-            <Link href="/get-involved" className="hm-btn hm-btn-ghost">
-              Get involved
-              <span className="hm-btn-arrow" aria-hidden="true">→</span>
-            </Link>
-          </div>
-        </div>
-
-        {/* Right — full-bleed photo */}
-        <div className="hm-hero-photo">
+        {/* Full-width photo (mirrored so classroom focal point reads right) */}
+        <div className="hm-hero-bg" aria-hidden="true">
           <img
-            src="/images/hero-home-students.png"
-            alt="Students smiling together at a Health Decoded classroom session"
-            onError={(e) => {
-              (e.currentTarget as HTMLImageElement).src =
-                '/images/events/uploaded/community-01.png';
-            }}
+            className="hm-hero-bg-img hm-hero-bg-img--flip"
+            src="/images/hero-home-classroom-session.png"
+            alt=""
           />
         </div>
 
+        <div className="hm-hero-inner">
+          {/* Left — translucent panel; photo shows through */}
+          <div className="hm-hero-dark">
+            <p className="hm-eyebrow">Health Decoded Initiative</p>
+
+            <h1 className="hm-h1">
+              <span className="sr-only">Health Decoded Initiative — </span>
+              Health<br />
+              Education,<br />
+              Decoded<br />
+              For{' '}
+              <span className="hm-accent-word">Youth.</span>
+            </h1>
+
+            <p className="hm-hero-sub">
+              Building an international community of youth using health education to change the world
+            </p>
+
+            <div className="hm-hero-ctas">
+              <Link href="/programs" className="hm-btn hm-btn-filled">
+                Explore our programs
+                <span className="hm-btn-arrow" aria-hidden="true">→</span>
+              </Link>
+              <Link href="/get-involved" className="hm-btn hm-btn-ghost">
+                Get involved
+                <span className="hm-btn-arrow" aria-hidden="true">→</span>
+              </Link>
+            </div>
+          </div>
+
+          {/* Right — unobstructed photo (same image continues beneath) */}
+          <div className="hm-hero-clear" aria-hidden="true" />
+        </div>
       </section>
 
       {/* ── IMPACT ───────────────────────────────────────────── */}
