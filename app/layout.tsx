@@ -6,6 +6,8 @@ import './globals.css';
 import './site-theme.css';
 
 export const metadata = {
+  /** Shown in browser/app UI where supported (tabs, Add to Home Screen, some pickers) */
+  applicationName: 'Health Decoded',
   title: {
     default:
       'Health Decoded Initiative — Youth health education nonprofit',
@@ -35,6 +37,9 @@ export const metadata = {
   robots: 'index, follow',
   manifest: '/manifest.json',
   metadataBase: new URL('https://healthdecodedinitiative.org'),
+  appleWebApp: {
+    title: 'Health Decoded',
+  },
 };
 
 export const viewport = {
