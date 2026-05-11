@@ -46,12 +46,14 @@ export default function HomeClient() {
             <p className="hm-eyebrow">Health Decoded Initiative</p>
 
             <h1 className="hm-h1">
-              <span className="sr-only">Health Decoded Initiative — </span>
-              Health<br />
-              Education,<br />
-              Decoded<br />
-              For{' '}
-              <span className="hm-accent-word">Youth.</span>
+              <span className="hm-h1-site-name">Health Decoded</span>
+              <span className="hm-h1-display-lines">
+                Health<br />
+                Education,<br />
+                Decoded<br />
+                For{' '}
+                <span className="hm-accent-word">Youth.</span>
+              </span>
             </h1>
 
             <p className="hm-hero-sub">

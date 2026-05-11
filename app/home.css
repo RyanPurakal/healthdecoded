@@ -134,12 +134,32 @@
   font-weight: 900;
   line-height: 0.9;
   letter-spacing: -0.01em;
-  text-transform: uppercase;
+  text-transform: none;
   color: var(--hm-white);
   margin-bottom: 44px;
   position: relative;
   z-index: 1;
   animation: hmSlide 0.85s var(--ease-out) 0.18s both;
+}
+
+/* Visible brand string for crawlers and users (title case, not all-caps) */
+.hm-h1-site-name {
+  display: block;
+  font-size: clamp(32px, 5vw, 52px);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  text-transform: none;
+  color: var(--hm-white);
+  margin-bottom: 0.28em;
+}
+
+.hm-h1-display-lines {
+  display: block;
+  text-transform: uppercase;
+  font-size: clamp(76px, 8.5vw, 140px);
+  line-height: 0.9;
+  letter-spacing: -0.01em;
 }
 
 /* Accent headline — matches “Health Education” wordmark gradient */

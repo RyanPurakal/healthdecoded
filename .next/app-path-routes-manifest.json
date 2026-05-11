@@ -1,12 +1,12 @@
 {
   "/_not-found/page": "/_not-found",
   "/robots.txt/route": "/robots.txt",
+  "/about/page": "/about",
   "/page": "/",
   "/get-involved/page": "/get-involved",
   "/programs/page": "/programs",
-  "/about/team/page": "/about/team",
   "/about/us/page": "/about/us",
+  "/about/team/page": "/about/team",
   "/about/story/page": "/about/story",
-  "/about/page": "/about",
   "/contact/page": "/contact"
 }

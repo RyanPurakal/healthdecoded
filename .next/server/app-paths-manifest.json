@@ -1,12 +1,12 @@
 {
   "/_not-found/page": "app/_not-found/page.js",
   "/robots.txt/route": "app/robots.txt/route.js",
+  "/about/page": "app/about/page.js",
   "/page": "app/page.js",
   "/get-involved/page": "app/get-involved/page.js",
   "/programs/page": "app/programs/page.js",
-  "/about/team/page": "app/about/team/page.js",
   "/about/us/page": "app/about/us/page.js",
+  "/about/team/page": "app/about/team/page.js",
   "/about/story/page": "app/about/story/page.js",
-  "/about/page": "app/about/page.js",
   "/contact/page": "app/contact/page.js"
 }
