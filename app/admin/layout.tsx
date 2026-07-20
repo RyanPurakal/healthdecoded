@@ -13,7 +13,20 @@ export default async function AdminLayout({ children }: { children: ReactNode })
 
   if (!user) redirect('/login?next=/admin');
 
-  const { data: profile } = await supabase.from('profiles').select('role').eq('id', user.id).single();
+  const { data: profile, error: profileError } = await supabase
+    .from('profiles')
+    .select('role')
+    .eq('id', user.id)
+    .single();
+
+  // TEMP DIAGNOSTIC — remove once the role bug is confirmed fixed.
+  console.log('[admin layout role check]', {
+    userId: user.id,
+    email: user.email,
+    profile,
+    profileError,
+  });
+
   if (profile?.role !== 'admin') redirect('/dashboard');
 
   return (

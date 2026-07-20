@@ -5,9 +5,20 @@ import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
+import { signOut } from '@/app/auth/actions';
 import type { FocusEvent, MouseEvent as ReactMouseEvent } from 'react';
 
-export default function Navbar({ onDonateClick }: { onDonateClick: () => void }) {
+export type NavAuthState =
+  | { signedIn: false }
+  | { signedIn: true; firstName: string; avatarUrl: string | null };
+
+export default function Navbar({
+  onDonateClick,
+  authState,
+}: {
+  onDonateClick: () => void;
+  authState: NavAuthState;
+}) {
   const [aboutDropdown, setAboutDropdown] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -102,7 +113,26 @@ export default function Navbar({ onDonateClick }: { onDonateClick: () => void })
           <Link href="/events" className={isEventsPage ? 'active' : ''} onClick={closeMobileMenu}>Events</Link>
           <Link href="/news" className={isNewsPage ? 'active' : ''} onClick={closeMobileMenu}>News</Link>
           <Link href="/contact" className={isContactPage ? 'active' : ''} onClick={closeMobileMenu}>Contact</Link>
-          <Link href="/login" className={pathname?.startsWith('/dashboard') || pathname === '/login' ? 'active' : ''} onClick={closeMobileMenu}>Sign In</Link>
+          {authState.signedIn ? (
+            <div className="nav-auth-group">
+              <Link
+                href="/profile"
+                className={`nav-greeting ${pathname?.startsWith('/profile') ? 'active' : ''}`}
+                onClick={closeMobileMenu}
+              >
+                {authState.avatarUrl && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={authState.avatarUrl} alt="" className="nav-avatar" />
+                )}
+                Hi, {authState.firstName}
+              </Link>
+              <form action={signOut}>
+                <button type="submit" className="nav-signout-link">Sign out</button>
+              </form>
+            </div>
+          ) : (
+            <Link href="/login" className={pathname === '/login' ? 'active' : ''} onClick={closeMobileMenu}>Sign In</Link>
+          )}
           <Button
             className="donate-nav-button !rounded-full shadow-md"
             onClick={(e: ReactMouseEvent<HTMLButtonElement>) => {

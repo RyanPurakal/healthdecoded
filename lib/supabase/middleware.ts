@@ -2,7 +2,7 @@ import { createServerClient } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
 import type { Database } from '@/types/database';
 
-const PROTECTED_PREFIXES = ['/dashboard', '/admin'];
+const PROTECTED_PREFIXES = ['/dashboard', '/admin', '/profile'];
 
 export async function updateSession(request: NextRequest) {
   let response = NextResponse.next({ request });
@@ -42,11 +42,19 @@ export async function updateSession(request: NextRequest) {
   }
 
   if (path.startsWith('/admin') && user) {
-    const { data: profile } = await supabase
+    const { data: profile, error: profileError } = await supabase
       .from('profiles')
       .select('role')
       .eq('id', user.id)
       .single();
+
+    // TEMP DIAGNOSTIC — remove once the role bug is confirmed fixed.
+    console.log('[middleware /admin check]', {
+      userId: user.id,
+      email: user.email,
+      profile,
+      profileError,
+    });
 
     if (profile?.role !== 'admin') {
       return NextResponse.redirect(new URL('/dashboard', request.url));

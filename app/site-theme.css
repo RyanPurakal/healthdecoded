@@ -89,6 +89,37 @@ body {
   background-image: none !important;
 }
 
+/* Signed-in nav greeting + sign-out */
+.nav-auth-group {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+}
+.nav-greeting {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+.nav-avatar {
+  width: 22px !important;
+  height: 22px !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+}
+.nav-signout-link {
+  font-family: var(--f-body) !important;
+  font-size: 11.5px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.09em !important;
+  text-transform: uppercase !important;
+  color: var(--st-muted) !important;
+  background: none !important;
+  border: none !important;
+  cursor: pointer !important;
+  padding: 0 !important;
+}
+.nav-signout-link:hover { color: var(--st-black) !important; }
+
 /* Donate button — rectangular, no pill */
 .donate-nav-button {
   border-radius: 0 !important;

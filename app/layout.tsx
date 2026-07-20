@@ -3,6 +3,8 @@ import type { Metadata, Viewport } from 'next';
 import type { ReactNode } from 'react';
 import { AnalyticsScript, StructuredData } from './AnalyticsScript';
 import { ClientLayout } from './ClientLayout';
+import { createClient } from '@/lib/supabase/server';
+import type { NavAuthState } from '@/components/Navbar';
 import './globals.css';
 import './site-theme.css';
 import './hd-app.css';
@@ -60,7 +62,28 @@ export const viewport: Viewport = {
   themeColor: '#e6ecf0',
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+async function getNavAuthState(): Promise<NavAuthState> {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) return { signedIn: false };
+
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select('full_name, avatar_url')
+    .eq('id', user.id)
+    .single();
+
+  const firstName = profile?.full_name?.trim().split(/\s+/)[0] || user.email?.split('@')[0] || 'there';
+
+  return { signedIn: true, firstName, avatarUrl: profile?.avatar_url ?? null };
+}
+
+export default async function RootLayout({ children }: { children: ReactNode }) {
+  const authState = await getNavAuthState();
+
   return (
     <html lang="en">
       <head>
@@ -73,7 +96,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <link rel="apple-touch-icon" href="/logo192.png" />
       </head>
       <body>
-        <ClientLayout>{children}</ClientLayout>
+        <ClientLayout authState={authState}>{children}</ClientLayout>
       </body>
     </html>
   );

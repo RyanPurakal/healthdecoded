@@ -19,7 +19,7 @@ export default async function DashboardPage() {
 
   if (!user) return null;
 
-  const [{ data: profile }, { data: registrations }, { data: activity }] = await Promise.all([
+  const [{ data: profile, error: profileError }, { data: registrations }, { data: activity }] = await Promise.all([
     supabase.from('profiles').select('*').eq('id', user.id).single(),
     supabase
       .from('event_registrations')
@@ -33,6 +33,14 @@ export default async function DashboardPage() {
       .order('created_at', { ascending: false })
       .limit(20),
   ]);
+
+  // TEMP DIAGNOSTIC — remove once the role bug is confirmed fixed.
+  console.log('[dashboard role display]', {
+    userId: user.id,
+    email: user.email,
+    profile,
+    profileError,
+  });
 
   const typedRegistrations = (registrations ?? []) as unknown as RegistrationWithEvent[];
   const typedActivity = (activity ?? []) as ActivityLog[];
