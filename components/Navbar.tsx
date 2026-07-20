@@ -39,6 +39,8 @@ export default function Navbar({ onDonateClick }: { onDonateClick: () => void })
   const isProgramsPage = pathname === '/programs';
   const isGetInvolvedPage = pathname === '/get-involved';
   const isContactPage = pathname === '/contact';
+  const isEventsPage = pathname?.startsWith('/events');
+  const isNewsPage = pathname?.startsWith('/news');
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
@@ -97,7 +99,10 @@ export default function Navbar({ onDonateClick }: { onDonateClick: () => void })
           </div>
           <Link href="/programs" className={isProgramsPage ? 'active' : ''} onClick={closeMobileMenu}>Programs</Link>
           <Link href="/get-involved" className={isGetInvolvedPage ? 'active' : ''} onClick={closeMobileMenu}>Get Involved</Link>
+          <Link href="/events" className={isEventsPage ? 'active' : ''} onClick={closeMobileMenu}>Events</Link>
+          <Link href="/news" className={isNewsPage ? 'active' : ''} onClick={closeMobileMenu}>News</Link>
           <Link href="/contact" className={isContactPage ? 'active' : ''} onClick={closeMobileMenu}>Contact</Link>
+          <Link href="/login" className={pathname?.startsWith('/dashboard') || pathname === '/login' ? 'active' : ''} onClick={closeMobileMenu}>Sign In</Link>
           <Button
             className="donate-nav-button !rounded-full shadow-md"
             onClick={(e: ReactMouseEvent<HTMLButtonElement>) => {

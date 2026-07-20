@@ -5,6 +5,7 @@ import { AnalyticsScript, StructuredData } from './AnalyticsScript';
 import { ClientLayout } from './ClientLayout';
 import './globals.css';
 import './site-theme.css';
+import './hd-app.css';
 
 const SITE = 'https://healthdecodedinitiative.org';
 const BRAND = 'Health Decoded';
