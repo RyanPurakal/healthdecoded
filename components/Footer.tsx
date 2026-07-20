@@ -10,7 +10,9 @@ export default function Footer() {
         <div className="footer-section">
           <h4>Health Decoded</h4>
           <p>
-            Building an international community of youth using health education to change the world.
+            Health Decoded is a nonprofit platform that teaches youth to understand and navigate
+            the healthcare system. We&apos;re building an international community of young people
+            using health education to change the world.
           </p>
         </div>
 
