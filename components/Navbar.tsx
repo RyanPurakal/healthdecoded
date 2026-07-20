@@ -116,6 +116,13 @@ export default function Navbar({
           {authState.signedIn ? (
             <div className="nav-auth-group">
               <Link
+                href="/dashboard"
+                className={pathname?.startsWith('/dashboard') ? 'active' : ''}
+                onClick={closeMobileMenu}
+              >
+                Dashboard
+              </Link>
+              <Link
                 href="/profile"
                 className={`nav-greeting ${pathname?.startsWith('/profile') ? 'active' : ''}`}
                 onClick={closeMobileMenu}
