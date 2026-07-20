@@ -8,6 +8,8 @@ const LINKS = [
   { href: '/admin/events', label: 'Events' },
   { href: '/admin/news', label: 'News' },
   { href: '/admin/registrations', label: 'Registrations' },
+  { href: '/admin/users', label: 'Users' },
+  { href: '/admin/deletion-requests', label: 'Deletion Requests' },
 ];
 
 export default function AdminNav() {

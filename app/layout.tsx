@@ -36,6 +36,11 @@ export const metadata: Metadata = {
     icon: [{ url: '/favicon.ico', sizes: 'any' }],
     apple: [{ url: '/logo192.png', sizes: '192x192', type: 'image/png' }],
   },
+  alternates: {
+    types: {
+      'application/rss+xml': [{ url: '/news/feed.xml', title: `${BRAND} News` }],
+    },
+  },
   openGraph: {
     type: 'website',
     locale: 'en_US',

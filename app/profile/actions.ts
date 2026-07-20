@@ -74,3 +74,66 @@ export async function updateProfile(formData: FormData): Promise<{ error?: strin
 
   return {};
 }
+
+export async function exportMyData(): Promise<{ data?: string; error?: string }> {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return { error: 'You must be signed in.' };
+  }
+
+  // Every query below is scoped to the server-verified user.id from
+  // auth.getUser() — never anything client-supplied.
+  const [{ data: profile }, { data: registrations }, { data: activity }] = await Promise.all([
+    supabase.from('profiles').select('*').eq('id', user.id).single(),
+    supabase.from('event_registrations').select('*').eq('user_id', user.id),
+    supabase.from('activity_logs').select('*').eq('user_id', user.id),
+  ]);
+
+  const payload = {
+    exported_at: new Date().toISOString(),
+    account: { id: user.id, email: user.email },
+    profile,
+    event_registrations: registrations ?? [],
+    activity_logs: activity ?? [],
+  };
+
+  return { data: JSON.stringify(payload, null, 2) };
+}
+
+export async function requestAccountDeletion(): Promise<{ error?: string; alreadyPending?: boolean }> {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return { error: 'You must be signed in.' };
+  }
+
+  const { data: existing } = await supabase
+    .from('deletion_requests')
+    .select('id')
+    .eq('user_id', user.id)
+    .eq('status', 'pending')
+    .maybeSingle();
+
+  if (existing) {
+    return { alreadyPending: true };
+  }
+
+  const { error } = await supabase.from('deletion_requests').insert({
+    user_id: user.id,
+    user_email: user.email ?? '',
+  });
+
+  if (error) {
+    return { error: 'Could not submit deletion request.' };
+  }
+
+  revalidatePath('/profile');
+  return {};
+}

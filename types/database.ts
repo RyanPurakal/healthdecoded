@@ -1,6 +1,7 @@
 export type UserRole = 'ambassador' | 'volunteer' | 'admin';
 export type RegistrationStatus = 'registered' | 'attended' | 'cancelled';
 export type NewsPostStatus = 'draft' | 'published';
+export type DeletionRequestStatus = 'pending' | 'completed';
 
 export type Profile = {
   id: string;
@@ -49,6 +50,15 @@ export type NewsPost = {
   author_id: string | null;
   published_at: string | null;
   created_at: string;
+};
+
+export type DeletionRequest = {
+  id: string;
+  user_id: string;
+  user_email: string;
+  requested_at: string;
+  status: DeletionRequestStatus;
+  notes: string | null;
 };
 
 export type Database = {
@@ -116,6 +126,20 @@ export type Database = {
           {
             foreignKeyName: 'news_posts_author_id_fkey';
             columns: ['author_id'];
+            isOneToOne: false;
+            referencedRelation: 'profiles';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      deletion_requests: {
+        Row: DeletionRequest;
+        Insert: Partial<DeletionRequest> & { user_id: string; user_email: string };
+        Update: Partial<DeletionRequest>;
+        Relationships: [
+          {
+            foreignKeyName: 'deletion_requests_user_id_fkey';
+            columns: ['user_id'];
             isOneToOne: false;
             referencedRelation: 'profiles';
             referencedColumns: ['id'];

@@ -18,7 +18,12 @@ export default async function AdminRegistrationsPage() {
 
   return (
     <div className="hd-app-card">
-      <p className="hd-app-card-title">All Registrations</p>
+      <div className="hd-app-row" style={{ borderBottom: 'none', paddingTop: 0 }}>
+        <p className="hd-app-card-title" style={{ marginBottom: 0 }}>All Registrations</p>
+        <a href="/admin/registrations/export" className="ct-btn ct-btn-outline">
+          Export CSV
+        </a>
+      </div>
       {registrations.length === 0 ? (
         <p className="hd-app-empty">No registrations yet.</p>
       ) : (
