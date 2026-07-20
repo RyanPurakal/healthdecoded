@@ -73,6 +73,16 @@ export default async function DashboardPage() {
         </div>
 
         <div className="hd-app-card">
+          <p className="hd-app-card-title">Resources</p>
+          <div className="hd-app-row">
+            <span className="hd-app-row-title">Ambassador / Volunteer Handbook</span>
+            <a href="/handbook.pdf" target="_blank" rel="noopener noreferrer" className="ct-btn ct-btn-outline">
+              Open Handbook
+            </a>
+          </div>
+        </div>
+
+        <div className="hd-app-card">
           <p className="hd-app-card-title">Your Event Registrations</p>
           {typedRegistrations.length === 0 ? (
             <p className="hd-app-empty">
