@@ -89,12 +89,7 @@ body {
   background-image: none !important;
 }
 
-/* Signed-in nav greeting + sign-out */
-.nav-auth-group {
-  display: flex !important;
-  align-items: center !important;
-  gap: 10px !important;
-}
+/* Signed-in account dropdown — same trigger+dropdown pattern as About */
 .nav-greeting {
   display: flex !important;
   align-items: center !important;
@@ -106,19 +101,38 @@ body {
   border-radius: 50% !important;
   object-fit: cover !important;
 }
-.nav-signout-link {
-  font-family: var(--f-body) !important;
-  font-size: 11.5px !important;
-  font-weight: 600 !important;
-  letter-spacing: 0.09em !important;
-  text-transform: uppercase !important;
-  color: var(--st-muted) !important;
+
+/* Rightmost item in the nav — align the menu to the trigger's right edge
+   instead of its left, so it doesn't overflow past the viewport. */
+.nav-account-dropdown .dropdown-menu {
+  left: auto !important;
+  right: 0 !important;
+}
+
+/* Sign Out renders as a form button inside the dropdown; match it to the
+   existing .dropdown-menu a treatment exactly. */
+.dropdown-menu form {
+  margin: 0 !important;
+}
+.dropdown-menu button {
+  display: block !important;
+  width: 100% !important;
+  text-align: left !important;
   background: none !important;
   border: none !important;
   cursor: pointer !important;
-  padding: 0 !important;
+  padding: 1rem 1.5rem !important;
+  font-family: var(--f-body) !important;
+  font-size: 11.5px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  color: var(--st-muted) !important;
 }
-.nav-signout-link:hover { color: var(--st-black) !important; }
+.dropdown-menu button:hover {
+  color: var(--st-accent) !important;
+  background: rgba(66, 121, 224, 0.06) !important;
+}
 
 /* Donate button — rectangular, no pill */
 .donate-nav-button {

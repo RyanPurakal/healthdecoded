@@ -20,15 +20,20 @@ export default function Navbar({
   authState: NavAuthState;
 }) {
   const [aboutDropdown, setAboutDropdown] = useState(false);
+  const [accountDropdown, setAccountDropdown] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
+  const accountDropdownRef = useRef<HTMLDivElement | null>(null);
   const pathname = usePathname();
 
   useEffect(() => {
     const handleClickOutside = (event: globalThis.MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setAboutDropdown(false);
+      }
+      if (accountDropdownRef.current && !accountDropdownRef.current.contains(event.target as Node)) {
+        setAccountDropdown(false);
       }
     };
 
@@ -60,6 +65,7 @@ export default function Navbar({
   const closeMobileMenu = () => {
     setMobileMenuOpen(false);
     setAboutDropdown(false);
+    setAccountDropdown(false);
   };
 
   return (
@@ -114,18 +120,24 @@ export default function Navbar({
           <Link href="/news" className={isNewsPage ? 'active' : ''} onClick={closeMobileMenu}>News</Link>
           <Link href="/contact" className={isContactPage ? 'active' : ''} onClick={closeMobileMenu}>Contact</Link>
           {authState.signedIn ? (
-            <div className="nav-auth-group">
-              <Link
-                href="/dashboard"
-                className={pathname?.startsWith('/dashboard') ? 'active' : ''}
-                onClick={closeMobileMenu}
-              >
-                Dashboard
-              </Link>
+            <div
+              className="nav-dropdown nav-account-dropdown"
+              ref={accountDropdownRef}
+              onMouseEnter={() => setAccountDropdown(true)}
+              onMouseLeave={() => setAccountDropdown(false)}
+              onFocus={() => setAccountDropdown(true)}
+              onBlur={(e: FocusEvent<HTMLDivElement>) => {
+                if (!accountDropdownRef.current?.contains(e.relatedTarget as Node | null)) {
+                  setAccountDropdown(false);
+                }
+              }}
+            >
               <Link
                 href="/profile"
                 className={`nav-greeting ${pathname?.startsWith('/profile') ? 'active' : ''}`}
                 onClick={closeMobileMenu}
+                aria-haspopup="true"
+                aria-expanded={accountDropdown}
               >
                 {authState.avatarUrl && (
                   // eslint-disable-next-line @next/next/no-img-element
@@ -133,9 +145,13 @@ export default function Navbar({
                 )}
                 Hi, {authState.firstName}
               </Link>
-              <form action={signOut}>
-                <button type="submit" className="nav-signout-link">Sign out</button>
-              </form>
+              <div className={`dropdown-menu ${accountDropdown ? 'show' : ''}`}>
+                <Link href="/dashboard" onClick={closeMobileMenu}>Dashboard</Link>
+                <Link href="/profile" onClick={closeMobileMenu}>Profile</Link>
+                <form action={signOut}>
+                  <button type="submit">Sign Out</button>
+                </form>
+              </div>
             </div>
           ) : (
             <Link href="/login" className={pathname === '/login' ? 'active' : ''} onClick={closeMobileMenu}>Sign In</Link>
