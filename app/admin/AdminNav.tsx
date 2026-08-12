@@ -7,7 +7,10 @@ const LINKS = [
   { href: '/admin', label: 'Overview', exact: true },
   { href: '/admin/events', label: 'Events' },
   { href: '/admin/news', label: 'News' },
+  { href: '/admin/activities', label: 'Activities' },
+  { href: '/admin/badges', label: 'Badges' },
   { href: '/admin/registrations', label: 'Registrations' },
+  { href: '/admin/service-hours', label: 'Service Hours' },
   { href: '/admin/users', label: 'Users' },
   { href: '/admin/deletion-requests', label: 'Deletion Requests' },
 ];

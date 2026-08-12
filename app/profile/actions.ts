@@ -87,10 +87,11 @@ export async function exportMyData(): Promise<{ data?: string; error?: string }>
 
   // Every query below is scoped to the server-verified user.id from
   // auth.getUser() — never anything client-supplied.
-  const [{ data: profile }, { data: registrations }, { data: activity }] = await Promise.all([
+  const [{ data: profile }, { data: registrations }, { data: activity }, { data: hours }] = await Promise.all([
     supabase.from('profiles').select('*').eq('id', user.id).single(),
     supabase.from('event_registrations').select('*').eq('user_id', user.id),
     supabase.from('activity_logs').select('*').eq('user_id', user.id),
+    supabase.from('service_hours').select('*').eq('user_id', user.id),
   ]);
 
   const payload = {
@@ -99,9 +100,74 @@ export async function exportMyData(): Promise<{ data?: string; error?: string }>
     profile,
     event_registrations: registrations ?? [],
     activity_logs: activity ?? [],
+    service_hours: hours ?? [],
   };
 
   return { data: JSON.stringify(payload, null, 2) };
+}
+
+export async function submitServiceHours(formData: FormData): Promise<{ error?: string }> {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return { error: 'You must be signed in.' };
+  }
+
+  const hours = Number(formData.get('hours'));
+  const description = String(formData.get('description') ?? '').trim();
+
+  if (!Number.isFinite(hours) || hours <= 0) {
+    return { error: 'Enter a valid number of hours greater than zero.' };
+  }
+  if (!description) {
+    return { error: 'Please describe what you did.' };
+  }
+
+  // Inserts the caller's own row (auth.uid() = user_id), satisfying the
+  // "insert your own" RLS policy — no service role needed here.
+  const { error } = await supabase.from('service_hours').insert({
+    user_id: user.id,
+    hours,
+    description,
+    status: 'pending',
+  });
+
+  if (error) {
+    return { error: 'Could not submit your hours. Please try again.' };
+  }
+
+  revalidatePath('/profile');
+  revalidatePath('/admin/service-hours');
+  return {};
+}
+
+export async function setLeaderboardVisibility(show: boolean): Promise<{ error?: string }> {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return { error: 'You must be signed in.' };
+  }
+
+  // Only show_on_leaderboard is touched here — the user updating their own row
+  // satisfies profiles_update_own_or_admin. total_xp is never client-written.
+  const { error } = await supabase
+    .from('profiles')
+    .update({ show_on_leaderboard: show })
+    .eq('id', user.id);
+
+  if (error) {
+    return { error: 'Could not update your leaderboard setting.' };
+  }
+
+  revalidatePath('/profile');
+  revalidatePath('/leaderboard');
+  return {};
 }
 
 export async function requestAccountDeletion(): Promise<{ error?: string; alreadyPending?: boolean }> {

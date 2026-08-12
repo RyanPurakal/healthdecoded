@@ -28,7 +28,9 @@ async function uniqueSlug(
   return `${slug}-${Date.now()}`;
 }
 
-export async function createPost(formData: FormData) {
+export type NewsFormState = { error?: string } | null;
+
+export async function createPost(_prev: NewsFormState, formData: FormData): Promise<NewsFormState> {
   const supabase = await createClient();
   const {
     data: { user },
@@ -41,11 +43,13 @@ export async function createPost(formData: FormData) {
   const status = formData.get('status') === 'published' ? 'published' : 'draft';
   const slugInput = String(formData.get('slug') ?? '').trim();
 
-  if (!title || !body) return;
+  if (!title || !body) {
+    return { error: 'Title and body are required.' };
+  }
 
   const slug = await uniqueSlug(supabase, slugify(slugInput || title));
 
-  await supabase.from('news_posts').insert({
+  const { error } = await supabase.from('news_posts').insert({
     title,
     slug,
     body,
@@ -55,12 +59,20 @@ export async function createPost(formData: FormData) {
     published_at: status === 'published' ? new Date().toISOString() : null,
   });
 
+  if (error) {
+    return { error: 'Could not create the post. Please try again.' };
+  }
+
   revalidatePath('/admin/news');
   revalidatePath('/news');
   redirect('/admin/news');
 }
 
-export async function updatePost(postId: string, formData: FormData) {
+export async function updatePost(
+  postId: string,
+  _prev: NewsFormState,
+  formData: FormData
+): Promise<NewsFormState> {
   const supabase = await createClient();
 
   const title = String(formData.get('title') ?? '').trim();
@@ -69,7 +81,9 @@ export async function updatePost(postId: string, formData: FormData) {
   const status = formData.get('status') === 'published' ? 'published' : 'draft';
   const slugInput = String(formData.get('slug') ?? '').trim();
 
-  if (!title || !body) return;
+  if (!title || !body) {
+    return { error: 'Title and body are required.' };
+  }
 
   const { data: existing } = await supabase
     .from('news_posts')
@@ -85,7 +99,7 @@ export async function updatePost(postId: string, formData: FormData) {
   const publishedAt =
     status === 'published' ? existing?.published_at ?? new Date().toISOString() : existing?.published_at ?? null;
 
-  await supabase
+  const { error } = await supabase
     .from('news_posts')
     .update({
       title,
@@ -97,28 +111,47 @@ export async function updatePost(postId: string, formData: FormData) {
     })
     .eq('id', postId);
 
+  if (error) {
+    return { error: 'Could not save changes. Please try again.' };
+  }
+
   revalidatePath('/admin/news');
   revalidatePath('/news');
   revalidatePath(`/news/${slug}`);
   redirect('/admin/news');
 }
 
-export async function deletePost(postId: string) {
+export async function deletePost(postId: string): Promise<{ error?: string }> {
   const supabase = await createClient();
-  await supabase.from('news_posts').delete().eq('id', postId);
+  const { error } = await supabase.from('news_posts').delete().eq('id', postId);
+
+  if (error) {
+    return { error: 'Could not delete the post.' };
+  }
+
   revalidatePath('/admin/news');
   revalidatePath('/news');
+  return {};
 }
 
-export async function togglePublish(postId: string, nextStatus: 'draft' | 'published') {
+export async function togglePublish(
+  postId: string,
+  nextStatus: 'draft' | 'published'
+): Promise<{ error?: string }> {
   const supabase = await createClient();
-  await supabase
+  const { error } = await supabase
     .from('news_posts')
     .update({
       status: nextStatus,
       published_at: nextStatus === 'published' ? new Date().toISOString() : null,
     })
     .eq('id', postId);
+
+  if (error) {
+    return { error: 'Could not update the post status.' };
+  }
+
   revalidatePath('/admin/news');
   revalidatePath('/news');
+  return {};
 }

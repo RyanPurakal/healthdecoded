@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
-import { deleteEvent } from './actions';
+import DeleteEventButton from './DeleteEventButton';
 
 export const metadata = {
   title: 'Manage Events',
@@ -22,30 +22,26 @@ export default async function AdminEventsPage() {
       {!events || events.length === 0 ? (
         <p className="hd-app-empty">No events yet.</p>
       ) : (
-        events.map((event) => {
-          const deleteEventForId = deleteEvent.bind(null, event.id);
-          return (
-            <div className="hd-app-row" key={event.id}>
-              <div>
-                <div className="hd-app-row-title">{event.title}</div>
-                <div className="hd-app-row-meta">
-                  {new Date(event.event_date).toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' })}
-                  {event.location ? ` · ${event.location}` : ''}
-                </div>
-              </div>
-              <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
-                <Link href={`/admin/events/${event.id}/edit`} className="hd-app-row-meta">
-                  Edit
-                </Link>
-                <form action={deleteEventForId}>
-                  <button type="submit" className="hd-app-row-meta" style={{ color: '#c53030', background: 'none', border: 'none', cursor: 'pointer' }}>
-                    Delete
-                  </button>
-                </form>
+        events.map((event) => (
+          <div className="hd-app-row" key={event.id}>
+            <div>
+              <div className="hd-app-row-title">{event.title}</div>
+              <div className="hd-app-row-meta">
+                {new Date(event.event_date).toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' })}
+                {event.location ? ` · ${event.location}` : ''}
               </div>
             </div>
-          );
-        })
+            <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+              <Link href={`/admin/events/${event.id}`} className="hd-app-row-meta">
+                Check-in
+              </Link>
+              <Link href={`/admin/events/${event.id}/edit`} className="hd-app-row-meta">
+                Edit
+              </Link>
+              <DeleteEventButton eventId={event.id} />
+            </div>
+          </div>
+        ))
       )}
     </div>
   );

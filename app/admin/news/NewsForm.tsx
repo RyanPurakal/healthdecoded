@@ -1,16 +1,23 @@
+'use client';
+
+import { useActionState } from 'react';
 import type { NewsPost } from '@/types/database';
+import type { NewsFormState } from './actions';
 
 export default function NewsForm({
   action,
   post,
   submitLabel,
 }: {
-  action: (formData: FormData) => void;
+  action: (state: NewsFormState, formData: FormData) => Promise<NewsFormState>;
   post?: NewsPost;
   submitLabel: string;
 }) {
+  const [state, formAction, pending] = useActionState(action, null);
+
   return (
-    <form action={action} className="ct-form">
+    <form action={formAction} className="ct-form">
+      {state?.error && <div className="hd-app-banner hd-app-banner--error">{state.error}</div>}
       <div className="ct-field-group">
         <label htmlFor="title" className="ct-label">Title</label>
         <input id="title" name="title" required defaultValue={post?.title} className="ct-input" />
@@ -47,8 +54,8 @@ export default function NewsForm({
           <option value="published">Published</option>
         </select>
       </div>
-      <button type="submit" className="ct-btn ct-btn-filled">
-        {submitLabel}
+      <button type="submit" disabled={pending} className="ct-btn ct-btn-filled">
+        {pending ? 'Saving…' : submitLabel}
       </button>
     </form>
   );

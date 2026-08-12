@@ -57,6 +57,8 @@ export default function Navbar({
   const isContactPage = pathname === '/contact';
   const isEventsPage = pathname?.startsWith('/events');
   const isNewsPage = pathname?.startsWith('/news');
+  const isActivitiesPage = pathname?.startsWith('/activities');
+  const isLeaderboardPage = pathname?.startsWith('/leaderboard');
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
@@ -118,6 +120,8 @@ export default function Navbar({
           <Link href="/get-involved" className={isGetInvolvedPage ? 'active' : ''} onClick={closeMobileMenu}>Get Involved</Link>
           <Link href="/events" className={isEventsPage ? 'active' : ''} onClick={closeMobileMenu}>Events</Link>
           <Link href="/news" className={isNewsPage ? 'active' : ''} onClick={closeMobileMenu}>News</Link>
+          <Link href="/activities" className={isActivitiesPage ? 'active' : ''} onClick={closeMobileMenu}>Activities</Link>
+          <Link href="/leaderboard" className={isLeaderboardPage ? 'active' : ''} onClick={closeMobileMenu}>Leaderboard</Link>
           <Link href="/contact" className={isContactPage ? 'active' : ''} onClick={closeMobileMenu}>Contact</Link>
           {authState.signedIn ? (
             <div

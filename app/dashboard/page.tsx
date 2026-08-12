@@ -19,7 +19,7 @@ export default async function DashboardPage() {
 
   if (!user) return null;
 
-  const [{ data: profile, error: profileError }, { data: registrations }, { data: activity }] = await Promise.all([
+  const [{ data: profile }, { data: registrations }, { data: activity }] = await Promise.all([
     supabase.from('profiles').select('*').eq('id', user.id).single(),
     supabase
       .from('event_registrations')
@@ -33,14 +33,6 @@ export default async function DashboardPage() {
       .order('created_at', { ascending: false })
       .limit(20),
   ]);
-
-  // TEMP DIAGNOSTIC — remove once the role bug is confirmed fixed.
-  console.log('[dashboard role display]', {
-    userId: user.id,
-    email: user.email,
-    profile,
-    profileError,
-  });
 
   const typedRegistrations = (registrations ?? []) as unknown as RegistrationWithEvent[];
   const typedActivity = (activity ?? []) as ActivityLog[];
@@ -70,6 +62,22 @@ export default async function DashboardPage() {
               <Link href="/admin" className="hd-app-row-meta">Go to /admin →</Link>
             </div>
           )}
+        </div>
+
+        <div className="hd-app-card">
+          <p className="hd-app-card-title">Learn &amp; Earn</p>
+          <div className="hd-app-row">
+            <span className="hd-app-row-title">Your XP</span>
+            <span className="hd-app-status hd-app-status--admin">{profile?.total_xp ?? 0} XP</span>
+          </div>
+          <div className="hd-app-row">
+            <span className="hd-app-row-title">Complete activities to earn XP &amp; badges</span>
+            <Link href="/activities" className="hd-app-row-meta">Browse activities →</Link>
+          </div>
+          <div className="hd-app-row">
+            <span className="hd-app-row-title">See where you rank</span>
+            <Link href="/leaderboard" className="hd-app-row-meta">View leaderboard →</Link>
+          </div>
         </div>
 
         <div className="hd-app-card">
