@@ -6,6 +6,7 @@ import DataExportButton from './DataExportButton';
 import DeletionRequestButton from './DeletionRequestButton';
 import ServiceHoursSection from './ServiceHoursSection';
 import GamificationSection, { type EarnedBadge } from './GamificationSection';
+import { GAMIFICATION_ADMIN_ONLY } from '@/lib/feature-flags';
 import type { ServiceHour } from '@/types/database';
 
 export const metadata = {
@@ -46,11 +47,13 @@ export default async function ProfilePage() {
 
         <ProfileView profile={profile} email={user.email ?? ''} />
 
-        <GamificationSection
-          totalXp={profile?.total_xp ?? 0}
-          showOnLeaderboard={profile?.show_on_leaderboard ?? false}
-          badges={badges}
-        />
+        {(!GAMIFICATION_ADMIN_ONLY || profile?.role === 'admin') && (
+          <GamificationSection
+            totalXp={profile?.total_xp ?? 0}
+            showOnLeaderboard={profile?.show_on_leaderboard ?? false}
+            badges={badges}
+          />
+        )}
 
         <ServiceHoursSection hours={hours} />
 

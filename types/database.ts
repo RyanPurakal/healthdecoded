@@ -78,6 +78,24 @@ export type ServiceHour = {
   verified_at: string | null;
 };
 
+// Format-specific structured content stored in game_activities.content (jsonb).
+// Only the quiz shape exists today; this becomes a union as more formats land.
+export type QuizQuestion = {
+  id: string;
+  prompt: string;
+  options: string[];
+  answer_index: number;
+  explanation: string;
+};
+
+export type QuizContent = {
+  format?: string;
+  pass_threshold: number;
+  questions: QuizQuestion[];
+};
+
+export type ActivityContent = QuizContent;
+
 export type GameActivity = {
   id: string;
   title: string;
@@ -86,6 +104,7 @@ export type GameActivity = {
   description: string | null;
   xp_value: number;
   content_url: string | null;
+  content: ActivityContent | null;
   is_published: boolean;
   created_at: string;
 };

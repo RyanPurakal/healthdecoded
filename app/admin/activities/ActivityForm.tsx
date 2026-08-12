@@ -70,6 +70,19 @@ export default function ActivityForm({
         />
       </div>
       <div className="ct-field-group">
+        <label htmlFor="content" className="ct-label">
+          Content JSON (required for quizzes — question bank + pass_threshold; ignored for other types)
+        </label>
+        <textarea
+          id="content"
+          name="content"
+          defaultValue={activity?.content ? JSON.stringify(activity.content, null, 2) : ''}
+          className="ct-input hd-app-textarea"
+          style={{ minHeight: 260, fontFamily: 'monospace' }}
+          placeholder={'{\n  "pass_threshold": 0.7,\n  "questions": [\n    { "id": "q1", "prompt": "…", "options": ["Myth","Fact"], "answer_index": 0, "explanation": "…" }\n  ]\n}'}
+        />
+      </div>
+      <div className="ct-field-group">
         <label className="ct-label" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           <input
             type="checkbox"

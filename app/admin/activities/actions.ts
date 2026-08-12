@@ -3,7 +3,8 @@
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
-import type { ActivityType } from '@/types/database';
+import { parseQuizContent } from '@/app/activities/quiz';
+import type { ActivityType, ActivityContent } from '@/types/database';
 
 function slugify(input: string) {
   return input
@@ -47,7 +48,21 @@ function readForm(formData: FormData) {
   const xpValue = Number.isFinite(xpRaw) && xpRaw >= 0 ? Math.floor(xpRaw) : 0;
   const isPublished = formData.get('is_published') === 'on' || formData.get('is_published') === 'true';
   const slugInput = String(formData.get('slug') ?? '').trim();
-  return { title, description, contentUrl, type, xpValue, isPublished, slugInput };
+  const contentRaw = String(formData.get('content') ?? '').trim();
+  return { title, description, contentUrl, type, xpValue, isPublished, slugInput, contentRaw };
+}
+
+// Quiz activities carry a validated question bank in `content`; other types
+// don't use it (yet), so their content is null.
+function resolveContent(
+  type: ActivityType,
+  contentRaw: string
+): { content?: ActivityContent | null; error?: string } {
+  if (type !== 'quiz') return { content: null };
+  if (!contentRaw) return { error: 'Quiz activities need Content JSON with questions.' };
+  const { content, error } = parseQuizContent(contentRaw);
+  if (error) return { error: `Content: ${error}` };
+  return { content };
 }
 
 export async function createActivity(
@@ -55,11 +70,14 @@ export async function createActivity(
   formData: FormData
 ): Promise<ActivityFormState> {
   const supabase = await createClient();
-  const { title, description, contentUrl, type, xpValue, isPublished, slugInput } = readForm(formData);
+  const { title, description, contentUrl, type, xpValue, isPublished, slugInput, contentRaw } = readForm(formData);
 
   if (!title) {
     return { error: 'Title is required.' };
   }
+
+  const { content, error: contentError } = resolveContent(type, contentRaw);
+  if (contentError) return { error: contentError };
 
   const slug = await uniqueSlug(supabase, slugify(slugInput || title));
 
@@ -70,6 +88,7 @@ export async function createActivity(
     description: description || null,
     xp_value: xpValue,
     content_url: contentUrl || null,
+    content,
     is_published: isPublished,
   });
 
@@ -88,11 +107,14 @@ export async function updateActivity(
   formData: FormData
 ): Promise<ActivityFormState> {
   const supabase = await createClient();
-  const { title, description, contentUrl, type, xpValue, isPublished, slugInput } = readForm(formData);
+  const { title, description, contentUrl, type, xpValue, isPublished, slugInput, contentRaw } = readForm(formData);
 
   if (!title) {
     return { error: 'Title is required.' };
   }
+
+  const { content, error: contentError } = resolveContent(type, contentRaw);
+  if (contentError) return { error: contentError };
 
   const { data: existing } = await supabase
     .from('game_activities')
@@ -114,6 +136,7 @@ export async function updateActivity(
       description: description || null,
       xp_value: xpValue,
       content_url: contentUrl || null,
+      content,
       is_published: isPublished,
     })
     .eq('id', activityId);

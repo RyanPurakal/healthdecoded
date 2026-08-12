@@ -48,7 +48,9 @@ export default async function ActivitiesPage() {
             list.map((activity) => (
               <ActivityRow
                 key={activity.id}
-                activity={activity}
+                // Never ship `content` (quiz answer keys) to the client — the
+                // list only needs metadata; quizzes are graded server-side.
+                activity={{ ...activity, content: null }}
                 isSignedIn={Boolean(user)}
                 completed={completedIds.has(activity.id)}
               />

@@ -4,6 +4,7 @@ import type { ReactNode } from 'react';
 import { AnalyticsScript, StructuredData } from './AnalyticsScript';
 import { ClientLayout } from './ClientLayout';
 import { createClient } from '@/lib/supabase/server';
+import { GAMIFICATION_ADMIN_ONLY } from '@/lib/feature-flags';
 import type { NavAuthState } from '@/components/Navbar';
 import './globals.css';
 import './site-theme.css';
@@ -73,17 +74,20 @@ async function getNavAuthState(): Promise<NavAuthState> {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user) return { signedIn: false };
+  // When the gamification gate is off, links show for everyone; when on, only
+  // admins see them (matching the middleware route gate).
+  if (!user) return { signedIn: false, showGamification: !GAMIFICATION_ADMIN_ONLY };
 
   const { data: profile } = await supabase
     .from('profiles')
-    .select('full_name, avatar_url')
+    .select('full_name, avatar_url, role')
     .eq('id', user.id)
     .single();
 
   const firstName = profile?.full_name?.trim().split(/\s+/)[0] || user.email?.split('@')[0] || 'there';
+  const showGamification = !GAMIFICATION_ADMIN_ONLY || profile?.role === 'admin';
 
-  return { signedIn: true, firstName, avatarUrl: profile?.avatar_url ?? null };
+  return { signedIn: true, firstName, avatarUrl: profile?.avatar_url ?? null, showGamification };
 }
 
 export default async function RootLayout({ children }: { children: ReactNode }) {

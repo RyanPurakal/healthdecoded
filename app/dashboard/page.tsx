@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
 import { signOut } from '@/app/auth/actions';
+import { GAMIFICATION_ADMIN_ONLY } from '@/lib/feature-flags';
 import type { Event, EventRegistration, ActivityLog } from '@/types/database';
 
 export const metadata = {
@@ -64,21 +65,23 @@ export default async function DashboardPage() {
           )}
         </div>
 
-        <div className="hd-app-card">
-          <p className="hd-app-card-title">Learn &amp; Earn</p>
-          <div className="hd-app-row">
-            <span className="hd-app-row-title">Your XP</span>
-            <span className="hd-app-status hd-app-status--admin">{profile?.total_xp ?? 0} XP</span>
+        {(!GAMIFICATION_ADMIN_ONLY || profile?.role === 'admin') && (
+          <div className="hd-app-card">
+            <p className="hd-app-card-title">Learn &amp; Earn</p>
+            <div className="hd-app-row">
+              <span className="hd-app-row-title">Your XP</span>
+              <span className="hd-app-status hd-app-status--admin">{profile?.total_xp ?? 0} XP</span>
+            </div>
+            <div className="hd-app-row">
+              <span className="hd-app-row-title">Complete activities to earn XP &amp; badges</span>
+              <Link href="/activities" className="hd-app-row-meta">Browse activities →</Link>
+            </div>
+            <div className="hd-app-row">
+              <span className="hd-app-row-title">See where you rank</span>
+              <Link href="/leaderboard" className="hd-app-row-meta">View leaderboard →</Link>
+            </div>
           </div>
-          <div className="hd-app-row">
-            <span className="hd-app-row-title">Complete activities to earn XP &amp; badges</span>
-            <Link href="/activities" className="hd-app-row-meta">Browse activities →</Link>
-          </div>
-          <div className="hd-app-row">
-            <span className="hd-app-row-title">See where you rank</span>
-            <Link href="/leaderboard" className="hd-app-row-meta">View leaderboard →</Link>
-          </div>
-        </div>
+        )}
 
         <div className="hd-app-card">
           <p className="hd-app-card-title">Resources</p>

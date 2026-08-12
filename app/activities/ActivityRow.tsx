@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useTransition } from 'react';
+import Link from 'next/link';
 import type { GameActivity } from '@/types/database';
 import { completeActivity } from './actions';
 
@@ -53,11 +54,25 @@ export default function ActivityRow({
 
       <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
         {done ? (
-          <span className="hd-app-status hd-app-status--attended">Completed</span>
+          <>
+            <span className="hd-app-status hd-app-status--attended">Completed</span>
+            {activity.type === 'quiz' && (
+              <Link href={`/activities/${activity.slug}`} className="hd-app-row-meta">
+                Review
+              </Link>
+            )}
+          </>
         ) : !isSignedIn ? (
-          <a href="/login?next=/activities" className="ct-btn ct-btn-outline">
+          <a
+            href={`/login?next=/activities${activity.type === 'quiz' ? `/${activity.slug}` : ''}`}
+            className="ct-btn ct-btn-outline"
+          >
             Sign in to start
           </a>
+        ) : activity.type === 'quiz' ? (
+          <Link href={`/activities/${activity.slug}`} className="ct-btn ct-btn-filled">
+            Start quiz
+          </Link>
         ) : activity.type === 'interactive' && activity.content_url ? (
           // Basic version: open the external experience, then mark complete on
           // return. Doesn't yet verify they actually finished it — that's the

@@ -9,8 +9,8 @@ import { signOut } from '@/app/auth/actions';
 import type { FocusEvent, MouseEvent as ReactMouseEvent } from 'react';
 
 export type NavAuthState =
-  | { signedIn: false }
-  | { signedIn: true; firstName: string; avatarUrl: string | null };
+  | { signedIn: false; showGamification: boolean }
+  | { signedIn: true; firstName: string; avatarUrl: string | null; showGamification: boolean };
 
 export default function Navbar({
   onDonateClick,
@@ -120,8 +120,12 @@ export default function Navbar({
           <Link href="/get-involved" className={isGetInvolvedPage ? 'active' : ''} onClick={closeMobileMenu}>Get Involved</Link>
           <Link href="/events" className={isEventsPage ? 'active' : ''} onClick={closeMobileMenu}>Events</Link>
           <Link href="/news" className={isNewsPage ? 'active' : ''} onClick={closeMobileMenu}>News</Link>
-          <Link href="/activities" className={isActivitiesPage ? 'active' : ''} onClick={closeMobileMenu}>Activities</Link>
-          <Link href="/leaderboard" className={isLeaderboardPage ? 'active' : ''} onClick={closeMobileMenu}>Leaderboard</Link>
+          {authState.showGamification && (
+            <>
+              <Link href="/activities" className={isActivitiesPage ? 'active' : ''} onClick={closeMobileMenu}>Activities</Link>
+              <Link href="/leaderboard" className={isLeaderboardPage ? 'active' : ''} onClick={closeMobileMenu}>Leaderboard</Link>
+            </>
+          )}
           <Link href="/contact" className={isContactPage ? 'active' : ''} onClick={closeMobileMenu}>Contact</Link>
           {authState.signedIn ? (
             <div

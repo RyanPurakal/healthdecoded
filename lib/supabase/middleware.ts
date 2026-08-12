@@ -1,6 +1,8 @@
 import { createServerClient } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
 import type { Database } from '@/types/database';
+// Gamification access gate — single flip point in lib/feature-flags.ts.
+import { GAMIFICATION_ADMIN_ONLY, isGamificationPath } from '@/lib/feature-flags';
 
 const PROTECTED_PREFIXES = ['/dashboard', '/admin', '/profile'];
 
@@ -34,14 +36,17 @@ export async function updateSession(request: NextRequest) {
 
   const path = request.nextUrl.pathname;
   const isProtected = PROTECTED_PREFIXES.some((prefix) => path.startsWith(prefix));
+  // While the gate is on, the gamification routes require admin — same handling
+  // as /admin below.
+  const needsAdmin = path.startsWith('/admin') || (GAMIFICATION_ADMIN_ONLY && isGamificationPath(path));
 
-  if (isProtected && !user) {
+  if ((isProtected || needsAdmin) && !user) {
     const redirectUrl = new URL('/login', request.url);
     redirectUrl.searchParams.set('next', path);
     return NextResponse.redirect(redirectUrl);
   }
 
-  if (path.startsWith('/admin') && user) {
+  if (needsAdmin && user) {
     const { data: profile } = await supabase
       .from('profiles')
       .select('role')
