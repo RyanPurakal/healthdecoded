@@ -366,3 +366,38 @@
   font-weight: 600;
   flex-shrink: 0;
 }
+
+/* ── Past events (/events) ───────────────────────────────── */
+.past-events-section { padding: 48px 0 0; }
+.past-events-section__header { margin-bottom: 24px; }
+.past-events-section__header .hd-app-subtitle { margin-bottom: 0; }
+.past-events {
+  max-height: 900px;
+  overflow-y: auto;
+  padding-right: 8px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--st-rule) transparent;
+  outline: none;
+}
+.past-events:focus-visible { box-shadow: 0 0 0 2px var(--st-accent); }
+.past-events__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.past-event-card { display: flex; flex-direction: column; border: 1px solid var(--st-rule); background: var(--st-bg); }
+.past-event-card__media { aspect-ratio: 4 / 3; overflow: hidden; border-bottom: 1px solid var(--st-rule); background: var(--st-rule); }
+.past-event-card__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.past-event-card__body { padding: 22px 24px 24px; display: flex; flex-direction: column; flex: 1; }
+.past-event-card__date {
+  font-family: var(--f-body); font-size: 10.5px; font-weight: 600;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--st-accent); margin-bottom: 8px;
+}
+.past-event-card__title {
+  font-family: var(--f-disp); font-size: 24px; font-weight: 900; text-transform: uppercase;
+  line-height: 1.05; color: var(--st-black); margin-bottom: 6px;
+}
+.past-event-card__host { font-family: var(--f-body); font-size: 13px; font-weight: 600; color: var(--st-black); margin-bottom: 12px; }
+.past-event-card__desc { font-family: var(--f-body); font-size: 14px; line-height: 1.6; color: var(--st-muted); margin-bottom: 16px; flex: 1; }
+.past-event-card__link { font-family: var(--f-body); font-size: 13px; font-weight: 600; color: var(--st-accent); text-decoration: none; }
+.past-event-card__link:hover { text-decoration: underline; }
+@media (max-width: 720px) {
+  .past-events__grid { grid-template-columns: 1fr; }
+  .past-events { max-height: 80vh; }
+}

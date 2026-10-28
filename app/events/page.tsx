@@ -1,8 +1,8 @@
-// Events page: upcoming DB events with sign-up, plus past events pulled from Instagram.
+// Events page: upcoming DB events with sign-up, plus a scrollable row of past events.
 import { createClient } from '@/lib/supabase/server';
 import EventSignupButton from './EventSignupButton';
-import { SocialFeedSection } from '@/components/SocialEmbed';
-import { INSTAGRAM_EVENT_POSTS, INSTAGRAM_URL } from '@/lib/social-posts';
+import PastEventsScroller from '@/components/PastEventsScroller';
+import { PAST_EVENTS } from '@/lib/past-events';
 
 export const metadata = {
   title: 'Events',
@@ -36,13 +36,7 @@ export default async function EventsPage() {
       <div className="hd-app-container">
         <p className="hd-app-eyebrow">Get Involved</p>
         <h1 className="hd-app-heading">Events</h1>
-        <p className="hd-app-subtitle">
-          Sign up for upcoming workshops and volunteer opportunities. Past events and highlights live on our{' '}
-          <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--st-accent)' }}>
-            Instagram
-          </a>
-          .
-        </p>
+        <p className="hd-app-subtitle">Sign up for upcoming workshops and volunteer opportunities.</p>
 
         {/* Upcoming Events */}
         <div className="hd-app-card">
@@ -76,12 +70,18 @@ export default async function EventsPage() {
           )}
         </div>
 
-        {/* Past Events from Instagram */}
-        <SocialFeedSection
-          instagramPosts={INSTAGRAM_EVENT_POSTS}
-          title="Past Events"
-          subtitle="Highlights and recaps from our workshops, community events, and outreach sessions."
-        />
+        {/* Past Events */}
+        <section className="past-events-section">
+          <div className="past-events-section__header">
+            <div>
+              <h2 className="hd-app-heading">Past Events</h2>
+              <p className="hd-app-subtitle">
+                Highlights and recaps from our workshops, community events, and outreach sessions.
+              </p>
+            </div>
+          </div>
+          <PastEventsScroller events={PAST_EVENTS} />
+        </section>
       </div>
     </div>
   );

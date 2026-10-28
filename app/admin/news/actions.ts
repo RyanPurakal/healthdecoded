@@ -42,8 +42,7 @@ export async function createPost(_prev: NewsFormState, formData: FormData): Prom
   const coverImageUrl = String(formData.get('cover_image_url') ?? '').trim();
   const status = formData.get('status') === 'published' ? 'published' : 'draft';
   const slugInput = String(formData.get('slug') ?? '').trim();
-  const newsCategoryRaw = String(formData.get('news_category') ?? 'member');
-  const newsCategory = newsCategoryRaw === 'external' ? 'external' : 'member';
+  const newsCategory = 'member';
 
   if (!title || !body) {
     return { error: 'Title and body are required.' };
@@ -83,8 +82,7 @@ export async function updatePost(
   const coverImageUrl = String(formData.get('cover_image_url') ?? '').trim();
   const status = formData.get('status') === 'published' ? 'published' : 'draft';
   const slugInput = String(formData.get('slug') ?? '').trim();
-  const newsCategoryRaw = String(formData.get('news_category') ?? 'member');
-  const newsCategory = newsCategoryRaw === 'external' ? 'external' : 'member';
+  const newsCategory = 'member';
 
   if (!title || !body) {
     return { error: 'Title and body are required.' };
