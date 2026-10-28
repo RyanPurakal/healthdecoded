@@ -48,6 +48,13 @@ export default function NewsForm({
         />
       </div>
       <div className="ct-field-group">
+        <label htmlFor="news_category" className="ct-label">Category</label>
+        <select id="news_category" name="news_category" defaultValue={post?.news_category ?? 'member'} className="ct-input">
+          <option value="member">From Our Team (member post)</option>
+          <option value="external">External Health News</option>
+        </select>
+      </div>
+      <div className="ct-field-group">
         <label htmlFor="status" className="ct-label">Status</label>
         <select id="status" name="status" defaultValue={post?.status ?? 'draft'} className="ct-input">
           <option value="draft">Draft</option>

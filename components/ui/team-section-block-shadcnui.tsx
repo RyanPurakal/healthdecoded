@@ -309,9 +309,9 @@ export default function TeamSectionBlock() {
           </h2>
 
           <p className="team-section-modern-subtitle">
-            A small, focused team of students and emerging leaders using health
-            education to make medical systems feel human, clear, and
-            accessible—starting with youth.
+            A team of Rutgers University sophomores dedicated to making health
+            education accessible, human, and clear — starting with the youth in
+            our own communities.
           </p>
         </motion.div>
 

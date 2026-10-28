@@ -1,6 +1,7 @@
 export type UserRole = 'ambassador' | 'volunteer' | 'admin';
 export type RegistrationStatus = 'registered' | 'attended' | 'cancelled';
 export type NewsPostStatus = 'draft' | 'published';
+export type NewsCategory = 'member' | 'external';
 export type DeletionRequestStatus = 'pending' | 'completed';
 export type ServiceHourStatus = 'pending' | 'verified' | 'rejected';
 export type ActivityType = 'lesson' | 'quiz' | 'interactive';
@@ -52,6 +53,7 @@ export type NewsPost = {
   body: string;
   cover_image_url: string | null;
   status: NewsPostStatus;
+  news_category: NewsCategory;
   author_id: string | null;
   published_at: string | null;
   created_at: string;

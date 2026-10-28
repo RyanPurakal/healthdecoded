@@ -69,6 +69,16 @@ export default function Footer() {
                 Linktree
               </a>
             </li>
+            <li>
+              <a href="https://www.instagram.com/healthdecodedinit" target="_blank" rel="noopener noreferrer">
+                Instagram
+              </a>
+            </li>
+            <li>
+              <a href="https://www.tiktok.com/@healthdecodedinit" target="_blank" rel="noopener noreferrer">
+                TikTok
+              </a>
+            </li>
           </ul>
         </div>
 

@@ -42,6 +42,8 @@ export async function createPost(_prev: NewsFormState, formData: FormData): Prom
   const coverImageUrl = String(formData.get('cover_image_url') ?? '').trim();
   const status = formData.get('status') === 'published' ? 'published' : 'draft';
   const slugInput = String(formData.get('slug') ?? '').trim();
+  const newsCategoryRaw = String(formData.get('news_category') ?? 'member');
+  const newsCategory = newsCategoryRaw === 'external' ? 'external' : 'member';
 
   if (!title || !body) {
     return { error: 'Title and body are required.' };
@@ -55,6 +57,7 @@ export async function createPost(_prev: NewsFormState, formData: FormData): Prom
     body,
     cover_image_url: coverImageUrl || null,
     status,
+    news_category: newsCategory,
     author_id: user.id,
     published_at: status === 'published' ? new Date().toISOString() : null,
   });
@@ -80,6 +83,8 @@ export async function updatePost(
   const coverImageUrl = String(formData.get('cover_image_url') ?? '').trim();
   const status = formData.get('status') === 'published' ? 'published' : 'draft';
   const slugInput = String(formData.get('slug') ?? '').trim();
+  const newsCategoryRaw = String(formData.get('news_category') ?? 'member');
+  const newsCategory = newsCategoryRaw === 'external' ? 'external' : 'member';
 
   if (!title || !body) {
     return { error: 'Title and body are required.' };
@@ -107,6 +112,7 @@ export async function updatePost(
       body,
       cover_image_url: coverImageUrl || null,
       status,
+      news_category: newsCategory,
       published_at: publishedAt,
     })
     .eq('id', postId);

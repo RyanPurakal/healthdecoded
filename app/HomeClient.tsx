@@ -135,10 +135,32 @@ export default function HomeClient() {
             </p>
           </div>
 
-          <Link href="/contact" className="hm-btn hm-btn-dark">
-            Contact Us
-            <span className="hm-btn-arrow" aria-hidden="true">→</span>
-          </Link>
+          <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+            <Link href="/contact" className="hm-btn hm-btn-dark">
+              Contact Us
+              <span className="hm-btn-arrow" aria-hidden="true">→</span>
+            </Link>
+            <a
+              href="https://www.instagram.com/healthdecodedinit"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hm-btn hm-btn-dark"
+              aria-label="Health Decoded on Instagram"
+            >
+              Instagram
+              <span className="hm-btn-arrow" aria-hidden="true">↗</span>
+            </a>
+            <a
+              href="https://www.tiktok.com/@healthdecodedinit"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hm-btn hm-btn-dark"
+              aria-label="Health Decoded on TikTok"
+            >
+              TikTok
+              <span className="hm-btn-arrow" aria-hidden="true">↗</span>
+            </a>
+          </div>
 
         </div>
       </section>
