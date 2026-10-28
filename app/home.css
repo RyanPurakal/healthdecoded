@@ -350,6 +350,24 @@
   font-weight: 700;
 }
 
+/* ── Social Feed section ─────────────────────────────────── */
+.hm-social {
+  padding: 80px 56px;
+  background: var(--hm-page-bg);
+}
+
+.hm-social-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.hm-social-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 32px;
+}
+
 /* ── Connect section — blue blend ───────────────────────── */
 .hm-connect {
   background: linear-gradient(135deg, var(--hm-accent) 0%, var(--hm-accent-sky) 100%);

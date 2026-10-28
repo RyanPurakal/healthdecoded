@@ -1,9 +1,16 @@
-// Home page UI: hero with split dark/photo panels, impact rows with outlined stroke numbers, indigo connect section.
+// Home page UI: hero with split dark/photo panels, impact rows with outlined stroke numbers, social feed, indigo connect section.
 'use client';
 
 import { useEffect } from 'react';
 import Link from 'next/link';
 import './home.css';
+import { SocialFeedSection } from '@/components/SocialEmbed';
+import {
+  INSTAGRAM_FEATURED_POSTS,
+  TIKTOK_FEATURED_POSTS,
+  INSTAGRAM_URL,
+  TIKTOK_URL,
+} from '@/lib/social-posts';
 
 export default function HomeClient() {
   // Scroll-triggered fade-ins
@@ -118,6 +125,40 @@ export default function HomeClient() {
           </p>
         </div>
 
+      </section>
+
+      {/* ── SOCIAL FEED ─────────────────────────────────────── */}
+      <section className="hm-social hm-fade" aria-labelledby="hm-social-heading">
+        <div className="hm-social-inner">
+          <SocialFeedSection
+            instagramPosts={INSTAGRAM_FEATURED_POSTS}
+            tiktokPosts={TIKTOK_FEATURED_POSTS}
+            title="Follow Our Journey"
+            subtitle="See our workshops, events, and community work on Instagram and TikTok."
+          />
+          <div className="hm-social-links">
+            <a
+              href={INSTAGRAM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hm-btn hm-btn-ghost"
+              aria-label="Health Decoded on Instagram"
+            >
+              @healthdecodedinit on Instagram
+              <span className="hm-btn-arrow" aria-hidden="true">↗</span>
+            </a>
+            <a
+              href={TIKTOK_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hm-btn hm-btn-ghost"
+              aria-label="Health Decoded on TikTok"
+            >
+              @healthdecodedinit on TikTok
+              <span className="hm-btn-arrow" aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </div>
       </section>
 
       {/* ── CONNECT ──────────────────────────────────────────── */}

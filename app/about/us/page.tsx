@@ -1,7 +1,9 @@
-// About Us page: animated AboutUsSection, then a static "Groups We Work With" section.
+// About Us page: animated AboutUsSection, "Groups We Work With" section with Instagram embed support.
 import Link from 'next/link';
 import AboutUsSection from '@/components/ui/about-us-section';
 import { FadeInSection } from '@/components/motion/fade-in-section';
+import { SocialFeedSection } from '@/components/SocialEmbed';
+import { INSTAGRAM_PARTNERSHIP_POSTS } from '@/lib/social-posts';
 
 export const metadata = {
   title: 'About Us',
@@ -58,7 +60,7 @@ export default function AboutUsPage() {
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
             gap: 20,
-            marginTop: 8,
+            marginBottom: 48,
           }}>
             {PARTNER_GROUPS.map((group) => (
               <div
@@ -96,6 +98,13 @@ export default function AboutUsPage() {
               </div>
             ))}
           </div>
+
+          {/* Partnership highlights from Instagram */}
+          <SocialFeedSection
+            instagramPosts={INSTAGRAM_PARTNERSHIP_POSTS}
+            title="Partnership Highlights"
+            subtitle="See our collaborations in action — follow us on Instagram for the latest."
+          />
         </div>
       </FadeInSection>
     </div>

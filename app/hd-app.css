@@ -285,3 +285,84 @@
   .hd-app-page { padding: 40px 24px 72px; }
   .hd-app-row { flex-direction: column; align-items: flex-start; gap: 6px; }
 }
+
+/* ── Social embed components ──────────────────────────────── */
+.social-feed-section {
+  padding: 48px 0 0;
+}
+
+.social-feed-section__header {
+  margin-bottom: 32px;
+}
+
+.social-embed-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+  align-items: start;
+}
+
+.social-embed-wrapper {
+  width: 100%;
+  overflow: hidden;
+}
+
+.social-follow-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.social-follow-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 24px;
+  border: 1px solid var(--st-rule);
+  background: var(--st-bg);
+  text-decoration: none;
+  color: var(--st-black);
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+  min-width: 260px;
+}
+
+.social-follow-card:hover {
+  border-color: var(--st-accent);
+  box-shadow: 0 2px 12px rgba(66, 121, 224, 0.12);
+}
+
+.social-follow-card__icon {
+  color: var(--st-accent);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+.social-follow-card__text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.social-follow-card__platform {
+  font-family: var(--f-disp);
+  font-size: 14px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--st-black);
+}
+
+.social-follow-card__handle {
+  font-family: var(--f-body);
+  font-size: 12px;
+  color: var(--st-muted);
+}
+
+.social-follow-card__cta {
+  font-family: var(--f-body);
+  font-size: 13px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
