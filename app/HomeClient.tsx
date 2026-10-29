@@ -127,6 +127,40 @@ export default function HomeClient() {
 
       </section>
 
+      {/* ── PARTNERS ─────────────────────────────────────────── */}
+      <section className="hm-partners hm-fade" aria-labelledby="hm-partners-heading">
+        <div className="hm-partners-inner">
+          <p className="hm-label" aria-hidden="true">Community</p>
+          <h2 className="hm-partners-title" id="hm-partners-heading">
+            Groups We Work With
+          </h2>
+          <p className="hm-partners-sub">
+            Collaborating with healthcare systems, universities, and schools to bring health literacy where it&apos;s needed most.
+          </p>
+          <div className="hm-partners-grid">
+            {[
+              { short: 'RWJ', name: 'Robert Wood Johnson University Hospital', logo: '/images/partners/rwj.png' },
+              { short: 'SPH', name: "St. Peter's University Hospital", logo: '/images/partners/st-peters.png' },
+              { short: 'CLC', name: 'Rutgers Collaborative Learning Center', logo: '/images/partners/rutgers-clc.png' },
+              { short: 'NBPS', name: 'New Brunswick Public Schools', logo: '/images/partners/nbps.png' },
+            ].map((p) => (
+              <div key={p.short} className="hm-partner-card">
+                <div className="hm-partner-logo-wrap">
+                  <img
+                    src={p.logo}
+                    alt={p.name}
+                    className="hm-partner-logo"
+                    onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none'; (e.currentTarget.nextElementSibling as HTMLElement).style.display = 'flex'; }}
+                  />
+                  <div className="hm-partner-initials" style={{ display: 'none' }}>{p.short}</div>
+                </div>
+                <p className="hm-partner-name">{p.name}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── SOCIAL FEED ─────────────────────────────────────── */}
       <section className="hm-social hm-fade" aria-labelledby="hm-social-heading">
         <div className="hm-social-inner">
