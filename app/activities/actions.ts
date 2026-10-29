@@ -3,8 +3,9 @@
 import { revalidatePath } from 'next/cache';
 import { createClient } from '@/lib/supabase/server';
 import { createAdminClient } from '@/lib/supabase/admin';
-import type { Badge, QuizContent } from '@/types/database';
+import type { Badge, QuizContent, DocDetectiveContent } from '@/types/database';
 import { gradeQuiz, type QuestionResult } from './quiz';
+import { gradeDocDetective, type DocQuestionResult } from './document-detective';
 
 /**
  * Shared completion tail: record the completion, add XP, and award any newly
@@ -84,9 +85,9 @@ export async function completeActivity(activityId: string): Promise<{ error?: st
     return { error: 'That activity is not available.' };
   }
 
-  // Quizzes must be graded, not click-completed.
-  if (activity.type === 'quiz') {
-    return { error: 'This is a quiz — complete it by answering the questions.' };
+  // Scored formats must go through their own grading action.
+  if (activity.type === 'quiz' || activity.type === 'doc_detective') {
+    return { error: 'This activity must be completed by answering the questions.' };
   }
 
   const admin = createAdminClient();
@@ -146,6 +147,73 @@ export async function submitQuiz(
   }
 
   const graded = gradeQuiz(content, answers ?? {});
+
+  let awardedXp = 0;
+  let alreadyCompleted = false;
+
+  if (graded.passed) {
+    const admin = createAdminClient();
+    const outcome = await recordCompletion(admin, user.id, activity, Math.round(graded.score * 100));
+    if (outcome.error) return { error: outcome.error };
+    alreadyCompleted = outcome.alreadyCompleted;
+    awardedXp = outcome.alreadyCompleted ? 0 : activity.xp_value;
+
+    revalidatePath('/activities');
+    revalidatePath('/leaderboard');
+    revalidatePath('/profile');
+  }
+
+  return {
+    total: graded.total,
+    correct: graded.correct,
+    score: graded.score,
+    passed: graded.passed,
+    awardedXp,
+    alreadyCompleted,
+    results: graded.results,
+  };
+}
+
+export type SubmitDocDetectiveResult = {
+  error?: string;
+  total?: number;
+  correct?: number;
+  score?: number;
+  passed?: boolean;
+  awardedXp?: number;
+  alreadyCompleted?: boolean;
+  results?: DocQuestionResult[];
+};
+
+export async function submitDocumentDetective(
+  activityId: string,
+  answers: Record<string, string>
+): Promise<SubmitDocDetectiveResult> {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return { error: 'You must be signed in to take this activity.' };
+  }
+
+  const { data: activity } = await supabase
+    .from('game_activities')
+    .select('id, xp_value, is_published, type, content')
+    .eq('id', activityId)
+    .single();
+
+  if (!activity || !activity.is_published || activity.type !== 'doc_detective') {
+    return { error: 'That activity is not available.' };
+  }
+
+  const content = activity.content as DocDetectiveContent | null;
+  if (!content || !Array.isArray(content.questions) || content.questions.length === 0) {
+    return { error: 'This activity has no questions yet.' };
+  }
+
+  const graded = gradeDocDetective(content, answers ?? {});
 
   let awardedXp = 0;
   let alreadyCompleted = false;

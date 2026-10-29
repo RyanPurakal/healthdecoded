@@ -4,7 +4,7 @@ export type NewsPostStatus = 'draft' | 'published';
 export type NewsCategory = 'member' | 'external';
 export type DeletionRequestStatus = 'pending' | 'completed';
 export type ServiceHourStatus = 'pending' | 'verified' | 'rejected';
-export type ActivityType = 'lesson' | 'quiz' | 'interactive';
+export type ActivityType = 'lesson' | 'quiz' | 'interactive' | 'doc_detective';
 export type BadgeCriteriaType = 'xp_threshold' | 'activity_count';
 
 export type Profile = {
@@ -96,7 +96,45 @@ export type QuizContent = {
   questions: QuizQuestion[];
 };
 
-export type ActivityContent = QuizContent;
+export type DocDetectiveQuestion = {
+  id: string;
+  prompt: string;
+  answer_region: string;
+  explanation: string;
+};
+
+type DocRegion = { text: string; region?: string; emphasis?: boolean };
+type DocTableRow = { cells: DocRegion[]; emphasis?: boolean };
+type DocFootnote = { text: string; region?: string; emphasis?: boolean };
+type DocTableColumn = string;
+type DocMeta = { label: string; value: string };
+
+export type DocDetectiveContent = {
+  format?: string;
+  pass_threshold: number;
+  document: {
+    title: string;
+    meta: DocMeta[];
+    table: { columns: DocTableColumn[]; rows: DocTableRow[] };
+    footnotes: DocFootnote[];
+  };
+  questions: DocDetectiveQuestion[];
+};
+
+export type ActivityContent = QuizContent | DocDetectiveContent;
+
+export type EventInstagramPost = {
+  id: string;
+  event_id: string;
+  ig_media_id: string;
+  media_type: string;
+  media_url: string;
+  permalink: string;
+  caption: string | null;
+  posted_at: string;
+  matched_method: 'caption' | 'date_proximity';
+  created_at: string;
+};
 
 export type GameActivity = {
   id: string;
@@ -295,6 +333,18 @@ export type Database = {
             referencedColumns: ['id'];
           },
         ];
+      };
+      event_instagram_posts: {
+        Row: EventInstagramPost;
+        Insert: Partial<EventInstagramPost> & {
+          event_id: string;
+          ig_media_id: string;
+          media_url: string;
+          permalink: string;
+          posted_at: string;
+        };
+        Update: Partial<EventInstagramPost>;
+        Relationships: [];
       };
     };
     Views: Record<string, never>;

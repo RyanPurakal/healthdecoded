@@ -9,6 +9,7 @@ const TYPE_LABEL: Record<GameActivity['type'], string> = {
   lesson: 'Lesson',
   quiz: 'Quiz',
   interactive: 'Interactive',
+  doc_detective: 'Doc Detective',
 };
 
 export default function ActivityRow({
@@ -56,7 +57,7 @@ export default function ActivityRow({
         {done ? (
           <>
             <span className="hd-app-status hd-app-status--attended">Completed</span>
-            {activity.type === 'quiz' && (
+            {(activity.type === 'quiz' || activity.type === 'doc_detective') && (
               <Link href={`/activities/${activity.slug}`} className="hd-app-row-meta">
                 Review
               </Link>
@@ -64,14 +65,14 @@ export default function ActivityRow({
           </>
         ) : !isSignedIn ? (
           <a
-            href={`/login?next=/activities${activity.type === 'quiz' ? `/${activity.slug}` : ''}`}
+            href={`/login?next=/activities${activity.type === 'quiz' || activity.type === 'doc_detective' ? `/${activity.slug}` : ''}`}
             className="ct-btn ct-btn-outline"
           >
             Sign in to start
           </a>
-        ) : activity.type === 'quiz' ? (
+        ) : activity.type === 'quiz' || activity.type === 'doc_detective' ? (
           <Link href={`/activities/${activity.slug}`} className="ct-btn ct-btn-filled">
-            Start quiz
+            {activity.type === 'quiz' ? 'Start quiz' : 'Start activity'}
           </Link>
         ) : activity.type === 'interactive' && activity.content_url ? (
           // Basic version: open the external experience, then mark complete on
