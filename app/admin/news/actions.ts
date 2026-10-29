@@ -29,6 +29,44 @@ async function uniqueSlug(
 }
 
 export type NewsFormState = { error?: string } | null;
+export type HealthUpdateFormState = { error?: string; slug?: string } | null;
+
+export async function createHealthUpdate(
+  _prev: HealthUpdateFormState,
+  formData: FormData
+): Promise<HealthUpdateFormState> {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) redirect('/login?next=/admin/news');
+
+  const title = String(formData.get('title') ?? '').trim();
+  const body = String(formData.get('body') ?? '');
+
+  if (!title || !body) {
+    return { error: 'Title and body are required.' };
+  }
+
+  const slug = await uniqueSlug(supabase, slugify(title));
+
+  const { error } = await supabase.from('news_posts').insert({
+    title,
+    slug,
+    body,
+    status: 'draft',
+    news_category: 'member',
+    author_id: user.id,
+    published_at: null,
+  });
+
+  if (error) {
+    return { error: 'Could not save the post. Please try again.' };
+  }
+
+  revalidatePath('/admin/news');
+  return { slug };
+}
 
 export async function createPost(_prev: NewsFormState, formData: FormData): Promise<NewsFormState> {
   const supabase = await createClient();

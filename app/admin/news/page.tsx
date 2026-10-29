@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
 import NewsRowActions from './NewsRowActions';
+import HealthUpdateForm from './HealthUpdateForm';
 
 export const metadata = {
   title: 'Manage News',
@@ -11,6 +12,16 @@ export default async function AdminNewsPage() {
   const { data: posts } = await supabase.from('news_posts').select('*').order('created_at', { ascending: false });
 
   return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+      <div className="hd-app-card">
+        <div className="hd-app-row" style={{ borderBottom: '1px solid var(--st-rule)', paddingTop: 0 }}>
+          <p className="hd-app-card-title" style={{ marginBottom: 0 }}>Quick Health Update</p>
+        </div>
+        <div style={{ padding: '16px 0' }}>
+          <HealthUpdateForm />
+        </div>
+      </div>
+
     <div className="hd-app-card">
       <div className="hd-app-row" style={{ borderBottom: 'none', paddingTop: 0 }}>
         <p className="hd-app-card-title" style={{ marginBottom: 0 }}>All Posts</p>
@@ -32,6 +43,7 @@ export default async function AdminNewsPage() {
           </div>
         ))
       )}
+    </div>
     </div>
   );
 }
