@@ -12,7 +12,7 @@ export default function HealthUpdateForm() {
 
   return (
     <form action={action} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-      <div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
         <label className="hd-app-label" htmlFor="hu-title">Title</label>
         <input
           id="hu-title"
@@ -23,7 +23,7 @@ export default function HealthUpdateForm() {
           required
         />
       </div>
-      <div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
         <label className="hd-app-label" htmlFor="hu-body">Body</label>
         <textarea
           id="hu-body"
