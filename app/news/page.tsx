@@ -1,5 +1,6 @@
 // News page: posts written by the Health Decoded team and members.
 import Link from 'next/link';
+import Image from 'next/image';
 import { createClient } from '@/lib/supabase/server';
 
 export const metadata = {
@@ -27,8 +28,19 @@ export default async function NewsPage() {
             <p className="hd-app-empty">No posts published yet.</p>
           ) : (
             posts.map((post) => (
-              <div className="hd-app-row" key={post.id}>
-                <div>
+              <div className="hd-app-row" key={post.id} style={{ gap: 16, alignItems: 'center' }}>
+                {post.cover_image_url && (
+                  <Link href={`/news/${post.slug}`} style={{ flexShrink: 0 }} tabIndex={-1} aria-hidden="true">
+                    <Image
+                      src={post.cover_image_url}
+                      alt=""
+                      width={72}
+                      height={72}
+                      style={{ objectFit: 'cover', borderRadius: 6, display: 'block' }}
+                    />
+                  </Link>
+                )}
+                <div style={{ flex: 1, minWidth: 0 }}>
                   <Link href={`/news/${post.slug}`} className="hd-app-row-title">
                     {post.title}
                   </Link>
@@ -40,7 +52,7 @@ export default async function NewsPage() {
                     )}
                   </div>
                 </div>
-                <Link href={`/news/${post.slug}`} className="hd-app-row-meta">
+                <Link href={`/news/${post.slug}`} className="hd-app-row-meta" style={{ flexShrink: 0 }}>
                   Read →
                 </Link>
               </div>
